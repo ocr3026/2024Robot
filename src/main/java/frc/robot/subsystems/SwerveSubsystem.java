@@ -25,11 +25,9 @@ public class SwerveSubsystem extends SubsystemBase {
 	SwerveModule rearLeftModule = new SwerveModule(3, 4, 11, 0.018, 0, 0.000001, false);
 	public SwerveModule frontLeftModule = new SwerveModule(1, 2, 9, 0.018, 0, 0.000001, true);
 
-	public SwerveSubsystem () {
+	public SwerveSubsystem() {
 		SmartDashboard.putNumber("wheel", frontLeftModule.driveEncoder.getPosition());
 	}
-
-	
 
 	public void driveRobotCentric(double xSpeed, double ySpeed, double zRotation) {
 		SmartDashboard.putNumber("wheel", frontLeftModule.driveEncoder.getPosition());
@@ -100,11 +98,8 @@ public class SwerveSubsystem extends SubsystemBase {
 		frontRightModule.setCoast();
 		rearRightModule.setCoast();
 	}
-	public  Command zeroWheel () {
-		return new InstantCommand( () -> frontLeftModule.driveEncoder.setPosition(0));
-	
+	public Command zeroWheel() {
+		return new InstantCommand(() -> frontLeftModule.driveEncoder.setPosition(0));
 	}
-	public void zeroWheelFunc () {
-		frontLeftModule.driveEncoder.setPosition(0);
-	}
+	public void zeroWheelFunc() { frontLeftModule.driveEncoder.setPosition(0); }
 }

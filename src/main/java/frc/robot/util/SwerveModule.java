@@ -2,11 +2,12 @@ package frc.robot.util;
 
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+
 
 public class SwerveModule {
 	CANSparkMax driveMotor;
@@ -31,7 +32,6 @@ public class SwerveModule {
 
 		steerPID = new PIDController(p, i, d);
 		steerPID.enableContinuousInput(-180, 180);
-		
 	}
 
 	public void setState(SwerveModuleState state) {
@@ -44,7 +44,6 @@ public class SwerveModule {
 			Math.pow(Math.cos(newState.angle.getRadians() - curSteerAngle.getRadians()), 2));
 
 		steerMotor.set(steerPID.calculate(curSteerAngle.getDegrees(), newState.angle.getDegrees()));
-		
 	}
 
 	public void resetEncoder() { System.out.println(steerEncoder.setPositionToAbsolute()); }
