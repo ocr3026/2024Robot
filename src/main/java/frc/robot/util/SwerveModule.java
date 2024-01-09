@@ -1,9 +1,11 @@
 package frc.robot.util;
 
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix6.hardware.CANcoder;
+
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -13,7 +15,7 @@ public class SwerveModule {
 	CANSparkMax driveMotor;
 	public RelativeEncoder driveEncoder;
 	CANSparkMax steerMotor;
-	CANCoder steerEncoder;
+	CANcoder steerEncoder;
 	PIDController steerPID;
 
 	public SwerveModule(int driveMotorID, int steerMotorID, int encoderID, double p, double i,
@@ -28,14 +30,14 @@ public class SwerveModule {
 
 		steerMotor.setIdleMode(IdleMode.kBrake);
 
-		steerEncoder = new CANCoder(encoderID);
+		steerEncoder = new CANcoder(encoderID);
 
 		steerPID = new PIDController(p, i, d);
 		steerPID.enableContinuousInput(-180, 180);
 	}
 
 	public void setState(SwerveModuleState state) {
-		Rotation2d curSteerAngle = Rotation2d.fromDegrees(steerEncoder.getAbsolutePosition());
+		Rotation2d curSteerAngle = Rotation2d.fromDegrees(steerEncoder.getAbsolutePosition().getValueAsDouble());
 
 		SwerveModuleState newState = SwerveModuleState.optimize(state, curSteerAngle);
 
@@ -45,8 +47,6 @@ public class SwerveModule {
 
 		steerMotor.set(steerPID.calculate(curSteerAngle.getDegrees(), newState.angle.getDegrees()));
 	}
-
-	public void resetEncoder() { System.out.println(steerEncoder.setPositionToAbsolute()); }
 
 	public void setCoast() { driveMotor.setIdleMode(IdleMode.kCoast); }
 

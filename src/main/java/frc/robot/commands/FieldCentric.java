@@ -1,11 +1,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsystem;
 
-public class FieldCentric extends CommandBase {
+public class FieldCentric extends Command {
 	private SwerveSubsystem driveSubsystem;
 
 	public FieldCentric(SwerveSubsystem swerveSubsystem) {

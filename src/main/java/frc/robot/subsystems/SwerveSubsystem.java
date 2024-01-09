@@ -76,15 +76,6 @@ public class SwerveSubsystem extends SubsystemBase {
 		rearRightModule.setState(states[3]);
 	}
 
-	public Command OnDisableCommand() {
-		return new InstantCommand(() -> {
-			frontLeftModule.resetEncoder();
-			rearLeftModule.resetEncoder();
-			frontRightModule.resetEncoder();
-			rearRightModule.resetEncoder();
-		});
-	}
-
 	public void setBrake() {
 		frontLeftModule.setBrake();
 		rearLeftModule.setBrake();
