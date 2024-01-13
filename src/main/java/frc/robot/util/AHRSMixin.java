@@ -2,8 +2,8 @@ package frc.robot.util;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class AHRSMixin extends AHRS {
@@ -19,9 +19,12 @@ public class AHRSMixin extends AHRS {
 
 	@Override
 	public float getYaw() {
-		float angle = (float)MathUtil.inputModulus(super.getYaw() + gyroOffset, -180, 180);
-		SmartDashboard.putNumber("gyroAngle", angle);
-		return angle;
+		return (float)MathUtil.inputModulus(super.getYaw() + gyroOffset, -180, 180);
+	}
+
+	@Override
+	public Rotation2d getRotation2d() {
+		return Rotation2d.fromDegrees(getYaw());
 	}
 
 	public void setYaw(float angle) {

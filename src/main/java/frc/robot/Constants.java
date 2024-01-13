@@ -22,7 +22,7 @@ public final class Constants {
 	public static final Translation2d rearRightModulePos = new Translation2d(-0.36195, -0.36195);
 
 	// Deadband
-	public static final double deadband = 0.1;
+	public static final double deadband = 0.05;
 
 	// Controls
 	public static final CommandJoystick translationJoystick = new CommandJoystick(0);

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,7 +38,14 @@ public class RobotContainer {
 	// Callbacks
 	public Trigger onEnableCallback = new Trigger(() -> { return DriverStation.isEnabled(); });
 
-	public RobotContainer() {
+	// TimedRobot functions
+	public static DoubleSupplier getPeriod;
+
+	public RobotContainer(DoubleSupplier getPeriodFn) {
+		getPeriod = getPeriodFn;
+
+		Constants.gyro.zeroYaw();
+
 		manipulatorChooser.setDefaultOption("Evan", evanProfile);
 		driverChooser.setDefaultOption("Tatum", tatumProfile);
 
