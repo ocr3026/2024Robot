@@ -15,10 +15,10 @@ public class SwerveSubsystem extends SubsystemBase {
 		new SwerveDriveKinematics(Constants.frontLeftModulePos, Constants.frontRightModulePos,
 	                              Constants.rearLeftModulePos, Constants.rearRightModulePos);
 
-	SwerveModule frontLeftModule = new SwerveModule(1, 2, 9, true);
-	SwerveModule frontRightModule = new SwerveModule(5, 6, 12, false);
-	SwerveModule rearLeftModule = new SwerveModule(3, 4, 11, false);
-	SwerveModule rearRightModule = new SwerveModule(7, 8, 10, true);
+	public SwerveModule frontLeftModule = new SwerveModule(5, 6, 12);
+	public SwerveModule rearRightModule = new SwerveModule(3, 4, 11);
+	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
+	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
 
 	SwerveDriveOdometry odometry = new SwerveDriveOdometry(kinematics, Constants.gyro.getRotation2d(),
 	new SwerveModulePosition[] {
@@ -27,6 +27,8 @@ public class SwerveSubsystem extends SubsystemBase {
 	});
 
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
+
+		System.out.println(xSpeed);
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
 				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Constants.gyro.getRotation2d())
@@ -43,6 +45,7 @@ public class SwerveSubsystem extends SubsystemBase {
 		rearRightModule.setDesiredState(states[3]);
 	}
 
+	// TODO: use update odometry
 	public void updateOdometry() {
 		odometry.update(Constants.gyro.getRotation2d(),
 		new SwerveModulePosition[] {

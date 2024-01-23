@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -16,18 +16,22 @@ public class RobotCentric extends Command {
 
 	@Override
 	public void execute() {
-		Translation2d translation = new Translation2d(
-			MathUtil.applyDeadband(Constants.translationJoystick.getY(), Constants.deadband), 
-			MathUtil.applyDeadband(Constants.translationJoystick.getX(), Constants.deadband));
+		double xSpeed = MathUtil.applyDeadband(Constants.xSpeedLimiter.calculate(Constants.translationJoystick.getY()), Constants.deadband);
+		double ySpeed = MathUtil.applyDeadband(Constants.ySpeedLimiter.calculate(Constants.translationJoystick.getX()), Constants.deadband);
+		double zRot = MathUtil.applyDeadband(Constants.zRotSpeedLimiter.calculate(-Constants.rotationJoystick.getX()), Constants.deadband);
 
-		if(translation.getNorm() > Constants.maxSpeed) {
-			translation = translation.div(translation.getNorm());
+		double distance = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
+		if(distance > 1) {
+			xSpeed /= distance;
+			ySpeed /= distance;
 		}
 
+		// TODO: Make xSpeed be driven by xSpeed instead of 1
+
 		driveSubsystem.drive(
-			translation.getX(),
-			translation.getY(), 
-			MathUtil.applyDeadband(-Constants.rotationJoystick.getX(), Constants.deadband),
+			1 * Constants.maxSpeed,
+			ySpeed * Constants.maxSpeed, 
+			zRot * Constants.maxAngularSpeed,
 			false);
 	}
 

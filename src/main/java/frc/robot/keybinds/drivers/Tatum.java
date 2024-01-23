@@ -5,7 +5,7 @@ import frc.robot.keybinds.DriverProfile;
 
 public class Tatum implements DriverProfile {
 	@Override
-	public Trigger toggleFieldRobot() {
+	public Trigger halfSpeedTrigger() {
 		return null;
 	}
 }
