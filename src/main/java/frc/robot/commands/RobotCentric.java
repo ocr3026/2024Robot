@@ -16,7 +16,7 @@ public class RobotCentric extends Command {
 
 	@Override
 	public void execute() {
-		double xSpeed = MathUtil.applyDeadband(Constants.xSpeedLimiter.calculate(Constants.translationJoystick.getY()), Constants.deadband);
+		double xSpeed = MathUtil.applyDeadband(Constants.xSpeedLimiter.calculate(-Constants.translationJoystick.getY()), Constants.deadband);
 		double ySpeed = MathUtil.applyDeadband(Constants.ySpeedLimiter.calculate(Constants.translationJoystick.getX()), Constants.deadband);
 		double zRot = MathUtil.applyDeadband(Constants.zRotSpeedLimiter.calculate(-Constants.rotationJoystick.getX()), Constants.deadband);
 
@@ -29,7 +29,7 @@ public class RobotCentric extends Command {
 		// TODO: Make xSpeed be driven by xSpeed instead of 1
 
 		driveSubsystem.drive(
-			1 * Constants.maxSpeed,
+			xSpeed * Constants.maxSpeed,
 			ySpeed * Constants.maxSpeed, 
 			zRot * Constants.maxAngularSpeed,
 			false);

@@ -7,6 +7,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.SparkRelativeEncoder.Type;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -28,7 +29,7 @@ public class SwerveModule {
 
 	public PIDController drivePID = new PIDController(0, 0, 0);
 
-	public PIDController steerPID = new PIDController(0.216, 0, 0);
+	public PIDController steerPID = new PIDController(0.216, 0, 0.000012);
 
 	public SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(.104, 1.7987633502, 0);
 
@@ -51,11 +52,11 @@ public class SwerveModule {
 	}
 
 	public SwerveModuleState getState() {
-		return new SwerveModuleState(driveEncoder.getVelocity(), Rotation2d.fromDegrees(steerEncoder.getAbsolutePosition().getValueAsDouble()));
+		return new SwerveModuleState(driveEncoder.getVelocity(), Rotation2d.fromRotations(steerEncoder.getAbsolutePosition().getValueAsDouble()));
 	}
 
 	public SwerveModulePosition getPosition() {
-		return new SwerveModulePosition(driveEncoder.getPosition(), Rotation2d.fromDegrees(steerEncoder.getAbsolutePosition().getValueAsDouble()));
+		return new SwerveModulePosition(driveEncoder.getPosition(), Rotation2d.fromRotations(steerEncoder.getAbsolutePosition().getValueAsDouble()));
 	}
 
 	public void setDesiredState(SwerveModuleState desiredState) {
@@ -63,8 +64,7 @@ public class SwerveModule {
 
 		SwerveModuleState state = SwerveModuleState.optimize(desiredState, curSteerAngle);
 
-		// TODO: Re-enable cos mitigation
-		state.speedMetersPerSecond *= 1; //state.angle.minus(curSteerAngle).getCos();
+		state.speedMetersPerSecond *= state.angle.minus(curSteerAngle).getCos();
 
 		double driveFB = drivePID.calculate(driveEncoder.getVelocity(), state.speedMetersPerSecond);
 		double driveFF = driveFeedForward.calculate(state.speedMetersPerSecond);
@@ -93,5 +93,7 @@ public class SwerveModule {
 			SmartDashboard.getNumber("steerP", 0), 
 			SmartDashboard.getNumber("steerI", 0), 
 			SmartDashboard.getNumber("steerD", 0));
-		}
+
+		steerPID.enableContinuousInput(-180, 180);
+	}
 }

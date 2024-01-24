@@ -27,8 +27,6 @@ public class SwerveSubsystem extends SubsystemBase {
 	});
 
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
-
-		System.out.println(xSpeed);
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
 				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Constants.gyro.getRotation2d())

@@ -19,13 +19,13 @@ public final class Constants {
 	public static final int neoCountsPerRevolution = 42;
 
 	// Swerve Module Positions
-	public static final Translation2d frontLeftModulePos = new Translation2d(0.36195, 0.36195);
-	public static final Translation2d rearLeftModulePos = new Translation2d(-0.36195, 0.36195);
-	public static final Translation2d frontRightModulePos = new Translation2d(0.36195, -0.36195);
-	public static final Translation2d rearRightModulePos = new Translation2d(-0.36195, -0.36195);
+	public static final Translation2d frontLeftModulePos = new Translation2d(0.36195, -0.36195);
+	public static final Translation2d rearLeftModulePos = new Translation2d(-0.36195, -0.36195);
+	public static final Translation2d frontRightModulePos = new Translation2d(0.36195, 0.36195);
+	public static final Translation2d rearRightModulePos = new Translation2d(-0.36195, 0.36195);
 
 	// Deadband
-	public static final double deadband = 0.05;
+	public static final double deadband = 0.1;
 
 	// Controls
 	public static final CommandJoystick translationJoystick = new CommandJoystick(0);

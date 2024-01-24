@@ -15,7 +15,7 @@ public class FieldCentric extends Command {
 
 	@Override
 	public void execute() {
-		double xSpeed = MathUtil.applyDeadband(Constants.xSpeedLimiter.calculate(Constants.translationJoystick.getY()), Constants.deadband);
+		double xSpeed = MathUtil.applyDeadband(Constants.xSpeedLimiter.calculate(-Constants.translationJoystick.getY()), Constants.deadband);
 		double ySpeed = MathUtil.applyDeadband(Constants.ySpeedLimiter.calculate(Constants.translationJoystick.getX()), Constants.deadband);
 		double zRot = MathUtil.applyDeadband(Constants.zRotSpeedLimiter.calculate(-Constants.rotationJoystick.getX()), Constants.deadband);
 
