@@ -10,6 +10,7 @@ public final class Constants {
 	public static final ADIS16470_IMU gyro = new ADIS16470_IMU();
 	public static final double initialYaw = 0;
 	
+	// TODO: Switch back to L3 for new robot
 	// Swerve Drive Constants
 	public static final double maxSpeed = 3; // m/s
 	public static final double maxAngularSpeed = Math.PI; // rad/s
