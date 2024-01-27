@@ -46,8 +46,6 @@ public class RobotContainer {
 	public RobotContainer(DoubleSupplier getPeriodFn) {
 		getPeriod = getPeriodFn;
 
-		Constants.gyro.zeroYaw();
-
 		manipulatorChooser.setDefaultOption("Evan", evanProfile);
 		driverChooser.setDefaultOption("Tatum", tatumProfile);
 
@@ -57,7 +55,6 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		// TODO: switch to default being robot centric
 		swerveSubsystem.setDefaultCommand(robotCentricCommand);
 	}
 

@@ -25,9 +25,7 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void disabledInit() {
-		System.gc();
-	}
+	public void disabledInit() {}
 
 	@Override
 	public void disabledPeriodic() {}
@@ -43,6 +41,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		Constants.gyro.reset();
+		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
+
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
 		if (m_autonomousCommand != null) {
@@ -58,7 +59,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		
+		Constants.gyro.reset();
+		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
 
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();

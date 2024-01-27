@@ -2,13 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import frc.robot.util.AHRSMixin;
 
 public final class Constants {
 	// Gyro
-	public static final AHRSMixin gyro = new AHRSMixin(SerialPort.Port.kMXP);
+	public static final ADIS16470_IMU gyro = new ADIS16470_IMU();
+	public static final double initialYaw = 0;
 	
 	// Swerve Drive Constants
 	public static final double maxSpeed = 3; // m/s

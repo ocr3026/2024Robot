@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -20,16 +21,24 @@ public class SwerveSubsystem extends SubsystemBase {
 	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
 	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
 
-	SwerveDriveOdometry odometry = new SwerveDriveOdometry(kinematics, Constants.gyro.getRotation2d(),
-	new SwerveModulePosition[] {
-		frontLeftModule.getPosition(), frontRightModule.getPosition(),
-		rearLeftModule.getPosition(), rearRightModule.getPosition()
-	});
+	SwerveDriveOdometry odometry;
+
+	public SwerveSubsystem() {
+		Constants.gyro.reset();
+
+		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
+
+		odometry = new SwerveDriveOdometry(kinematics, Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
+			new SwerveModulePosition[] {
+				frontLeftModule.getPosition(), frontRightModule.getPosition(),
+				rearLeftModule.getPosition(), rearRightModule.getPosition()
+			});
+	}
 
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
-				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Constants.gyro.getRotation2d())
+				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())))
 				: new ChassisSpeeds(xSpeed, ySpeed, zRotation),
 			RobotContainer.getPeriod.getAsDouble());
 
@@ -43,12 +52,16 @@ public class SwerveSubsystem extends SubsystemBase {
 		rearRightModule.setDesiredState(states[3]);
 	}
 
-	// TODO: use update odometry
 	public void updateOdometry() {
-		odometry.update(Constants.gyro.getRotation2d(),
+		odometry.update(Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
 		new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		});
+	}
+
+	@Override
+	public void periodic() {
+		updateOdometry();
 	}
 }
