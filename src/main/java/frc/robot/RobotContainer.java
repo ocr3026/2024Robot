@@ -6,7 +6,6 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -59,18 +58,19 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
-		// TODO: Remove tuna fish
-		SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
-		SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
-		SmartDashboard.putNumber("driveKa", swerveSubsystem.frontLeftModule.driveFeedForward.ka);
+		if(Constants.tunaFish) {
+			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
+			SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
+			SmartDashboard.putNumber("driveKa", swerveSubsystem.frontLeftModule.driveFeedForward.ka);
 
-		SmartDashboard.putNumber("driveP", swerveSubsystem.frontLeftModule.drivePID.getP()); 
-		SmartDashboard.putNumber("driveI", swerveSubsystem.frontLeftModule.drivePID.getI());
-		SmartDashboard.putNumber("driveD", swerveSubsystem.frontLeftModule.drivePID.getD());
+			SmartDashboard.putNumber("driveP", swerveSubsystem.frontLeftModule.drivePID.getP()); 
+			SmartDashboard.putNumber("driveI", swerveSubsystem.frontLeftModule.drivePID.getI());
+			SmartDashboard.putNumber("driveD", swerveSubsystem.frontLeftModule.drivePID.getD());
 
-		SmartDashboard.putNumber("steerP", swerveSubsystem.frontLeftModule.steerPID.getP()); 
-		SmartDashboard.putNumber("steerI", swerveSubsystem.frontLeftModule.steerPID.getI());
-		SmartDashboard.putNumber("steerD", swerveSubsystem.frontLeftModule.steerPID.getD());
+			SmartDashboard.putNumber("steerP", swerveSubsystem.frontLeftModule.steerPID.getP()); 
+			SmartDashboard.putNumber("steerI", swerveSubsystem.frontLeftModule.steerPID.getI());
+			SmartDashboard.putNumber("steerD", swerveSubsystem.frontLeftModule.steerPID.getD());
+		}
 	}
 
 	private void configureCallbacks() {

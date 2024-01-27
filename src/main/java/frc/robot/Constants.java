@@ -34,4 +34,7 @@ public final class Constants {
 	public static final SlewRateLimiter xSpeedLimiter = new SlewRateLimiter(3);
 	public static final SlewRateLimiter ySpeedLimiter = new SlewRateLimiter(3);
 	public static final SlewRateLimiter zRotSpeedLimiter = new SlewRateLimiter(3);
+
+	// Enable PID Tuning in the smartdashboard
+	public static final boolean tunaFish = false;
 }
