@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -36,7 +39,12 @@ public class RobotContainer {
 	// Callbacks
 	public Trigger onEnableCallback = new Trigger(() -> { return DriverStation.isEnabled(); });
 
-	public RobotContainer() {
+	// TimedRobot functions
+	public static DoubleSupplier getPeriod;
+
+	public RobotContainer(DoubleSupplier getPeriodFn) {
+		getPeriod = getPeriodFn;
+
 		manipulatorChooser.setDefaultOption("Evan", evanProfile);
 		driverChooser.setDefaultOption("Tatum", tatumProfile);
 
@@ -50,7 +58,19 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
-		driverBinds.toggleFieldRobot().toggleOnTrue(fieldCentricCommand);
+		if(Constants.tunaFish) {
+			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
+			SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
+			SmartDashboard.putNumber("driveKa", swerveSubsystem.frontLeftModule.driveFeedForward.ka);
+
+			SmartDashboard.putNumber("driveP", swerveSubsystem.frontLeftModule.drivePID.getP()); 
+			SmartDashboard.putNumber("driveI", swerveSubsystem.frontLeftModule.drivePID.getI());
+			SmartDashboard.putNumber("driveD", swerveSubsystem.frontLeftModule.drivePID.getD());
+
+			SmartDashboard.putNumber("steerP", swerveSubsystem.frontLeftModule.steerPID.getP()); 
+			SmartDashboard.putNumber("steerI", swerveSubsystem.frontLeftModule.steerPID.getI());
+			SmartDashboard.putNumber("steerD", swerveSubsystem.frontLeftModule.steerPID.getD());
+		}
 	}
 
 	private void configureCallbacks() {

@@ -15,15 +15,26 @@ public class RobotCentric extends Command {
 
 	@Override
 	public void execute() {
-		driveSubsystem.driveRobotCentric(
-			MathUtil.applyDeadband(Constants.translationJoystick.getY(), Constants.deadband),
-			MathUtil.applyDeadband(Constants.translationJoystick.getX(), Constants.deadband),
-			MathUtil.applyDeadband(-Constants.rotationJoystick.getX(), Constants.deadband));
+		double xSpeed = MathUtil.applyDeadband(Constants.xSpeedLimiter.calculate(-Constants.translationJoystick.getY()), Constants.deadband);
+		double ySpeed = MathUtil.applyDeadband(Constants.ySpeedLimiter.calculate(Constants.translationJoystick.getX()), Constants.deadband);
+		double zRot = MathUtil.applyDeadband(Constants.zRotSpeedLimiter.calculate(Constants.rotationJoystick.getX()), Constants.deadband);
+
+		double distance = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
+		if(distance > 1) {
+			xSpeed /= distance;
+			ySpeed /= distance;
+		}
+
+		driveSubsystem.drive(
+			xSpeed * Constants.maxSpeed,
+			ySpeed * Constants.maxSpeed, 
+			zRot * Constants.maxAngularSpeed,
+			false);
 	}
 
 	@Override
 	public void end(boolean interrupted) {
-		driveSubsystem.driveRobotCentric(0, 0, 0);
+		driveSubsystem.drive(0, 0, 0, false);
 	}
 
 	@Override

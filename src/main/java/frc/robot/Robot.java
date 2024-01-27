@@ -15,7 +15,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotInit() {
-		m_robotContainer = new RobotContainer();
+		m_robotContainer = new RobotContainer(this::getPeriod);
 	}
 
 	@Override
@@ -30,10 +30,20 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {}
 
 	@Override
-	public void disabledExit() {}
+	public void disabledExit() {
+		if(Constants.tunaFish) {
+			m_robotContainer.swerveSubsystem.frontLeftModule.setTuna();
+			m_robotContainer.swerveSubsystem.frontRightModule.setTuna();
+			m_robotContainer.swerveSubsystem.rearLeftModule.setTuna();
+			m_robotContainer.swerveSubsystem.rearRightModule.setTuna();
+		}
+	}
 
 	@Override
 	public void autonomousInit() {
+		Constants.gyro.reset();
+		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
+
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
 		if (m_autonomousCommand != null) {
@@ -49,6 +59,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		Constants.gyro.reset();
+		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
+
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
