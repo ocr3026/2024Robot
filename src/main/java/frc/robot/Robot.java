@@ -41,7 +41,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		Constants.gyro.reset();
 		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
 
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -59,7 +58,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		Constants.gyro.reset();
 		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
 
 		if (m_autonomousCommand != null) {

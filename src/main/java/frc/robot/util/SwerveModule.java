@@ -22,9 +22,6 @@ public class SwerveModule {
 	CANSparkMax steerMotor;
 	CANcoder steerEncoder;
 
-	public static final double moduleMaxAngularVelocity = Constants.maxAngularSpeed; // rad/s
-	public static final double moduleMaxAngularAcceleration = 2 * Math.PI; // rad/s^2
-
 	public PIDController drivePID = new PIDController(0, 0, 0);
 
 	public PIDController steerPID = new PIDController(0.216, 0, 0.000012);

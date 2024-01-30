@@ -12,7 +12,7 @@ public final class Constants {
 	
 	// TODO: Switch back to L3 for new robot
 	// Swerve Drive Constants
-	public static final double maxSpeed = 3; // m/s
+	public static final double maxSpeed = 5; // m/s
 	public static final double maxAngularSpeed = Math.PI; // rad/s
 	public static final double wheelRadius = 0.0508; // m
 	// public static final double gearRatio = 6.12; // L3

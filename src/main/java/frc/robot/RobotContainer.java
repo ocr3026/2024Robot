@@ -43,6 +43,8 @@ public class RobotContainer {
 	public static DoubleSupplier getPeriod;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+		Constants.gyro.reset();
+
 		getPeriod = getPeriodFn;
 
 		manipulatorChooser.setDefaultOption("Evan", evanProfile);
@@ -54,7 +56,7 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		swerveSubsystem.setDefaultCommand(robotCentricCommand);
+		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
 	}
 
 	private void configureBindings() {
