@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,8 +20,11 @@ import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
 import frc.robot.subsystems.SwerveSubsystem;
+import java.util.function.*;
+import edu.wpi.first.math.geometry.Pose2d;
 
 public class RobotContainer {
+	
 	// Subsystems
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
@@ -43,6 +48,9 @@ public class RobotContainer {
 	public static DoubleSupplier getPeriod;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+		
+		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(), (Pose2d pose) -> swerveSubsystem.resetPose(pose), () -> swerveSubsystem.speedGetter(Constants.translationJoystick.getY(), Constants.translationJoystick.getX(), Constants.rotationJoystick.getX()),null , null, onEnableCallback, swerveSubsystem);
+
 		getPeriod = getPeriodFn;
 
 		manipulatorChooser.setDefaultOption("Evan", evanProfile);

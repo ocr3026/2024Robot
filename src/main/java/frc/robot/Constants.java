@@ -4,6 +4,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public final class Constants {
 	// Gyro
@@ -31,6 +32,7 @@ public final class Constants {
 	// Controls
 	public static final CommandJoystick translationJoystick = new CommandJoystick(0);
 	public static final CommandJoystick rotationJoystick = new CommandJoystick(1);
+	public static final CommandXboxController xbox = new CommandXboxController(2);
 
 	public static final SlewRateLimiter xSpeedLimiter = new SlewRateLimiter(3);
 	public static final SlewRateLimiter ySpeedLimiter = new SlewRateLimiter(3);
