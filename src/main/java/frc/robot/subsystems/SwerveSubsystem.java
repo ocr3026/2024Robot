@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -31,7 +32,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), Constants.initialYaw);
 
-		odometry = new SwerveDriveOdometry(kinematics, Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
+		odometry = new SwerveDriveOdometry(kinematics, Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
 			new SwerveModulePosition[] {
 				frontLeftModule.getPosition(), frontRightModule.getPosition(),
 				rearLeftModule.getPosition(), rearRightModule.getPosition()
@@ -41,7 +42,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
-				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())))
+				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())))
 				: new ChassisSpeeds(xSpeed, ySpeed, zRotation),
 			RobotContainer.getPeriod.getAsDouble());
 
@@ -56,7 +57,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		odometry.update(Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
+		odometry.update(Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
 		new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()

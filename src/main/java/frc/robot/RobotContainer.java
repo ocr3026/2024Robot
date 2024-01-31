@@ -57,6 +57,7 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+		Constants.gyro.reset();
 		
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(), (Pose2d pose) -> swerveSubsystem.resetPose(pose), () -> swerveSubsystem.speedGetter(), (ChassisSpeeds speeds) -> swerveSubsystem.Idrive(speeds),    new HolonomicPathFollowerConfig( 
                     new PIDConstants(0, 0.0, 0.0), // Translation PID constants
@@ -82,7 +83,7 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		swerveSubsystem.setDefaultCommand(robotCentricCommand);
+		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
 	}
 
 	private void configureBindings() {
