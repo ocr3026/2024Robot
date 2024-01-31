@@ -71,8 +71,19 @@ public class SwerveSubsystem extends SubsystemBase {
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		}, poser);
 	}
-	public ChassisSpeeds speedGetter (double xSpeed, double ySpeed, double zRotation) {
-		return new ChassisSpeeds(xSpeed, ySpeed, zRotation);
+	public ChassisSpeeds speedGetter () {
+		return kinematics.toChassisSpeeds();
+	}
+
+		public void Idrive (ChassisSpeeds speeds) {
+			SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
+
+			SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.maxSpeed);
+
+			frontLeftModule.setDesiredState(states[0]);
+			frontRightModule.setDesiredState(states[1]);
+			rearLeftModule.setDesiredState(states[2]);
+			rearRightModule.setDesiredState(states[3]);
 	}
 	
 

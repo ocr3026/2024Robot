@@ -7,7 +7,11 @@ package frc.robot;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +40,8 @@ public class RobotContainer {
 	Evan evanProfile = new Evan();
 	Tatum tatumProfile = new Tatum();
 
+
+
 	ManipulatorProfile manipulatorBinds;
 	SendableChooser<ManipulatorProfile> manipulatorChooser = new SendableChooser<>();
 	DriverProfile driverBinds;
@@ -47,9 +53,23 @@ public class RobotContainer {
 	// TimedRobot functions
 	public static DoubleSupplier getPeriod;
 
+	// PathPlanner
+	private SendableChooser<Command> autoChooser;
+
 	public RobotContainer(DoubleSupplier getPeriodFn) {
 		
-		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(), (Pose2d pose) -> swerveSubsystem.resetPose(pose), () -> swerveSubsystem.speedGetter(Constants.translationJoystick.getY(), Constants.translationJoystick.getX(), Constants.rotationJoystick.getX()),null , null, onEnableCallback, swerveSubsystem);
+		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(), (Pose2d pose) -> swerveSubsystem.resetPose(pose), () -> swerveSubsystem.speedGetter(), (ChassisSpeeds speeds) -> swerveSubsystem.Idrive(speeds),    new HolonomicPathFollowerConfig( 
+                    new PIDConstants(0, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(0, 0.0, 0.0), // Rotation PID constants
+                    4.5, // Max module speed, in m/s
+                    0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                    new ReplanningConfig() // Default path replanning config. See the API for the options here
+            ), () -> {  
+			var alliance = DriverStation.getAlliance();
+			if (alliance.isPresent()) {
+			  return alliance.get() == DriverStation.Alliance.Red;
+			}
+			return false;}, swerveSubsystem);
 
 		getPeriod = getPeriodFn;
 
