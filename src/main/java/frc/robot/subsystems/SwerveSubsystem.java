@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -11,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.util.SwerveModule;
+
 
 public class SwerveSubsystem extends SubsystemBase {
 	SwerveDriveKinematics kinematics =
@@ -60,6 +63,19 @@ public class SwerveSubsystem extends SubsystemBase {
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		});
 	}
+	public Pose2d getPose () {
+		return odometry.getPoseMeters();
+	}
+	public void resetPose (Pose2d poser) {
+		odometry.resetPosition(Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())), new SwerveModulePosition[] {
+			frontLeftModule.getPosition(), frontRightModule.getPosition(),
+			rearLeftModule.getPosition(), rearRightModule.getPosition()
+		}, poser);
+	}
+	public ChassisSpeeds speedGetter (double xSpeed, double ySpeed, double zRotation) {
+		return new ChassisSpeeds(xSpeed, ySpeed, zRotation);
+	}
+	
 
 	@Override
 	public void periodic() {
