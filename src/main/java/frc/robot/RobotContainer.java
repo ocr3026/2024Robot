@@ -7,6 +7,8 @@ package frc.robot;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -28,6 +30,7 @@ import java.util.function.*;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public class RobotContainer {
+
 	
 	// Subsystems
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
@@ -58,19 +61,28 @@ public class RobotContainer {
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
 		Constants.gyro.reset();
-		
-		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(), (Pose2d pose) -> swerveSubsystem.resetPose(pose), () -> swerveSubsystem.speedGetter(), (ChassisSpeeds speeds) -> swerveSubsystem.Idrive(speeds),    new HolonomicPathFollowerConfig( 
-                    new PIDConstants(0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(0, 0.0, 0.0), // Rotation PID constants
-                    4.5, // Max module speed, in m/s
-                    0.4, // Drive base radius in meters. Distance from robot center to furthest module.
-                    new ReplanningConfig() // Default path replanning config. See the API for the options here
+
+		//justin's zone
+	
+		//Path Planner (Autonomous Program) initialization
+		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
+		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
+									() -> swerveSubsystem.speedGetter(), //How fast robot going
+									(ChassisSpeeds speeds) -> swerveSubsystem.Idrive(speeds),   //Drive robot  
+									new HolonomicPathFollowerConfig( 
+                    				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
+                    				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
+                    	Constants.maxSpeed, // Max module speed, in m/s
+                    	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
+                    				new ReplanningConfig() // Default path replanning config. See the API for the options here
             ), () -> {  
 			var alliance = DriverStation.getAlliance();
 			if (alliance.isPresent()) {
 			  return alliance.get() == DriverStation.Alliance.Red;
 			}
 			return false;}, swerveSubsystem);
+
+			
 
 		getPeriod = getPeriodFn;
 
@@ -83,7 +95,13 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
+		//end of justins zone 
+		
+		// FREE J HAUS
+		swerveSubsystem.setDefaultCommand(robotCentricCommand);
+		//Set your auto
+		autoChooser = AutoBuilder.buildAutoChooser();
+		SmartDashboard.putData("AutoChooser", autoChooser);
 	}
 
 	private void configureBindings() {
@@ -110,6 +128,6 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		return Commands.print("No autonomous command configured");
+		return autoChooser.getSelected();
 	}
 }
