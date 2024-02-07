@@ -71,7 +71,8 @@ public class SwerveSubsystem extends SubsystemBase {
 		}, poser);
 	}
 	public ChassisSpeeds speedGetter () {
-		return kinematics.toChassisSpeeds();
+		return kinematics.toChassisSpeeds(frontLeftModule.getState(), frontRightModule.getState(),
+										   rearLeftModule.getState(), rearRightModule.getState());
 	}
 
 		public void Idrive (ChassisSpeeds speeds) {
