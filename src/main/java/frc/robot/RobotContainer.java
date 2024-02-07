@@ -23,6 +23,7 @@ import frc.robot.commands.*;
 import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
+import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -30,10 +31,12 @@ public class RobotContainer {
 	
 	// Subsystems
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+	public LaserSubsystem laserSubsystem = new LaserSubsystem();
 
 	// Commands
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+	public Laser laserCommand = new Laser(laserSubsystem, swerveSubsystem);
 
 	// Keybinds
 	Evan evanProfile = new Evan();
@@ -83,6 +86,9 @@ public class RobotContainer {
 		configureBindings();
 
 		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
+
+
+	
 	}
 
 	private void configureBindings() {
@@ -99,6 +105,11 @@ public class RobotContainer {
 			SmartDashboard.putNumber("steerI", swerveSubsystem.frontLeftModule.steerPID.getI());
 			SmartDashboard.putNumber("steerD", swerveSubsystem.frontLeftModule.steerPID.getD());
 		}
+		Constants.xbox.a().whileTrue(laserCommand);
+		/*Constants.xbox.a().whileFalse(new InstantCommand(() -> {
+		laserSubsystem.setLaserState(false);
+		}
+		));*/
 	}
 
 	private void configureCallbacks() {
