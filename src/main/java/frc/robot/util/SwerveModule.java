@@ -24,7 +24,7 @@ public class SwerveModule {
 
 	public PIDController drivePID = new PIDController(0, 0, 0);
 
-	public PIDController steerPID = new PIDController(0.216, 0, 0.000012);
+	public PIDController steerPID = new PIDController(0.166, 0, 0.000012);
 
 	public SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(.16, 1.7987633502, 0);
 

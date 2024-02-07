@@ -68,7 +68,7 @@ public class RobotContainer {
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.Idrive(speeds),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false),   //Drive robot  
 									new HolonomicPathFollowerConfig( 
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
