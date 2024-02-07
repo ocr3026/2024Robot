@@ -1,7 +1,10 @@
 package frc.robot;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -40,4 +43,8 @@ public final class Constants {
 
 	// Enable PID Tuning in the smartdashboard
 	public static final boolean tunaFish = false;
+
+	// Camera
+	public static final PhotonCamera camera = new PhotonCamera("photonvision");
+	public static final Translation3d laserToCamera = new Translation3d(-0.03, -0.065, 0.225);
 }
