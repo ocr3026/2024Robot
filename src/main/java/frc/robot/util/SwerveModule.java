@@ -18,7 +18,7 @@ import frc.robot.Constants;
 
 public class SwerveModule {
 	CANSparkMax driveMotor;
-	RelativeEncoder driveEncoder;
+	public RelativeEncoder driveEncoder;
 	CANSparkMax steerMotor;
 	CANcoder steerEncoder;
 
@@ -26,7 +26,7 @@ public class SwerveModule {
 
 	public PIDController steerPID = new PIDController(0.166, 0, 0.000012);
 
-	public SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(.16, 1.7987633502, 0);
+	public SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(.14, 2.59, 0.48);
 
 	public SwerveModule(int driveMotorID, int steerMotorID, int encoderID) {
 		driveMotor = new CANSparkMax(driveMotorID, CANSparkMax.MotorType.kBrushless);
@@ -36,8 +36,8 @@ public class SwerveModule {
 		driveMotor.setInverted(false);
 
 		driveEncoder = driveMotor.getEncoder(Type.kHallSensor, 42);
-		driveEncoder.setVelocityConversionFactor(2 * Math.PI * Constants.wheelRadius / Constants.gearRatio / Constants.neoCountsPerRevolution);
-		driveEncoder.setPositionConversionFactor(2 * Math.PI * Constants.wheelRadius / Constants.gearRatio / Constants.neoCountsPerRevolution);
+		driveEncoder.setVelocityConversionFactor(2 * Math.PI * Constants.wheelRadius / (Constants.gearRatio * 60));
+		driveEncoder.setPositionConversionFactor(2 * Math.PI * Constants.wheelRadius / Constants.gearRatio);
 
 		steerMotor.setIdleMode(IdleMode.kBrake);
 
@@ -66,8 +66,11 @@ public class SwerveModule {
 
 		double steerFB = steerPID.calculate(curSteerAngle.getDegrees(), state.angle.getDegrees());
 
-		SmartDashboard.putNumber("Target drive velocity", state.speedMetersPerSecond);
-		SmartDashboard.putNumber("Current drive velocity", driveEncoder.getVelocity());
+		if(steerMotor.getDeviceId() == 4) {
+			SmartDashboard.putNumber("Target drive velocity", state.speedMetersPerSecond);
+			SmartDashboard.putNumber("Current drive velocity", driveEncoder.getVelocity());
+			SmartDashboard.putNumber("Drive position", driveEncoder.getPosition());
+		}
 
 		driveMotor.setVoltage(driveFB + driveFF);
 		steerMotor.setVoltage(steerFB);

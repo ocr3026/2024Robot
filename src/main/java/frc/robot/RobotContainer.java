@@ -97,7 +97,7 @@ public class RobotContainer {
 		//end of justins zone 
 		
 		// FREE J HAUS
-		swerveSubsystem.setDefaultCommand(robotCentricCommand);
+		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
 		//Set your auto
 		autoChooser = AutoBuilder.buildAutoChooser();
 		SmartDashboard.putData("AutoChooser", autoChooser);
