@@ -8,10 +8,13 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.ADIS16448_IMU.IMUAxis;
 
 public final class Constants {
 	// Gyro
-	public static final ADIS16470_IMU gyro = new ADIS16470_IMU();
+	public static final ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kY,
+																ADIS16470_IMU.IMUAxis.kX, 
+																ADIS16470_IMU.IMUAxis.kZ);
 	public static final double initialYaw = 0;
 	
 	// TODO: Switch back to L3 for new robot
