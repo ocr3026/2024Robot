@@ -17,14 +17,13 @@ public class LaserSubsystem extends SubsystemBase {
     RelativeEncoder aimEncoder = aimMotor.getEncoder(Type.kHallSensor, 42);
 
     DigitalOutput laserOutput = new DigitalOutput(4);
-    PIDController aimPID = new PIDController(0.025, 0, 0);
+    PIDController aimPID = new PIDController(1, 0, 0.005);
     Rotation2d laserTargetAngle = new Rotation2d();
 
     public LaserSubsystem() {
         aimMotor.setInverted(false);
 
-        aimEncoder.setPositionConversionFactor(1 / 3600);
-        //aimEncoder.setVelocityConversionFactor(360 / (Constants.neoCountsPerRevolution * 10));
+        aimEncoder.setPositionConversionFactor(1 / 10);
     }
 
     public void setLaserState(boolean on) {
@@ -42,7 +41,7 @@ public class LaserSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        aimMotor.setVoltage(aimPID.calculate(aimEncoder.getPosition(), laserTargetAngle.getDegrees()));
+        aimMotor.setVoltage(aimPID.calculate(aimEncoder.getPosition(), laserTargetAngle.getRotations() * 10));
         SmartDashboard.putNumber("getName(aimEncoder)", aimEncoder.getPosition());
         SmartDashboard.putNumber("getName(targetAngle)", laserTargetAngle.getDegrees());
     }

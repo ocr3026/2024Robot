@@ -105,7 +105,7 @@ public class RobotContainer {
 			SmartDashboard.putNumber("steerI", swerveSubsystem.frontLeftModule.steerPID.getI());
 			SmartDashboard.putNumber("steerD", swerveSubsystem.frontLeftModule.steerPID.getD());
 		}
-		Constants.xbox.a().whileTrue(laserCommand);
+		Constants.rotationJoystick.button(6).whileTrue(laserCommand);
 		/*Constants.xbox.a().whileFalse(new InstantCommand(() -> {
 		laserSubsystem.setLaserState(false);
 		}

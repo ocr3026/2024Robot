@@ -66,13 +66,13 @@ public class Laser extends Command {
            // }
 
 
-            float inchesVertical = 25;
-            float inchesDepth = 25;
+            double inchesVertical = (Math.sqrt(3.0));
+            double inchesDepth = 1;
 
 
             //laserSubsystem.setAngle(Rotation2d.fromRadians(Math.atan(laserToTarget.getZ() / laserToTarget.getX())));
             SmartDashboard.putString("Laser:", "Rotating Laser");
-            laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan((inchesVertical / 39.37) / (inchesDepth / 39.37))));
+            laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan((inchesVertical) / (inchesDepth))));
            // laserSubsystem.setAngle(Rotation2d.fromRadians(2 * Math.PI));
 
 
