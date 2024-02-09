@@ -45,7 +45,7 @@ public final class Constants {
 	public static final SlewRateLimiter zRotSpeedLimiter = new SlewRateLimiter(3);
 
 	// Enable PID Tuning in the smartdashboard
-	public static final boolean tunaFish = false;
+	public static final boolean tunaFish = true;
 
 	// Camera
 	public static final PhotonCamera camera = new PhotonCamera("photonvision");
