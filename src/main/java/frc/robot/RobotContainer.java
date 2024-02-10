@@ -10,6 +10,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -106,6 +107,9 @@ public class RobotContainer {
 			SmartDashboard.putNumber("steerD", swerveSubsystem.frontLeftModule.steerPID.getD());
 		}
 		Constants.rotationJoystick.button(6).whileTrue(laserCommand);
+		Constants.rotationJoystick.button(7).onTrue(new InstantCommand(() -> {
+			laserSubsystem.aimEncoder.setPosition(0);
+		}));
 		/*Constants.xbox.a().whileFalse(new InstantCommand(() -> {
 		laserSubsystem.setLaserState(false);
 		}

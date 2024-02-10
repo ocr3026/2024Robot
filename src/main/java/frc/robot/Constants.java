@@ -45,6 +45,6 @@ public final class Constants {
 	public static final boolean tunaFish = false;
 
 	// Camera
-	//public static final PhotonCamera camera = new PhotonCamera("photonvision");
+	public static final PhotonCamera camera = new PhotonCamera("USB_webcam");
 	public static final Translation3d laserToCamera = new Translation3d(-0.03, -0.065, 0.225);
 }

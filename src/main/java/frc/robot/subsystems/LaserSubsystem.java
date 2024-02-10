@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LaserSubsystem extends SubsystemBase {
-    CANSparkMax aimMotor = new CANSparkMax(62, MotorType.kBrushless);
-    RelativeEncoder aimEncoder = aimMotor.getEncoder(Type.kHallSensor, 42);
+    public CANSparkMax aimMotor = new CANSparkMax(62, MotorType.kBrushless);
+    public RelativeEncoder aimEncoder = aimMotor.getEncoder(Type.kHallSensor, 42);
 
     DigitalOutput laserOutput = new DigitalOutput(4);
-    PIDController aimPID = new PIDController(1, 0, 0.005);
+    PIDController aimPID = new PIDController(1.5, 0, 0);
     Rotation2d laserTargetAngle = new Rotation2d();
 
     public LaserSubsystem() {
