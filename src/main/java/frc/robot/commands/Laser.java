@@ -24,7 +24,7 @@ public class Laser extends Command {
     LaserSubsystem laserSubsystem;
     SwerveSubsystem swerveSubsystem;
 
-    PIDController yawPID = new PIDController(0.05, 0, 0);
+    PIDController yawPID = new PIDController(0.001, 0, 0.00001);
     PIDController yPID = new PIDController(1.4, 0, 0);
     
 
@@ -35,58 +35,63 @@ public class Laser extends Command {
         addRequirements(laserSubsystem, swerveSubsystem);
     }
 
+    PhotonTrackedTarget target;
+    SendableChooser<PhotonTrackedTarget> sendableChooser = new SendableChooser<>();
+
+
+    @Override
+    public void initialize() {
+        target = null;
+        sendableChooser.addOption("none", null);
+    }
+
     @Override
     public void execute() {
         
         PhotonPipelineResult cameraResult = Constants.camera.getLatestResult();
         List<PhotonTrackedTarget> listTargets = cameraResult.getTargets();
-        PhotonTrackedTarget target = cameraResult.getBestTarget();
-        SendableChooser<PhotonTrackedTarget> sendableChooser = new SendableChooser<>();
 
 
         for(PhotonTrackedTarget i : listTargets) {
             sendableChooser.addOption(Integer.toString(i.getFiducialId()), i);
         }
         
+        target = sendableChooser.getSelected();
+        
         SmartDashboard.putData("SENDABLE CHOOSER POR QUE", sendableChooser);
         SmartDashboard.updateValues();
 
+
         if(target != null) {
+            if(sendableChooser.getSelected() != null) {
+            SmartDashboard.putString("Current Target", Integer.toString(sendableChooser.getSelected().getFiducialId()));
+            }
+            else {
+                SmartDashboard.putString("Current Target", "NULL");
+            }
+
             double distY = target.getBestCameraToTarget().getY();
             double yaw = Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle());
             Translation3d laserToTarget = target.getBestCameraToTarget().getTranslation().minus(Constants.laserToCamera);
-            /*double yaw = PhotonUtils.getYawToPose(new Pose2d(), 
-                    new Pose2d(laserToTarget.getX(),
-                        laserToTarget.getY(), new Rotation2d())).getDegrees();
+    
 
-            /*swerveSubsystem.drive(0, 0, 
-                yawPID.calculate(PhotonUtils.getYawToPose(new Pose2d(), 
-                    new Pose2d(laserToTarget.getX(),
-                        laserToTarget.getY(), new Rotation2d())).getDegrees(),
-                    0), false);
 
             //swerveSubsystem.drive(0, 0, yawPID.calculate(yaw, 0), false);
 
-                //swerveSubsystem.drive(0,0, -MathUtil.clamp(yawPID.calculate(yaw, 180), -0.4, 0.4), false);
-            
-            
-            if(yaw == 0) {*/
-                
-
-           // }
+            swerveSubsystem.drive(0,0, MathUtil.clamp(yawPID.calculate(yaw, 180), -0.2, 0.2), false);
           
-              /*if(yaw <= 182 && yaw >= 178 ) {
+              if(yaw <= 190 && yaw >= 170 ) {
                 swerveSubsystem.drive(0, yPID.calculate(distY, 0),0 ,false);
 
                 if(distY <= 0.02 && distY >= -0.02) {
                     swerveSubsystem.drive(0, 0, 0, false);
                     laserSubsystem.setLaserState(true);
                 }
-            }*/
+            }
 
             
 
-            //laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan(laserToTarget.getZ() / laserToTarget.getX())));
+            laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan(laserToTarget.getZ() / laserToTarget.getX())));
             SmartDashboard.putNumber("translation3d getZ", laserToTarget.getZ());
             SmartDashboard.putNumber("translation3d getX", laserToTarget.getX());
             SmartDashboard.putNumber("Rotation Z", yaw);
@@ -98,6 +103,7 @@ public class Laser extends Command {
         } else {
             laserSubsystem.setLaserState(false);
             swerveSubsystem.drive(0, 0, 0, false);
+            target = null;
         }
     }
 
@@ -105,5 +111,6 @@ public class Laser extends Command {
     public void end(boolean interrupted) {
         laserSubsystem.setLaserState(false);
         swerveSubsystem.drive(0, 0, 0, false);
+        target = null;
     }
 }
