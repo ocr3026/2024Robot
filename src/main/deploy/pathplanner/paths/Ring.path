@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 2.004958988516718,
-        "y": 7.038212764018607
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
         "x": 1.9342483103980632,
-        "y": 7.108923442137262
+        "y": 7.070710678118655
       },
       "isLocked": false,
       "linkedName": null
@@ -40,6 +40,26 @@
     {
       "name": "Zero",
       "waypointRelativePos": 0.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "Wait",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "Zero",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {

@@ -16,6 +16,12 @@
           "data": {
             "pathName": "Rotate"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive"
+          }
         }
       ]
     }

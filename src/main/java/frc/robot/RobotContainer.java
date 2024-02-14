@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import com.fasterxml.jackson.core.sym.Name;
+import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;	
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -26,6 +28,7 @@ import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -40,6 +43,9 @@ public class RobotContainer {
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+	LaserSubsystem laserSubsystem = new LaserSubsystem();
+	Center center = new Center(laserSubsystem, swerveSubsystem);
+	Laser laser = new Laser(laserSubsystem, swerveSubsystem);
 
 	public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
 	public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
@@ -69,6 +75,8 @@ public class RobotContainer {
 
 		Constants.gyro.reset();
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
+		NamedCommands.registerCommand("Rotate", center);
+		NamedCommands.registerCommand("Wait", new InstantCommand(() -> swerveSubsystem.drive(0, 0, 0, false)));
 
 		//justin's zone
 	
@@ -76,7 +84,7 @@ public class RobotContainer {
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, true),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false),   //Drive robot  
 									new HolonomicPathFollowerConfig( 
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
