@@ -12,14 +12,14 @@ import edu.wpi.first.wpilibj.ADIS16448_IMU.IMUAxis;
 
 public final class Constants {
 	// Gyro
-	public static final ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kY,
+	public static final ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kZ,
 																ADIS16470_IMU.IMUAxis.kX, 
-																ADIS16470_IMU.IMUAxis.kZ);
+																ADIS16470_IMU.IMUAxis.kY);
 	public static final double initialYaw = 0;
 	
 	// TODO: Switch back to L3 for new robot
 	// Swerve Drive Constants
-	public static final double maxSpeed = 5; // m/s
+	public static final double maxSpeed = 4; // m/s
 	public static final double maxAngularSpeed = Math.PI; // rad/s
 	public static final double wheelRadius = 0.0508; // m
 	// public static final double gearRatio = 6.12; // L3

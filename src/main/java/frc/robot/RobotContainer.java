@@ -25,6 +25,7 @@ import frc.robot.commands.*;
 import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -35,8 +36,14 @@ public class RobotContainer {
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
 	// Commands
+	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+
+	public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
+	public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
+
 
 	// Keybinds
 	Evan evanProfile = new Evan();
@@ -59,7 +66,9 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+
 		Constants.gyro.reset();
+		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
 
 		//justin's zone
 	
@@ -67,11 +76,11 @@ public class RobotContainer {
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, true),   //Drive robot  
 									new HolonomicPathFollowerConfig( 
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
-                    	Constants.maxSpeed, // Max module speed, in m/s
+                    	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
             ), () -> {  
@@ -104,6 +113,8 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		evanProfile.windUpTrigger().whileTrue(windUp);
+		evanProfile.unwindTrigger().whileTrue(unWind);
 		if(Constants.tunaFish) {
 			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
 			SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
@@ -120,10 +131,12 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
+		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> Constants.gyro.reset()));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
 		}));
+		
 	}
 
 	public Command getAutonomousCommand() {

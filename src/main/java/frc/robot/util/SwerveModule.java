@@ -59,7 +59,7 @@ public class SwerveModule {
 
 		SwerveModuleState state = SwerveModuleState.optimize(desiredState, curSteerAngle);
 
-		state.speedMetersPerSecond *= state.angle.minus(curSteerAngle).getCos();
+		state.speedMetersPerSecond *= Math.pow(state.angle.minus(curSteerAngle).getCos(), 3);
 
 		double driveFB = drivePID.calculate(driveEncoder.getVelocity(), state.speedMetersPerSecond);
 		double driveFF = driveFeedForward.calculate(state.speedMetersPerSecond);
