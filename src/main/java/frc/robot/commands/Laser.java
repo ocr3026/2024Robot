@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.management.timer.Timer;
@@ -24,6 +26,9 @@ public class Laser extends Command {
     LaserSubsystem laserSubsystem;
     SwerveSubsystem swerveSubsystem;
 
+      List<Double> listDouble = new ArrayList<>();
+        Double sum = 0D;
+        Double avg = 0D;
     PIDController yawPID = new PIDController(0.001, 0, 0.00001);
     PIDController yPID = new PIDController(1.4, 0, 0);
     
@@ -48,21 +53,48 @@ public class Laser extends Command {
     @Override
     public void execute() {
         
+      
         PhotonPipelineResult cameraResult = Constants.camera.getLatestResult();
         List<PhotonTrackedTarget> listTargets = cameraResult.getTargets();
 
-
         for(PhotonTrackedTarget i : listTargets) {
             sendableChooser.addOption(Integer.toString(i.getFiducialId()), i);
+            
         }
+        
         
         target = sendableChooser.getSelected();
         
         SmartDashboard.putData("SENDABLE CHOOSER POR QUE", sendableChooser);
-        SmartDashboard.updateValues();
+
+        
 
 
         if(target != null) {
+
+            if(listDouble.size() <= 50) {
+                listDouble.add(Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle()));
+            }
+            else {
+                listDouble.remove(0);
+                listDouble.add(Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle()));
+            }
+
+            for(Double i : listDouble) {
+                if(listDouble.size() <= 50) {
+                    sum += i;
+                }
+                else {
+                    sum -= listDouble.get(0);
+                    sum += i;
+                }
+            }
+
+            avg = (sum / 50);
+
+            
+
+
             if(sendableChooser.getSelected() != null) {
             SmartDashboard.putString("Current Target", Integer.toString(sendableChooser.getSelected().getFiducialId()));
             }
@@ -95,6 +127,7 @@ public class Laser extends Command {
             SmartDashboard.putNumber("translation3d getZ", laserToTarget.getZ());
             SmartDashboard.putNumber("translation3d getX", laserToTarget.getX());
             SmartDashboard.putNumber("Rotation Z", yaw);
+            SmartDashboard.putNumber("AVERAGE", avg);
 
             //laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan((inchesVertical) / (inchesDepth))));
             //laserSubsystem.setAngle(Rotation2d.fromRadians(2 * Math.PI));
