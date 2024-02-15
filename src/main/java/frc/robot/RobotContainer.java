@@ -121,6 +121,7 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		Constants.translationJoystick.button(8).whileTrue(center);
 		evanProfile.windUpTrigger().whileTrue(windUp);
 		evanProfile.unwindTrigger().whileTrue(unWind);
 		if(Constants.tunaFish) {
