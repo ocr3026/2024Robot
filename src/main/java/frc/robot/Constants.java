@@ -28,7 +28,7 @@ public final class Constants {
 
 	// Swerve Module Positions
 	public static final Translation2d frontLeftModulePos = new Translation2d(0.36195, -0.36195);
-	public static final Translation2d rearLeftModulePos = new Translation2d(-0.36195, - 0.36195);
+	public static final Translation2d rearLeftModulePos = new Translation2d(-0.36195, -0.36195);
 	public static final Translation2d frontRightModulePos = new Translation2d(0.36195, 0.36195);
 	public static final Translation2d rearRightModulePos = new Translation2d(-0.36195, 0.36195);
 

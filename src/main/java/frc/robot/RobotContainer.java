@@ -25,6 +25,7 @@ import frc.robot.commands.*;
 import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -33,16 +34,16 @@ public class RobotContainer {
 	
 	// Subsystems
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+	public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
 	// Commands
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+	public Shoot shootCommand = new Shoot(shooterSubsystem);
 
 	// Keybinds
 	Evan evanProfile = new Evan();
 	Tatum tatumProfile = new Tatum();
-
-
 
 	ManipulatorProfile manipulatorBinds;
 	SendableChooser<ManipulatorProfile> manipulatorChooser = new SendableChooser<>();
@@ -104,6 +105,20 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
+
+		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
+			shooterSubsystem.setIntakeVoltage(4);
+		})).onFalse(new InstantCommand(() -> {
+			shooterSubsystem.setIntakeVoltage(0);
+		}));
+
+		manipulatorBinds.exhaustTrigger().whileTrue(new InstantCommand(() -> {
+			shooterSubsystem.setIntakeVoltage(-4);
+		})).onFalse(new InstantCommand(() -> {
+			shooterSubsystem.setIntakeVoltage(0);
+		}));
+
 		if(Constants.tunaFish) {
 			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
 			SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
