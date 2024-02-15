@@ -27,12 +27,9 @@ import frc.robot.commands.*;
 import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
-<<<<<<< HEAD
 import frc.robot.subsystems.ShooterSubsystem;
-=======
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
->>>>>>> 49ff7ab61909cd7ac0189273e3fe8da1bce1cfd0
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -48,9 +45,7 @@ public class RobotContainer {
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
-<<<<<<< HEAD
 	public Shoot shootCommand = new Shoot(shooterSubsystem);
-=======
 	LaserSubsystem laserSubsystem = new LaserSubsystem();
 	Center center = new Center(laserSubsystem, swerveSubsystem);
 	Laser laser = new Laser(laserSubsystem, swerveSubsystem);
@@ -58,7 +53,6 @@ public class RobotContainer {
 	public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
 	public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
 
->>>>>>> 49ff7ab61909cd7ac0189273e3fe8da1bce1cfd0
 
 	// Keybinds
 	Evan evanProfile = new Evan();
@@ -83,7 +77,8 @@ public class RobotContainer {
 		Constants.gyro.reset();
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
 		NamedCommands.registerCommand("Rotate", center);
-		NamedCommands.registerCommand("Wait", new InstantCommand(() -> swerveSubsystem.drive(0, 0, 0, false)));
+		NamedCommands.registerCommand("Intake", fieldCentricCommand);
+		NamedCommands.registerCommand("Intake", fieldCentricCommand);
 
 		//justin's zone
 	
