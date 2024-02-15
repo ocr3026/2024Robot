@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import com.fasterxml.jackson.core.sym.Name;
+import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;	
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -25,7 +27,12 @@ import frc.robot.commands.*;
 import frc.robot.keybinds.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
+<<<<<<< HEAD
 import frc.robot.subsystems.ShooterSubsystem;
+=======
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.LaserSubsystem;
+>>>>>>> 49ff7ab61909cd7ac0189273e3fe8da1bce1cfd0
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -37,9 +44,21 @@ public class RobotContainer {
 	public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
 	// Commands
+	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+<<<<<<< HEAD
 	public Shoot shootCommand = new Shoot(shooterSubsystem);
+=======
+	LaserSubsystem laserSubsystem = new LaserSubsystem();
+	Center center = new Center(laserSubsystem, swerveSubsystem);
+	Laser laser = new Laser(laserSubsystem, swerveSubsystem);
+
+	public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
+	public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
+
+>>>>>>> 49ff7ab61909cd7ac0189273e3fe8da1bce1cfd0
 
 	// Keybinds
 	Evan evanProfile = new Evan();
@@ -60,7 +79,11 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+
 		Constants.gyro.reset();
+		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
+		NamedCommands.registerCommand("Rotate", center);
+		NamedCommands.registerCommand("Wait", new InstantCommand(() -> swerveSubsystem.drive(0, 0, 0, false)));
 
 		//justin's zone
 	
@@ -72,7 +95,7 @@ public class RobotContainer {
 									new HolonomicPathFollowerConfig( 
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
-                    	Constants.maxSpeed, // Max module speed, in m/s
+                    	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
             ), () -> {  
@@ -119,6 +142,9 @@ public class RobotContainer {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
+		Constants.translationJoystick.button(8).whileTrue(center);
+		evanProfile.windUpTrigger().whileTrue(windUp);
+		evanProfile.unwindTrigger().whileTrue(unWind);
 		if(Constants.tunaFish) {
 			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
 			SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
@@ -135,10 +161,12 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
+		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> Constants.gyro.reset()));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
 		}));
+		
 	}
 
 	public Command getAutonomousCommand() {

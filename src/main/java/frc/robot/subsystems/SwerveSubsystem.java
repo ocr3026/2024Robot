@@ -7,6 +7,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -38,6 +40,9 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
+
+					SmartDashboard.putNumber("Gyro", Constants.gyro.getAngle(ADIS16470_IMU.IMUAxis.kZ));
+
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
 				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())))

@@ -12,11 +12,20 @@ public class Evan implements ManipulatorProfile {
 
     @Override 
     public Trigger intakeTrigger() {
-        return Constants.xbox.a();
+        return Constants.xbox.x();
     }
 
     @Override 
     public Trigger exhaustTrigger() {
+        return Constants.xbox.y();
+    }
+    @Override 
+    public Trigger windUpTrigger() {
+        // TODO Auto-generated method stub
+        return Constants.xbox.a();
+    }
+    @Override
+    public Trigger unwindTrigger() {
         return Constants.xbox.b();
     }
 }

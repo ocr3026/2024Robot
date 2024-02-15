@@ -14,4 +14,6 @@ public interface ManipulatorProfile {
     public Trigger intakeTrigger();
 
     public Trigger exhaustTrigger();
+    public Trigger windUpTrigger();
+    public Trigger unwindTrigger();
 }

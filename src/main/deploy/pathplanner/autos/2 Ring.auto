@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 2,
+      "y": 7.0
+    },
+    "rotation": -135.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "curve Ring"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

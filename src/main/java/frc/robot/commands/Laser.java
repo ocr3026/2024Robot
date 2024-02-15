@@ -1,25 +1,32 @@
 package frc.robot.commands;
 
+import java.util.List;
+
+import javax.management.timer.Timer;
+
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.util.OcrMath;
 
 public class Laser extends Command {
     LaserSubsystem laserSubsystem;
     SwerveSubsystem swerveSubsystem;
 
-    PIDController yawPID = new PIDController(0, 0, 0);
-    PIDController xPID = new PIDController(0, 0, 0);
+    PIDController yawPID = new PIDController(0.001, 0, 0.00001);
+    PIDController yPID = new PIDController(1.4, 0, 0);
+    
 
 
     public Laser(LaserSubsystem laserSubsystem, SwerveSubsystem swerveSubsystem) {
@@ -28,46 +35,68 @@ public class Laser extends Command {
         addRequirements(laserSubsystem, swerveSubsystem);
     }
 
+    PhotonTrackedTarget target;
+    SendableChooser<PhotonTrackedTarget> sendableChooser = new SendableChooser<>();
+
+
+    @Override
+    public void initialize() {
+        target = null;
+        sendableChooser.addOption("none", null);
+    }
+
     @Override
     public void execute() {
+        
         PhotonPipelineResult cameraResult = Constants.camera.getLatestResult();
-        PhotonTrackedTarget target = cameraResult.getBestTarget();
+        List<PhotonTrackedTarget> listTargets = cameraResult.getTargets();
+
+
+        for(PhotonTrackedTarget i : listTargets) {
+            sendableChooser.addOption(Integer.toString(i.getFiducialId()), i);
+        }
+        
+        target = sendableChooser.getSelected();
+        
+        SmartDashboard.putData("SENDABLE CHOOSER POR QUE", sendableChooser);
+        SmartDashboard.updateValues();
+
 
         if(target != null) {
-            double distX = target.getBestCameraToTarget().getY();
-            //double yaw = target.getBestCameraToTarget().getRotation().getAngle();
-            Translation3d laserToTarget = target.getBestCameraToTarget().getTranslation().minus(Constants.laserToCamera);
-            double yaw = PhotonUtils.getYawToPose(new Pose2d(), 
-                    new Pose2d(laserToTarget.getX(),
-                        laserToTarget.getY(), new Rotation2d())).getDegrees();
+            if(sendableChooser.getSelected() != null) {
+            SmartDashboard.putString("Current Target", Integer.toString(sendableChooser.getSelected().getFiducialId()));
+            }
+            else {
+                SmartDashboard.putString("Current Target", "NULL");
+            }
 
-            /*swerveSubsystem.drive(0, 0, 
-                yawPID.calculate(PhotonUtils.getYawToPose(new Pose2d(), 
-                    new Pose2d(laserToTarget.getX(),
-                        laserToTarget.getY(), new Rotation2d())).getDegrees(),
-                    0), false);*/
+            double distY = target.getBestCameraToTarget().getY();
+            double yaw = Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle());
+    
 
-            swerveSubsystem.drive(0, 0, yawPID.calculate(yaw, 0), false);
 
-            /*if(target.getYaw() != 0) {
-                swerveSubsystem.drive(0,0, OcrMath.clamp(yawPID.calculate(yaw, 0), -0.2, 0.2), false);
-            }*/
+            //swerveSubsystem.drive(0, 0, yawPID.calculate(yaw, 0), false);
+
+            swerveSubsystem.drive(0,0, MathUtil.clamp(yawPID.calculate(yaw, 180), -0.2, 0.2), false);
+          
+              if(yaw <= 190 && yaw >= 170 ) {
+                swerveSubsystem.drive(0, yPID.calculate(distY, 0),0 ,false);
+
+            }
+
             
-            if(yaw == 0) {
-                
-                swerveSubsystem.drive(OcrMath.clamp(xPID.calculate(distX, 0), -0.2, 0.2), 0 ,0 ,false);
 
-            }
-            else if(distX == 0 && yaw == 0){
-                swerveSubsystem.drive(0, 0, 0, false);
-                laserSubsystem.setLaserState(true);
-            }
+         
+            SmartDashboard.putNumber("Rotation Z", yaw);
+
+            //laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan((inchesVertical) / (inchesDepth))));
+            //laserSubsystem.setAngle(Rotation2d.fromRadians(2 * Math.PI));
 
 
-            laserSubsystem.setAngle(Rotation2d.fromRadians(Math.atan(laserToTarget.getZ() / laserToTarget.getX())));
         } else {
             laserSubsystem.setLaserState(false);
             swerveSubsystem.drive(0, 0, 0, false);
+            target = null;
         }
     }
 
@@ -75,5 +104,6 @@ public class Laser extends Command {
     public void end(boolean interrupted) {
         laserSubsystem.setLaserState(false);
         swerveSubsystem.drive(0, 0, 0, false);
+        target = null;
     }
 }

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LaserSubsystem extends SubsystemBase {
-    CANSparkMax aimMotor = new CANSparkMax(9000, MotorType.kBrushless);
+    CANSparkMax aimMotor = new CANSparkMax(50, MotorType.kBrushless);
     RelativeEncoder aimEncoder = aimMotor.getEncoder();
 
     DigitalOutput laserOutput = new DigitalOutput(4);
