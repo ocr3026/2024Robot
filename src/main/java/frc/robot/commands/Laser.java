@@ -53,6 +53,7 @@ public class Laser extends Command {
     @Override
     public void execute() {
         
+        
       
         PhotonPipelineResult cameraResult = Constants.camera.getLatestResult();
         List<PhotonTrackedTarget> listTargets = cameraResult.getTargets();
@@ -72,26 +73,7 @@ public class Laser extends Command {
 
         if(target != null) {
 
-            if(listDouble.size() <= 50) {
-                listDouble.add(Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle()));
-            }
-            else {
-                listDouble.remove(0);
-                listDouble.add(Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle()));
-            }
-
-            for(Double i : listDouble) {
-                if(listDouble.size() <= 50) {
-                    sum += i;
-                }
-                else {
-                    sum -= listDouble.get(0);
-                    sum += i;
-                }
-            }
-
-            avg = (sum / 50);
-
+            
             
 
 
@@ -109,6 +91,7 @@ public class Laser extends Command {
 
 
             //swerveSubsystem.drive(0, 0, yawPID.calculate(yaw, 0), false);
+            
 
             swerveSubsystem.drive(0,0, MathUtil.clamp(yawPID.calculate(yaw, 180), -0.2, 0.2), false);
           
@@ -128,6 +111,8 @@ public class Laser extends Command {
             SmartDashboard.putNumber("translation3d getX", laserToTarget.getX());
             SmartDashboard.putNumber("Rotation Z", yaw);
             SmartDashboard.putNumber("AVERAGE", avg);
+            SmartDashboard.putNumber("SUM", sum);
+            SmartDashboard.putNumber("LIST SIZE", listDouble.size());
 
             //laserSubsystem.setAngle(Rotation2d.fromRadians(-Math.atan((inchesVertical) / (inchesDepth))));
             //laserSubsystem.setAngle(Rotation2d.fromRadians(2 * Math.PI));
