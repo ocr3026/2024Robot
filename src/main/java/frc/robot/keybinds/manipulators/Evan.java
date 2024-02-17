@@ -21,7 +21,6 @@ public class Evan implements ManipulatorProfile {
     }
     @Override 
     public Trigger windUpTrigger() {
-        // TODO Auto-generated method stub
         return Constants.xbox.a();
     }
     @Override
