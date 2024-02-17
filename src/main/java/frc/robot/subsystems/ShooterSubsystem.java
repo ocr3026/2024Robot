@@ -36,8 +36,8 @@ public class ShooterSubsystem extends SubsystemBase {
         leftActuator.setBoundsMicroseconds(0, 0, 0, 0, 0);
         rightActuator.setBoundsMicroseconds(0, 0, 0, 0, 0);
 
-        leftFB.setTolerance(100);
-        rightFB.setTolerance(100);
+        leftFB.setTolerance(200);
+        rightFB.setTolerance(200);
 
         rightFlywheel.setInverted(true);
         leftFlywheel.setInverted(false);

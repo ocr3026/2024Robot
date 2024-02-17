@@ -17,7 +17,7 @@ public class Shoot extends Command{
     public void execute() {
         shooterSubsystem.setFlywheelSpeeds(5660 * .8, 5660 * .8);
         
-        if(Constants.xbox.getLeftY() > .5) {
+        if(shooterSubsystem.areFlywheelsSpunUp() || Constants.xbox.getLeftY() > 0.5) {
             shooterSubsystem.setIntakeVoltage(12);
         } else {
             shooterSubsystem.setIntakeVoltage(0);
