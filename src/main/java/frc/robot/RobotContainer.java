@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.keybinds.*;
@@ -32,6 +33,8 @@ public class RobotContainer {
 	// Subsystems
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 	public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+
+	ServoCommand servoCommand = new ServoCommand();
 
 	// Commands
 	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
@@ -66,8 +69,10 @@ public class RobotContainer {
 
 		Constants.gyro.reset();
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
-		NamedCommands.registerCommand("Intake", fieldCentricCommand);
-		NamedCommands.registerCommand("Intake", fieldCentricCommand);
+		NamedCommands.registerCommand("Shoot", new RunCommand(() -> shooterSubsystem.setFlywheelSpeeds(5660 * .8, 5660 * .85)));
+		NamedCommands.registerCommand("Intake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
+		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelSpeeds(0, 0)));
+		NamedCommands.registerCommand("ZeroiIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 
 		//justin's zone
 	
@@ -112,6 +117,7 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		Constants.xbox.leftBumper().whileTrue(servoCommand);
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {

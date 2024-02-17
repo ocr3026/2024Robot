@@ -17,6 +17,8 @@ public class ShooterSubsystem extends SubsystemBase {
     Rotation2d targetAngle = new Rotation2d();
     Servo leftActuator = new Servo(0);
     Servo rightActuator = new Servo(1);
+    double targetServoLength = 0;
+    double maxServoLength = 1;
 
     CANSparkMax intakeMotor = new CANSparkMax(23, MotorType.kBrushless);
 
@@ -45,14 +47,26 @@ public class ShooterSubsystem extends SubsystemBase {
         leftFlywheel.setIdleMode(IdleMode.kCoast);
         intakeMotor.setIdleMode(IdleMode.kCoast);
     }
+    public void setSpeed(double speed) {
+        rightActuator.setSpeed(speed);
+        leftActuator.setSpeed(speed);
+    }
 
     public void setAngle(Rotation2d angle) {
         targetAngle = angle;
+    }
+    public void toAngle () {
+        targetServoLength = ((targetAngle.getDegrees() -25) * (maxServoLength/20));
+        leftActuator.set(targetServoLength);
+        rightActuator.set(targetServoLength);
+
+        
     }
 
     public void setIntakeVoltage(double voltage) {
         intakeMotor.setVoltage(voltage);
     }
+    
 
     /**
      * Sets the speed of the dual flywheel shooter in rotations per second (rpm)

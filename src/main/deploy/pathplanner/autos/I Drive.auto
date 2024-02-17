@@ -12,6 +12,36 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroShoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Rotate"
@@ -21,6 +51,24 @@
           "type": "path",
           "data": {
             "pathName": "Drive"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Zero"
           }
         }
       ]
