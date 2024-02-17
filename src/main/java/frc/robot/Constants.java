@@ -47,6 +47,6 @@ public final class Constants {
 	public static final boolean tunaFish = false;
 
 	// Camera
-	public static final PhotonCamera camera = new PhotonCamera("photonvision");
+	//public static final PhotonCamera camera = new PhotonCamera("photonvision");
 	public static final Transform3d cameraToRobot = new Transform3d(-0.026, 0, 0, new Rotation3d(0, 10 * Math.PI / 180, 0));
 }

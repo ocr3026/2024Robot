@@ -27,10 +27,10 @@ public class SwerveSubsystem extends SubsystemBase {
 		new SwerveDriveKinematics(Constants.frontLeftModulePos, Constants.frontRightModulePos,
 	                              Constants.rearLeftModulePos, Constants.rearRightModulePos);
 
-	public SwerveModule frontLeftModule = new SwerveModule(5, 6, 12);
-	public SwerveModule rearRightModule = new SwerveModule(3, 4, 11);
-	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
-	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
+	public SwerveModule frontLeftModule = new SwerveModule(3, 4, 12);
+	public SwerveModule rearRightModule = new SwerveModule(5, 6, 11);
+	public SwerveModule rearLeftModule = new SwerveModule(7, 8, 9);
+	public SwerveModule frontRightModule = new SwerveModule(1, 2, 10);
 
 	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
@@ -70,11 +70,13 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
+		/*
 		PhotonPipelineResult result = Constants.camera.getLatestResult();
 		if(result.getMultiTagResult().estimatedPose.isPresent) {
 			Pose3d robotPose3d = (new Pose3d()).transformBy(result.getMultiTagResult().estimatedPose.best.plus(Constants.cameraToRobot));
 			odometry.addVisionMeasurement(robotPose3d.toPose2d(), timer.get());
 		}
+		*/
 
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
 		new SwerveModulePosition[] {

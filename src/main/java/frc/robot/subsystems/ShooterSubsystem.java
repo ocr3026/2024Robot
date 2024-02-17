@@ -20,21 +20,21 @@ public class ShooterSubsystem extends SubsystemBase {
     double targetServoLength = 0;
     double maxServoLength = 1;
 
-    CANSparkMax intakeMotor = new CANSparkMax(23, MotorType.kBrushless);
+    CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
 
     CANSparkMax leftFlywheel = new CANSparkMax(22, MotorType.kBrushless);
     RelativeEncoder leftEncoder = leftFlywheel.getEncoder(Type.kHallSensor, 42);
     SimpleMotorFeedforward leftFF = new SimpleMotorFeedforward(0.09, 0.0021, 0);
     PIDController leftFB = new PIDController(0, 0, 0);
 
-    CANSparkMax rightFlywheel = new CANSparkMax(21, MotorType.kBrushless);
+    CANSparkMax rightFlywheel = new CANSparkMax(23, MotorType.kBrushless);
     RelativeEncoder rightEncoder = rightFlywheel.getEncoder(Type.kHallSensor, 42);
     SimpleMotorFeedforward rightFF = new SimpleMotorFeedforward(0.09, 0.0021, 0);
     PIDController rightFB = new PIDController(0, 0, 0);
 
     public ShooterSubsystem() {
-        leftActuator.setBoundsMicroseconds(0, 0, 0, 0, 0);
-        rightActuator.setBoundsMicroseconds(0, 0, 0, 0, 0);
+        leftActuator.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
+        rightActuator.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
 
         leftFB.setTolerance(200);
         rightFB.setTolerance(200);

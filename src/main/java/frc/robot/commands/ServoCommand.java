@@ -8,9 +8,14 @@ public class ServoCommand extends Command{
 
     ShooterSubsystem shooterSubsystem;
 
+    public ServoCommand(ShooterSubsystem shooterSubsystem) {
+        this.shooterSubsystem = shooterSubsystem;
+        addRequirements(shooterSubsystem);
+    }
+
     @Override
     public void execute() {
-        shooterSubsystem.setSpeed(Constants.xbox.getRightY());
+        shooterSubsystem.setSpeed(-Constants.xbox.getRightY());
     }
     
 }

@@ -7,6 +7,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class Shoot extends Command{
     ShooterSubsystem shooterSubsystem;
+    
 
     public Shoot(ShooterSubsystem shooterSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
@@ -15,10 +16,10 @@ public class Shoot extends Command{
 
     @Override
     public void execute() {
-        shooterSubsystem.setFlywheelSpeeds(5660 * .8, 5660 * .8);
+        shooterSubsystem.setFlywheelSpeeds(-(5660 * .8), -(5660 * .8));
         
-        if(shooterSubsystem.areFlywheelsSpunUp() || Constants.xbox.getLeftY() > 0.5) {
-            shooterSubsystem.setIntakeVoltage(12);
+        if(Constants.xbox.getLeftY() > 0.5) {
+            shooterSubsystem.setIntakeVoltage(8);
         } else {
             shooterSubsystem.setIntakeVoltage(0);
         }
@@ -28,5 +29,8 @@ public class Shoot extends Command{
     public void end(boolean interrupted) {
         shooterSubsystem.setFlywheelSpeeds(0, 0);
         shooterSubsystem.setIntakeVoltage(0);
+
     }
+
+   
 }
