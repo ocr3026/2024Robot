@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -34,7 +35,7 @@ public class RobotCentric extends Command {
 
 	@Override
 	public void end(boolean interrupted) {
-		driveSubsystem.drive(0, 0, 0, false);
+		driveSubsystem.drive(new ChassisSpeeds());
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package frc.robot;
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
@@ -15,7 +17,6 @@ public final class Constants {
 	public static final ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kZ,
 																ADIS16470_IMU.IMUAxis.kX, 
 																ADIS16470_IMU.IMUAxis.kY);
-	public static final double initialYaw = 0;
 	
 	// TODO: Switch back to L3 for new robot
 	// Swerve Drive Constants
@@ -49,5 +50,5 @@ public final class Constants {
 
 	// Camera
 	public static final PhotonCamera camera = new PhotonCamera("photonvision");
-	public static final Translation3d laserToCamera = new Translation3d(-0.03, -0.065, 0.225);
+	public static final Transform3d cameraToRobot = new Transform3d(0, 0, 0, new Rotation3d());
 }

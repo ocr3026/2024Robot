@@ -87,7 +87,7 @@ public class RobotContainer {
 		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
 									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false),   //Drive robot  
-									new HolonomicPathFollowerConfig( 
+									new HolonomicPathFollowerConfig(
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
@@ -137,9 +137,11 @@ public class RobotContainer {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
+		
 		Constants.translationJoystick.button(8).whileTrue(center);
-		evanProfile.windUpTrigger().whileTrue(windUp);
-		evanProfile.unwindTrigger().whileTrue(unWind);
+		manipulatorBinds.windUpTrigger().whileTrue(windUp);
+		manipulatorBinds.unwindTrigger().whileTrue(unWind);
+		
 		if(Constants.tunaFish) {
 			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
 			SmartDashboard.putNumber("driveKv", swerveSubsystem.frontLeftModule.driveFeedForward.kv);
