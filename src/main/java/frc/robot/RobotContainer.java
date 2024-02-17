@@ -21,12 +21,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.keybinds.*;
+import frc.robot.subsystems.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.LaserSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public class RobotContainer {
@@ -42,9 +39,6 @@ public class RobotContainer {
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
 	public Shoot shootCommand = new Shoot(shooterSubsystem);
-	LaserSubsystem laserSubsystem = new LaserSubsystem();
-	Center center = new Center(laserSubsystem, swerveSubsystem);
-	Laser laser = new Laser(laserSubsystem, swerveSubsystem);
 
 	public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
 	public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
@@ -72,7 +66,6 @@ public class RobotContainer {
 
 		Constants.gyro.reset();
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
-		NamedCommands.registerCommand("Rotate", center);
 		NamedCommands.registerCommand("Intake", fieldCentricCommand);
 		NamedCommands.registerCommand("Intake", fieldCentricCommand);
 
@@ -133,8 +126,6 @@ public class RobotContainer {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
-		
-		Constants.translationJoystick.button(8).whileTrue(center);
 		manipulatorBinds.windUpTrigger().whileTrue(windUp);
 		manipulatorBinds.unwindTrigger().whileTrue(unWind);
 		
