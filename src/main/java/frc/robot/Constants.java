@@ -1,5 +1,8 @@
 package frc.robot;
 
+import java.util.Optional;
+import java.util.function.Supplier;
+
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -12,9 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public final class Constants {
 	// Gyro
-	public static final ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kZ,
-																ADIS16470_IMU.IMUAxis.kX, 
-																ADIS16470_IMU.IMUAxis.kY);
+	public static final ADIS16470_IMU gyro = new ADIS16470_IMU();
 	
 	// TODO: Switch back to L3 for new robot
 	// Swerve Drive Constants
@@ -47,6 +48,13 @@ public final class Constants {
 	public static final boolean tunaFish = false;
 
 	// Camera
-	//public static final PhotonCamera camera = new PhotonCamera("photonvision");
+	public static final Optional<PhotonCamera> camera = ((Supplier<Optional<PhotonCamera>>)(() -> {
+			try {
+				return Optional.of(new PhotonCamera("USB_webcam"));
+			} catch(Exception e) {
+				System.out.print("Could not instantiate photoncamera");
+				return Optional.empty();
+			}
+		})).get();
 	public static final Transform3d cameraToRobot = new Transform3d(-0.026, 0, 0, new Rotation3d(0, 10 * Math.PI / 180, 0));
 }
