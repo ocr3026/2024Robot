@@ -39,8 +39,8 @@ public class ShooterSubsystem extends SubsystemBase {
         leftFB.setTolerance(200);
         rightFB.setTolerance(200);
 
-        rightFlywheel.setInverted(true);
-        leftFlywheel.setInverted(false);
+        rightFlywheel.setInverted(false);
+        leftFlywheel.setInverted(true);
         intakeMotor.setInverted(false);
 
         rightFlywheel.setIdleMode(IdleMode.kCoast);
@@ -83,6 +83,11 @@ public class ShooterSubsystem extends SubsystemBase {
         double rightCalculatedFF = rightFF.calculate(rightAngularVelocity);
         double rightCalculatedFB = rightFB.calculate(rightEncoder.getVelocity(), rightAngularVelocity);
         rightFlywheel.setVoltage(rightCalculatedFF + rightCalculatedFB);
+    }
+
+    public void setFlywheelVoltage(double leftVoltage, double rightVoltage) {
+        rightFlywheel.setVoltage(rightVoltage);
+        leftFlywheel.setVoltage(leftVoltage);
     }
 
     public boolean areFlywheelsSpunUp() {
