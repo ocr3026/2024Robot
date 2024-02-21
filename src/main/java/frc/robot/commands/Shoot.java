@@ -19,7 +19,7 @@ public class Shoot extends Command{
         shooterSubsystem.setFlywheelVoltage(12, 12);
         
         if(Constants.xbox.getLeftY() < -0.5) {
-            shooterSubsystem.setIntakeVoltage(8);
+            shooterSubsystem.setIntakeVoltage(12);
         } else {
             shooterSubsystem.setIntakeVoltage(0);
         }

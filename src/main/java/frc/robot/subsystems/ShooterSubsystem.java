@@ -50,6 +50,8 @@ public class ShooterSubsystem extends SubsystemBase {
     public void setSpeed(double speed) {
         rightActuator.setSpeed(speed);
         leftActuator.setSpeed(speed);
+        SmartDashboard.putNumber("Servo", rightActuator.getSpeed());
+        SmartDashboard.putNumber("ServoPos", rightActuator.get());
     }
 
     public void setAngle(Rotation2d angle) {

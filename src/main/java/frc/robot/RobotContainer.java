@@ -81,6 +81,7 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 
 		//justin's zone
+		//FREE DIZZO
 	
 		//Path Planner (Autonomous Program) initialization
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
@@ -113,6 +114,8 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
+		//LOCK UP J HAUS
+
 		//end of justins zone 
 		
 		// FREE J HAUS
@@ -130,8 +133,8 @@ public class RobotContainer {
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(8);
-		})).onFalse(new InstantCommand(() -> {
+			shooterSubsystem.setIntakeVoltage(9);
+		})).whileFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 

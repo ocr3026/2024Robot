@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -16,7 +17,8 @@ public class ServoCommand extends Command{
 
     @Override
     public void execute() {
-        shooterSubsystem.setSpeed(MathUtil.clamp(-Constants.xbox.getRightY(), -1.0, 0));
+        
+        shooterSubsystem.setSpeed(MathUtil.clamp(-Constants.xbox.getRightY(), -1.0, 0.9));
     }
     
 }
