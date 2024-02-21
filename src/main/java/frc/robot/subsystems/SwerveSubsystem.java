@@ -71,13 +71,13 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		/*
-		PhotonPipelineResult result = Constants.camera.getLatestResult();
-		if(result.getMultiTagResult().estimatedPose.isPresent) {
-			Pose3d robotPose3d = (new Pose3d()).transformBy(result.getMultiTagResult().estimatedPose.best.plus(Constants.cameraToRobot));
-			odometry.addVisionMeasurement(robotPose3d.toPose2d(), timer.get());
+		if(Constants.camera.isPresent()) {
+			PhotonPipelineResult result = Constants.camera.get().getLatestResult();
+			if(result.getMultiTagResult().estimatedPose.isPresent) {
+				Pose3d robotPose3d = (new Pose3d()).transformBy(result.getMultiTagResult().estimatedPose.best.plus(Constants.cameraToRobot));
+				odometry.addVisionMeasurement(robotPose3d.toPose2d(), timer.get());
+			}
 		}
-		*/
 
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
 		new SwerveModulePosition[] {
