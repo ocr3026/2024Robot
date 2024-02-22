@@ -27,10 +27,10 @@ public class SwerveSubsystem extends SubsystemBase {
 		new SwerveDriveKinematics(Constants.frontLeftModulePos, Constants.frontRightModulePos,
 	                              Constants.rearLeftModulePos, Constants.rearRightModulePos);
 
-	public SwerveModule frontLeftModule = new SwerveModule(5, 6, 12);
-	public SwerveModule rearRightModule = new SwerveModule(3, 4, 11);
-	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
-	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
+	public SwerveModule frontLeftModule = new SwerveModule(3, 4, 12);
+	public SwerveModule rearRightModule = new SwerveModule(5, 6, 11);
+	public SwerveModule rearLeftModule = new SwerveModule(7, 8, 9);
+	public SwerveModule frontRightModule = new SwerveModule(1, 2, 10);
 
 	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
@@ -51,7 +51,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
 
-					SmartDashboard.putNumber("Gyro", Constants.gyro.getAngle(ADIS16470_IMU.IMUAxis.kZ));
+					SmartDashboard.putNumber("Gyro", -Constants.gyro.getAngle(ADIS16470_IMU.IMUAxis.kZ));
 
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
@@ -85,10 +85,10 @@ public class SwerveSubsystem extends SubsystemBase {
 	
 	public void resetPose (Pose2d poser) {
 		if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-			poser = new Pose2d(fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation());
+			poser = new Pose2d(fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation().plus(Rotation2d.fromDegrees(180)));
 		}
 
-		odometry.resetPosition(Rotation2d.fromDegrees(Constants.gyro.getAngle(Constants.gyro.getYawAxis())), new SwerveModulePosition[] {
+		odometry.resetPosition(Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())), new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		}, poser);
@@ -102,7 +102,7 @@ public class SwerveSubsystem extends SubsystemBase {
 				case Blue:
 					return robotPose;
 				case Red:
-					return new Pose2d(fieldLayout.getFieldLength() - robotPose.getX(), robotPose.getY(), robotPose.getRotation());
+					return new Pose2d(fieldLayout.getFieldLength() - robotPose.getX(), robotPose.getY(), robotPose.getRotation().plus(Rotation2d.fromDegrees(180)));
 			}
 		}
 
