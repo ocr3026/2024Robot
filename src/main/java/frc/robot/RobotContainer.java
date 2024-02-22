@@ -72,9 +72,7 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
-
-		Constants.gyro.reset();
-		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
+		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelSpeeds(0, 0)));
@@ -163,7 +161,7 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
-		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), 180)));
+		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> swerveSubsystem.resetPose(new Pose2d())));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();

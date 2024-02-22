@@ -27,20 +27,21 @@ public class SwerveSubsystem extends SubsystemBase {
 		new SwerveDriveKinematics(Constants.frontLeftModulePos, Constants.frontRightModulePos,
 	                              Constants.rearLeftModulePos, Constants.rearRightModulePos);
 
-	public SwerveModule frontLeftModule = new SwerveModule(3, 4, 12);
-	public SwerveModule rearRightModule = new SwerveModule(5, 6, 11);
-	public SwerveModule rearLeftModule = new SwerveModule(7, 8, 9);
-	public SwerveModule frontRightModule = new SwerveModule(1, 2, 10);
+	public SwerveModule frontLeftModule = new SwerveModule(5, 6, 12);
+	public SwerveModule rearRightModule = new SwerveModule(3, 4, 11);
+	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
+	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
 
 	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
+	ADIS16470_IMU gyro = new ADIS16470_IMU();
 
 	public SwerveSubsystem() {
-		Constants.gyro.reset();
+		gyro.reset();
 
-		odometry = new SwerveDrivePoseEstimator(kinematics, Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
+		odometry = new SwerveDrivePoseEstimator(kinematics, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
 			new SwerveModulePosition[] {
 				frontLeftModule.getPosition(), frontRightModule.getPosition(),
 				rearLeftModule.getPosition(), rearRightModule.getPosition()
@@ -51,12 +52,9 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
-
-					SmartDashboard.putNumber("Gyro", -Constants.gyro.getAngle(ADIS16470_IMU.IMUAxis.kZ));
-
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
 			fieldRelative
-				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())))
+				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())))
 				: new ChassisSpeeds(xSpeed, ySpeed, zRotation),
 			RobotContainer.getPeriod.getAsDouble());
 
@@ -79,7 +77,7 @@ public class SwerveSubsystem extends SubsystemBase {
 			}
 		}
 
-		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),
+		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
 		new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
@@ -91,12 +89,12 @@ public class SwerveSubsystem extends SubsystemBase {
 			poser = new Pose2d(fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation().plus(Rotation2d.fromDegrees(180)));
 		}
 
-		odometry.resetPosition(Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())), new SwerveModulePosition[] {
+		odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		}, poser);
 
-		Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), poser.getRotation().getDegrees());
+		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
 	}
 
 	public Pose2d getPose() {
@@ -132,5 +130,8 @@ public class SwerveSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		updateOdometry();
+		SmartDashboard.putNumber("robotX", getPose().getX());
+		SmartDashboard.putNumber("robotY", getPose().getY());
+		SmartDashboard.putNumber("robotYaw", getPose().getRotation().getDegrees());
 	}
 }
