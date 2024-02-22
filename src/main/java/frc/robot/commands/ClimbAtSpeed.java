@@ -5,7 +5,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 
 public class ClimbAtSpeed extends Command{
-    ClimberSubsystem climber;
+    /*ClimberSubsystem climber;
     double speed;
     
     public ClimbAtSpeed (double givenSpeed, ClimberSubsystem subsystem) {
@@ -26,5 +26,5 @@ public class ClimbAtSpeed extends Command{
     @Override
     public void end(boolean interupt) {
         climber.climbSpeed(0);
-    }
+    }*/
 }

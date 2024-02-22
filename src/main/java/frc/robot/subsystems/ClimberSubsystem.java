@@ -8,7 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimberSubsystem extends SubsystemBase {
-    PIDController PID = new PIDController(0, 0, 0);
+  /*   PIDController PID = new PIDController(0, 0, 0);
     CANSparkMax leftClimb = new  CANSparkMax(31, MotorType.kBrushless);
     CANSparkMax rightClimb = new CANSparkMax(32, MotorType.kBrushless);
 
@@ -21,6 +21,6 @@ public class ClimberSubsystem extends SubsystemBase {
      public void climbSpeed (double speed) {
         leftClimb.set(speed);
         rightClimb.set(speed);
-     }
+     }*/
 
 }

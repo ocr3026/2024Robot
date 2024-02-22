@@ -49,6 +49,7 @@ public class SwerveSubsystem extends SubsystemBase {
 		timer.restart();
 	}
 
+	
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
 
 					SmartDashboard.putNumber("Gyro", -Constants.gyro.getAngle(ADIS16470_IMU.IMUAxis.kZ));
@@ -70,10 +71,12 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		PhotonPipelineResult result = Constants.camera.getLatestResult();
-		if(result.getMultiTagResult().estimatedPose.isPresent) {
-			Pose3d robotPose3d = (new Pose3d()).transformBy(result.getMultiTagResult().estimatedPose.best.plus(Constants.cameraToRobot));
-			odometry.addVisionMeasurement(robotPose3d.toPose2d(), timer.get());
+		if(Constants.camera.isPresent()) {
+			PhotonPipelineResult result = Constants.camera.get().getLatestResult();
+			if(result.getMultiTagResult().estimatedPose.isPresent) {
+				Pose3d robotPose3d = (new Pose3d()).transformBy(result.getMultiTagResult().estimatedPose.best.plus(Constants.cameraToRobot));
+				odometry.addVisionMeasurement(robotPose3d.toPose2d(), timer.get());
+			}
 		}
 
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-Constants.gyro.getAngle(Constants.gyro.getYawAxis())),

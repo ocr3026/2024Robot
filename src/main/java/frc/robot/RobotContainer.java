@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import com.pathplanner.lib.auto.AutoBuilder;	
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -18,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.keybinds.*;
@@ -33,15 +36,20 @@ public class RobotContainer {
 	public SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 	public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
+	public ShootAuto shootAuto = new ShootAuto(shooterSubsystem);
+
 	// Commands
 	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+
+	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
+
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
 	public Shoot shootCommand = new Shoot(shooterSubsystem);
 
-	public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
-	public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
+	//public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
+	//public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
 
 
 	// Keybinds
@@ -50,6 +58,7 @@ public class RobotContainer {
 
 	ManipulatorProfile manipulatorBinds;
 	SendableChooser<ManipulatorProfile> manipulatorChooser = new SendableChooser<>();
+
 	DriverProfile driverBinds;
 	SendableChooser<DriverProfile> driverChooser = new SendableChooser<>();
 
@@ -66,10 +75,13 @@ public class RobotContainer {
 
 		Constants.gyro.reset();
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> Constants.gyro.reset()));
-		NamedCommands.registerCommand("Intake", fieldCentricCommand);
-		NamedCommands.registerCommand("Intake", fieldCentricCommand);
+		NamedCommands.registerCommand("Shoot", shootAuto);
+		NamedCommands.registerCommand("Intake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
+		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelSpeeds(0, 0)));
+		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 
 		//justin's zone
+		//FREE DIZZO
 	
 		//Path Planner (Autonomous Program) initialization
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
@@ -102,6 +114,8 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
+		//LOCK UP J HAUS
+
 		//end of justins zone 
 		
 		// FREE J HAUS
@@ -112,11 +126,15 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+
+		Constants.xbox.leftBumper().whileTrue(servoCommand);
+
+
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(4);
-		})).onFalse(new InstantCommand(() -> {
+			shooterSubsystem.setIntakeVoltage(9);
+		})).whileFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
@@ -126,8 +144,8 @@ public class RobotContainer {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
-		manipulatorBinds.windUpTrigger().whileTrue(windUp);
-		manipulatorBinds.unwindTrigger().whileTrue(unWind);
+		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
+		//manipulatorBinds.unwindTrigger().whileTrue(unWind);
 		
 		if(Constants.tunaFish) {
 			SmartDashboard.putNumber("driveKs", swerveSubsystem.frontLeftModule.driveFeedForward.ks); 
@@ -145,7 +163,7 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
-		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> Constants.gyro.reset()));
+		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> Constants.gyro.setGyroAngle(Constants.gyro.getYawAxis(), 180)));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
