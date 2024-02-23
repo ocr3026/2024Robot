@@ -161,6 +161,7 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
+		onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.gyro.setGyroAngleZ(0)));
 		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> swerveSubsystem.resetPose(new Pose2d())));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();

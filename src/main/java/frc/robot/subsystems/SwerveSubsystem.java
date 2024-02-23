@@ -42,7 +42,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
-	ADIS16470_IMU gyro = new ADIS16470_IMU();
+	public ADIS16470_IMU gyro = new ADIS16470_IMU();
 
 	public SwerveSubsystem() {
 		gyro.reset();
