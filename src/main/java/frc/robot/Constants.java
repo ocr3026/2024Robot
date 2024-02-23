@@ -1,15 +1,10 @@
 package frc.robot;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -59,13 +54,6 @@ public final class Constants {
 	public static final boolean tunaFish = false;
 
 	// Camera
-	public static final Optional<PhotonCamera> camera = ((Supplier<Optional<PhotonCamera>>)(() -> {
-			try {
-				return Optional.of(new PhotonCamera("USB_webcam"));
-			} catch(Exception e) {
-				System.out.print("Could not instantiate photoncamera");
-				return Optional.empty();
-			}
-		})).get();
-	public static final Transform3d cameraToRobot = new Transform3d(-0.026, 0, 0, new Rotation3d(0, 10 * Math.PI / 180, 0));
+	public static final PhotonCamera camera = new PhotonCamera("USB_webcam");
+	public static final Transform3d robotToCamera = new Transform3d();
 }

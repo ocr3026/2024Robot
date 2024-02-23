@@ -1,5 +1,10 @@
 package frc.robot.subsystems;
 
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -34,6 +39,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
+	PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
 	ADIS16470_IMU gyro = new ADIS16470_IMU();
@@ -69,12 +75,10 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		if(Constants.camera.isPresent()) {
-			PhotonPipelineResult result = Constants.camera.get().getLatestResult();
-			if(result.getMultiTagResult().estimatedPose.isPresent) {
-				Pose3d robotPose3d = (new Pose3d()).transformBy(result.getMultiTagResult().estimatedPose.best.plus(Constants.cameraToRobot));
-				odometry.addVisionMeasurement(robotPose3d.toPose2d(), timer.get());
-			}
+		visionPoseEstimator.setReferencePose(robotPose);
+		Optional<EstimatedRobotPose> visionPose = visionPoseEstimator.update();
+		if(visionPose.isPresent()) {
+			odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
 		}
 
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
