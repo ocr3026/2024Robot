@@ -57,13 +57,6 @@ public class ShooterSubsystem extends SubsystemBase {
     public void setAngle(Rotation2d angle) {
         targetAngle = angle;
     }
-    public void toAngle () {
-        targetServoLength = ((targetAngle.getDegrees() -25) * (maxServoLength/20));
-        leftActuator.set(targetServoLength);
-        rightActuator.set(targetServoLength);
-
-        
-    }
 
     public void setIntakeVoltage(double voltage) {
         intakeMotor.setVoltage(voltage);
