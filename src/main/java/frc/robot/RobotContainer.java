@@ -42,6 +42,7 @@ public class RobotContainer {
 	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
+	AutoAim autoAim = new AutoAim(swerveSubsystem);
 
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
@@ -126,6 +127,8 @@ public class RobotContainer {
 	private void configureBindings() {
 
 		Constants.xbox.leftBumper().whileTrue(servoCommand);
+
+		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
