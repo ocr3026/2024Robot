@@ -81,13 +81,13 @@ public class RobotContainer {
 		//FREE DIZZO
 	
 		//Path Planner (Autonomous Program) initialization
-		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
-		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
+		AutoBuilder.configureHolonomic(() -> swerveSubsystem.autoGetPose(),//where robot is
+		 							(Pose2d pose) -> swerveSubsystem.autoResetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
 									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false),   //Drive robot  
 									new HolonomicPathFollowerConfig(
-                    				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
-                    				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
+                    				new PIDConstants(.5, 0.0, 0.0), // Translation PID constants
+                    				new PIDConstants(.5, 0.0, 0.0), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -116,7 +116,7 @@ public class RobotContainer {
 		//end of justins zone 
 		
 		// FREE J HAUS
-		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
+		swerveSubsystem.setDefaultCommand(robotCentricCommand);
 		//Set your auto
 		autoChooser = AutoBuilder.buildAutoChooser();
 		SmartDashboard.putData("AutoChooser", autoChooser);
