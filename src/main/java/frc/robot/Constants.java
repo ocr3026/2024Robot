@@ -1,7 +1,12 @@
 package frc.robot;
 
-import org.photonvision.PhotonCamera;
+import java.util.Optional;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -53,6 +58,8 @@ public final class Constants {
 	public static final boolean tunaFish = false;
 
 	// Camera
-	//public static final PhotonCamera camera = new PhotonCamera("USB_webcam");
+	public static Optional<PhotonCamera> camera = Optional.empty();
+	public static Optional<PhotonPoseEstimator> visionPoseEstimator = Optional.empty();
 	public static final Transform3d robotToCamera = new Transform3d();
+	public static final AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 }
