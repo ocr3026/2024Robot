@@ -14,6 +14,18 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Rotate"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Drive"
           }
         }

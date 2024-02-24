@@ -34,7 +34,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
-	PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
+	//PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
 	public ADIS16470_IMU gyro = new ADIS16470_IMU();
@@ -42,7 +42,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	public SwerveSubsystem() {
 		gyro.reset();
 
-		odometry = new SwerveDrivePoseEstimator(kinematics, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
+		odometry = new SwerveDrivePoseEstimator(kinematics, Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())),
 			new SwerveModulePosition[] {
 				frontLeftModule.getPosition(), frontRightModule.getPosition(),
 				rearLeftModule.getPosition(), rearRightModule.getPosition()
@@ -70,13 +70,13 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		visionPoseEstimator.setReferencePose(robotPose);
-		var visionPose = visionPoseEstimator.update();
-		if(visionPose.isPresent()) {
-			odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
-		}
+		//visionPoseEstimator.setReferencePose(robotPose);
+	///	var visionPose = visionPoseEstimator.update();
+		//if(visionPose.isPresent()) {
+		//	odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
+		//}
 
-		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
+		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())),
 		new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
@@ -90,24 +90,34 @@ public class SwerveSubsystem extends SubsystemBase {
 
 		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
 
-		odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
+		odometry.resetPosition(Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
+			frontLeftModule.getPosition(), frontRightModule.getPosition(),
+			rearLeftModule.getPosition(), rearRightModule.getPosition()
+		}, poser);
+	}
+
+	public void autoResetPose (Pose2d poser) {
+		
+		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
+
+		odometry.resetPosition(Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		}, poser);
 	}
 
 	public void resetPoseToVision() {
-		var visionPose = visionPoseEstimator.update();
+		/*var visionPose = visionPoseEstimator.update();
 		if(visionPose.isPresent()) {
 			gyro.setGyroAngle(gyro.getYawAxis(), visionPose.get().estimatedPose.getRotation().toRotation2d().getDegrees());
 
-			odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
+			odometry.resetPosition(Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 			}, visionPose.get().estimatedPose.toPose2d());
 		} else {
-			resetPose(new Pose2d());
-		}
+			*/resetPose(new Pose2d());/*
+		}*/
 	}
 
 	public Pose2d getPose() {
@@ -123,6 +133,10 @@ public class SwerveSubsystem extends SubsystemBase {
 		return robotPose;
 	}
 
+	public Pose2d autoGetPose() {
+
+		return robotPose;
+	}
 	public ChassisSpeeds speedGetter () {
 		return kinematics.toChassisSpeeds(frontLeftModule.getState(), frontRightModule.getState(),
 										   rearLeftModule.getState(), rearRightModule.getState());

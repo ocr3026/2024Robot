@@ -17,9 +17,9 @@ public class ServoToTarget extends Command {
 
     @Override
     public void execute() {
-       PhotonPipelineResult result = Constants.camera.getLatestResult();
-       PhotonTrackedTarget target = result.getBestTarget();
-       target.getBestCameraToTarget(). getX();
+     //  PhotonPipelineResult result = Constants.camera.getLatestResult();
+      // PhotonTrackedTarget target = result.getBestTarget();
+     //  target.getBestCameraToTarget(). getX();
     }
 
 }
