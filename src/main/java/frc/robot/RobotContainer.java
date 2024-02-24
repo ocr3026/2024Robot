@@ -48,6 +48,7 @@ public class RobotContainer {
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
 
+	IntakeAuto intakeAuto = new IntakeAuto(shooterSubsystem);
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
 	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
@@ -79,7 +80,7 @@ public class RobotContainer {
 	public RobotContainer(DoubleSupplier getPeriodFn) {
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
-		NamedCommands.registerCommand("Intake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
+		NamedCommands.registerCommand("Intake", intakeAuto);
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 
@@ -90,7 +91,7 @@ public class RobotContainer {
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.autoGetPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.autoResetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, false),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, -speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, false),   //Drive robot  
 									new HolonomicPathFollowerConfig(
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1.75, 0.0, 0.0 	), // Rotation PID constants

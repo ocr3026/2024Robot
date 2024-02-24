@@ -32,10 +32,10 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Zero",
-      "waypointRelativePos": 0.0,
+      "name": "Intake",
+      "waypointRelativePos": 0.45,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": []
         }
