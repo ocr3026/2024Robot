@@ -130,6 +130,9 @@ public class SwerveSubsystem extends SubsystemBase {
 		rearRightModule.setDesiredState(states[3]);
 	}
 	
+	public Rotation2d getGyroRoll() {
+		return Rotation2d.fromDegrees(gyro.getAngle(gyro.getRollAxis()));
+	}
 
 	@Override
 	public void periodic() {
@@ -138,5 +141,6 @@ public class SwerveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("robotY", getPose().getY());
 		SmartDashboard.putNumber("robotYaw", getPose().getRotation().getDegrees());
 		SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
+		SmartDashboard.putNumber("getName(gyro roll)", getGyroRoll().getDegrees());
 	}
 }

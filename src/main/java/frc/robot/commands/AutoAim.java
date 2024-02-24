@@ -57,8 +57,6 @@ public class AutoAim extends Command {
                     if(yDist <= 0.05 && yDist >= -0.05) {
                         swerveSubsystem.drive(0, 0, 0, false);
                     }
-
-
                 }
             }
 
@@ -71,6 +69,7 @@ public class AutoAim extends Command {
     @Override
     public void end(boolean interrupted) {
         swerveSubsystem.drive(0,0,0,false);
+        
     }
     
 }

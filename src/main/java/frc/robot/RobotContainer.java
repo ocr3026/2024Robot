@@ -37,12 +37,14 @@ public class RobotContainer {
 	public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
 	public ShootAuto shootAuto = new ShootAuto(shooterSubsystem);
+	public ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+
 
 	// Commands
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem);
+	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
 
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
@@ -113,7 +115,7 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		//LOCK UP J HAUS
+		//LOCK UP J HAUS LOCK D KELLOG
 
 		//end of justins zone 
 		
@@ -129,6 +131,10 @@ public class RobotContainer {
 		Constants.xbox.leftBumper().whileTrue(servoCommand);
 
 		Constants.rotationJoystick.button(1).whileTrue(autoAim);
+
+		manipulatorBinds.climbRotateTenTimes().onTrue(new InstantCommand(() -> {climberSubsystem.setLeftClimbPos(10); climberSubsystem.setRightClimbPos(10);}));
+
+		manipulatorBinds.climbWithJoySticks().whileTrue(climbAtSpeed);
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
