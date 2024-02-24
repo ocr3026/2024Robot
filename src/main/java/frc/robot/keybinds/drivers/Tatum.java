@@ -7,7 +7,7 @@ import frc.robot.keybinds.DriverProfile;
 public class Tatum implements DriverProfile {
 	@Override
 	public Trigger halfSpeedTrigger() {
-		return Constants.translationJoystick.button(0);
+		return Constants.translationJoystick.button(1);
 	}
 
 	@Override
