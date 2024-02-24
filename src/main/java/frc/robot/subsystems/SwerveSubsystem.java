@@ -30,7 +30,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	SwerveDrivePoseEstimator odometry;
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
-	public ADIS16470_IMU gyro = new ADIS16470_IMU();
+	public ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kZ, ADIS16470_IMU.IMUAxis.kY, ADIS16470_IMU.IMUAxis.kX);
 
 	public SwerveSubsystem() {
 		gyro.reset();
@@ -160,5 +160,6 @@ public class SwerveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("robotY", getPose().getY());
 		SmartDashboard.putNumber("robotYaw", getPose().getRotation().getDegrees());
 	//	SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
+	SmartDashboard.putNumber("gyro roll", gyro.getAngle(gyro.getRollAxis()));
 	}
 }

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.0,
-      "y": 7.04
+      "x": 3.0,
+      "y": 7.0
     },
-    "rotation": -135.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Ring"
+            "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 3"
           }
         }
       ]
