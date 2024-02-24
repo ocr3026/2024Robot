@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
 
 		if(Constants.camera.isEmpty() && visionTimer.hasElapsed(1)) {
 			initVision();
+			visionTimer.restart();
 		}
 	}
 
@@ -52,8 +53,6 @@ public class Robot extends TimedRobot {
 			m_robotContainer.swerveSubsystem.rearLeftModule.setTuna();
 			m_robotContainer.swerveSubsystem.rearRightModule.setTuna();
 		}
-
-
 	}
 
 	@Override
