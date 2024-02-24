@@ -1,10 +1,5 @@
 package frc.robot.subsystems;
 
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -32,9 +27,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
 	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
 
-	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
-	PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
 	public ADIS16470_IMU gyro = new ADIS16470_IMU();
@@ -70,10 +63,12 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		visionPoseEstimator.setReferencePose(robotPose);
-		var visionPose = visionPoseEstimator.update();
-		if(visionPose.isPresent()) {
-			odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
+		if(Constants.visionPoseEstimator.isPresent()) {
+			Constants.visionPoseEstimator.get().setReferencePose(robotPose);
+			var visionPose = Constants.visionPoseEstimator.get().update();
+			if(visionPose.isPresent()) {
+				odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
+			}
 		}
 
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
@@ -85,7 +80,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	
 	public void resetPose (Pose2d poser) {
 		if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-			poser = new Pose2d(fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation().plus(Rotation2d.fromDegrees(180)));
+			poser = new Pose2d(Constants.fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation().plus(Rotation2d.fromDegrees(180)));
 		}
 
 		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
@@ -97,14 +92,18 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void resetPoseToVision() {
-		var visionPose = visionPoseEstimator.update();
-		if(visionPose.isPresent()) {
-			gyro.setGyroAngle(gyro.getYawAxis(), visionPose.get().estimatedPose.getRotation().toRotation2d().getDegrees());
+		if(Constants.visionPoseEstimator.isPresent()) {
+			var visionPose = Constants.visionPoseEstimator.get().update();
+			if(visionPose.isPresent()) {
+				gyro.setGyroAngle(gyro.getYawAxis(), visionPose.get().estimatedPose.getRotation().toRotation2d().getDegrees());
 
-			odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
-			frontLeftModule.getPosition(), frontRightModule.getPosition(),
-			rearLeftModule.getPosition(), rearRightModule.getPosition()
-			}, visionPose.get().estimatedPose.toPose2d());
+				odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
+				frontLeftModule.getPosition(), frontRightModule.getPosition(),
+				rearLeftModule.getPosition(), rearRightModule.getPosition()
+				}, visionPose.get().estimatedPose.toPose2d());
+			} else {
+				resetPose(new Pose2d());
+			}
 		} else {
 			resetPose(new Pose2d());
 		}
@@ -116,7 +115,7 @@ public class SwerveSubsystem extends SubsystemBase {
 				case Blue:
 					return robotPose;
 				case Red:
-					return new Pose2d(fieldLayout.getFieldLength() - robotPose.getX(), robotPose.getY(), robotPose.getRotation().plus(Rotation2d.fromDegrees(180)));
+					return new Pose2d(Constants.fieldLayout.getFieldLength() - robotPose.getX(), robotPose.getY(), robotPose.getRotation().plus(Rotation2d.fromDegrees(180)));
 			}
 		}
 
