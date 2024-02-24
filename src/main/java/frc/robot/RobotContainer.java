@@ -74,7 +74,7 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
-		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelSpeeds(0, 0)));
+		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 
 		//justin's zone
@@ -123,6 +123,11 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		driverBinds.zeroGyroTrigger().whileTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
+
+		driverBinds.halfSpeedTrigger()
+			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
+			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 
 		Constants.xbox.leftBumper().whileTrue(servoCommand);
 
@@ -162,7 +167,6 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
-		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();

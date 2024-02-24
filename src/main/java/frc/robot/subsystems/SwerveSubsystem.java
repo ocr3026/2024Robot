@@ -133,9 +133,9 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public Pose2d autoGetPose() {
-
 		return robotPose;
 	}
+	
 	public ChassisSpeeds speedGetter () {
 		return kinematics.toChassisSpeeds(frontLeftModule.getState(), frontRightModule.getState(),
 										   rearLeftModule.getState(), rearRightModule.getState());
