@@ -12,9 +12,45 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Rotate"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 3"
           }
         }
       ]

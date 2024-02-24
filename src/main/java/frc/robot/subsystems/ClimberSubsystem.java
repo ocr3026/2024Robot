@@ -27,6 +27,8 @@ public class ClimberSubsystem extends SubsystemBase {
         leftEncoder.setPositionConversionFactor(1);
         rightEncoder.setPositionConversionFactor(1);
 
+        leftClimb.setInverted(true);
+
         leftClimb.setIdleMode(IdleMode.kBrake);
         rightClimb.setIdleMode(IdleMode.kBrake);
     }

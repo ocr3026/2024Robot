@@ -4,7 +4,14 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -13,14 +20,23 @@ public class Robot extends TimedRobot {
 
 	private RobotContainer m_robotContainer;
 
+	Timer visionTimer = new Timer();
+
 	@Override
 	public void robotInit() {
 		m_robotContainer = new RobotContainer(this::getPeriod);
+
+		visionTimer.restart();
 	}
 
 	@Override
 	public void robotPeriodic() {
 		CommandScheduler.getInstance().run();
+
+		if(Constants.camera.isEmpty() && visionTimer.hasElapsed(1)) {
+			initVision();
+			visionTimer.restart();
+		}
 	}
 
 	@Override
@@ -77,4 +93,13 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testExit() {}
+
+	public static void initVision() {
+		try {
+			Constants.camera = Optional.of(new PhotonCamera("USB_webcam"));
+			Constants.visionPoseEstimator = Optional.of(new PhotonPoseEstimator(Constants.fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera.get(), Constants.robotToCamera));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

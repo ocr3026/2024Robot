@@ -23,7 +23,7 @@ public class AutoAim extends Command {
 
     @Override
     public void execute() {
-        PhotonTrackedTarget target = Constants.camera.getLatestResult().getBestTarget();
+        PhotonTrackedTarget target = Constants.camera.get().getLatestResult().getBestTarget();
 
         if(target != null) {
             int tagID = target.getFiducialId();

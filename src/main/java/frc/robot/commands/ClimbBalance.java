@@ -22,10 +22,16 @@ public class ClimbBalance extends Command {
        if(swerveSubsystem.getGyroRoll().getDegrees() >= 2) {
             climberSubsystem.climbSpeedRight(0.25);
        }
+     
 
-       if(swerveSubsystem.getGyroRoll().getDegrees() <= -2) {
-        climberSubsystem.climbSpeedLeft(0.25);
+       else if(swerveSubsystem.getGyroRoll().getDegrees() <= -2) {
+        climberSubsystem.climbSpeedLeft(-0.25);
        }
+
+       else {
+        climberSubsystem.climbSpeed(0);
+       }
+       
         
     }
     @Override

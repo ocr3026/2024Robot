@@ -1,7 +1,12 @@
 package frc.robot;
 
-import org.photonvision.PhotonCamera;
+import java.util.Optional;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -9,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public final class Constants {
-	// TODO: Switch back to L3 for new robot
 	// Swerve Drive Constants
 	public static final double maxSpeed = 4; // m/s
 	public static final double maxAngularSpeed = Math.PI; // rad/s
 	public static final double wheelRadius = 0.0508; // m
 	
-	
 	public static final int neoCountsPerRevolution = 42;
+
+	public static boolean halfSpeed = false;
 
 	// Swerve Drive Config
 	
@@ -54,6 +59,8 @@ public final class Constants {
 	public static final boolean tunaFish = false;
 
 	// Camera
-	public static final PhotonCamera camera = new PhotonCamera("USB_webcam");
+	public static Optional<PhotonCamera> camera = Optional.empty();
+	public static Optional<PhotonPoseEstimator> visionPoseEstimator = Optional.empty();
 	public static final Transform3d robotToCamera = new Transform3d();
+	public static final AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 }

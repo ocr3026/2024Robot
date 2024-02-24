@@ -6,8 +6,6 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
-import org.photonvision.targeting.PhotonPipelineResult;
-
 import com.pathplanner.lib.auto.AutoBuilder;	
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -28,6 +26,8 @@ import frc.robot.subsystems.*;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 public class RobotContainer {
 
@@ -45,6 +45,8 @@ public class RobotContainer {
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
+	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
+	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
 
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
@@ -78,20 +80,20 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
-		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelSpeeds(0, 0)));
+		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 
 		//justin's zone
 		//FREE DIZZO
 	
 		//Path Planner (Autonomous Program) initialization
-		AutoBuilder.configureHolonomic(() -> swerveSubsystem.getPose(),//where robot is
-		 							(Pose2d pose) -> swerveSubsystem.resetPose(pose), //Tell Robot where it is
+		AutoBuilder.configureHolonomic(() -> swerveSubsystem.autoGetPose(),//where robot is
+		 							(Pose2d pose) -> swerveSubsystem.autoResetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, false),   //Drive robot  
 									new HolonomicPathFollowerConfig(
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
-                    				new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
+                    				new PIDConstants(1.75, 0.0, 0.0 	), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -127,14 +129,21 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		driverBinds.zeroGyroTrigger().whileTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
+
+		driverBinds.halfSpeedTrigger()
+			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
+			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 
 		Constants.xbox.leftBumper().whileTrue(servoCommand);
 
 		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
-		manipulatorBinds.climbRotateTenTimes().onTrue(new InstantCommand(() -> {climberSubsystem.setLeftClimbPos(10); climberSubsystem.setRightClimbPos(10);}));
+		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
 		manipulatorBinds.climbWithJoySticks().whileTrue(climbAtSpeed);
+
+		Constants.rotationJoystick.button(2).whileTrue(driveToRedSource);
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
@@ -170,11 +179,11 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
-		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> swerveSubsystem.resetPose(new Pose2d())));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
 		}));
+		onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 		
 	}
 
