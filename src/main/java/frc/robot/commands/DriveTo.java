@@ -10,23 +10,23 @@ public class DriveTo extends Command {
     SwerveSubsystem swerveSubsystem;
 
     Pose2d targetPose;
-    PIDController xPidController = new PIDController(0, 0, 0);
-    PIDController yPidController = new PIDController(0, 0, 0);
-    PIDController rotPidController = new PIDController(0, 0, 0);
+    PIDController xPidController = new PIDController(0.25, 0, 0);
+    PIDController yPidController = new PIDController(0.25, 0, 0);
+    PIDController rotPidController = new PIDController(0.1, 0, 0);
 
     public DriveTo(SwerveSubsystem swerveSubsystem, Pose2d target) {
         this.swerveSubsystem = swerveSubsystem;
         targetPose = target;
-        xPidController.setTolerance(0.01);
-        yPidController.setTolerance(0.01);
-        rotPidController.setTolerance(0.01);
+        xPidController.setTolerance(0.05);
+        yPidController.setTolerance(0.05);
+        rotPidController.setTolerance(0.05);
     }
 
     @Override
     public void execute() {
         swerveSubsystem.drive(xPidController.calculate(swerveSubsystem.getPose().getX(), targetPose.getX()),
                               yPidController.calculate(swerveSubsystem.getPose().getY(), targetPose.getY()), 
-                              rotPidController.calculate(swerveSubsystem.getPose().getRotation().getRotations(), targetPose.getRotation().getRotations()), true);
+                              rotPidController.calculate(swerveSubsystem.getPose().getRotation().getRadians(), targetPose.getRotation().getRadians()), true);
     }
 
     @Override

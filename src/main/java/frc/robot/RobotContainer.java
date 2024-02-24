@@ -161,7 +161,7 @@ public class RobotContainer {
 	}
 
 	private void configureCallbacks() {
-		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> swerveSubsystem.resetPose(new Pose2d())));
+		Constants.translationJoystick.button(12).whileTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 		onEnableCallback.onTrue(new InstantCommand(() -> {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();

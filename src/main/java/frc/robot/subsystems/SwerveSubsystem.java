@@ -76,7 +76,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	public void updateOdometry() {
 		visionPoseEstimator.setReferencePose(robotPose);
-		Optional<EstimatedRobotPose> visionPose = visionPoseEstimator.update();
+		var visionPose = visionPoseEstimator.update();
 		if(visionPose.isPresent()) {
 			odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
 		}
@@ -93,12 +93,26 @@ public class SwerveSubsystem extends SubsystemBase {
 			poser = new Pose2d(fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation().plus(Rotation2d.fromDegrees(180)));
 		}
 
+		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
+
 		odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
 			rearLeftModule.getPosition(), rearRightModule.getPosition()
 		}, poser);
+	}
 
-		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
+	public void resetPoseToVision() {
+		var visionPose = visionPoseEstimator.update();
+		if(visionPose.isPresent()) {
+			gyro.setGyroAngle(gyro.getYawAxis(), visionPose.get().estimatedPose.getRotation().toRotation2d().getDegrees());
+
+			odometry.resetPosition(Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
+			frontLeftModule.getPosition(), frontRightModule.getPosition(),
+			rearLeftModule.getPosition(), rearRightModule.getPosition()
+			}, visionPose.get().estimatedPose.toPose2d());
+		} else {
+			resetPose(new Pose2d());
+		}
 	}
 
 	public Pose2d getPose() {
