@@ -39,7 +39,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 	SwerveDrivePoseEstimator odometry;
-	PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
+	//PhotonPoseEstimator visionPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera, Constants.robotToCamera);
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
 	public ADIS16470_IMU gyro = new ADIS16470_IMU();
@@ -75,11 +75,11 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
-		visionPoseEstimator.setReferencePose(robotPose);
-		Optional<EstimatedRobotPose> visionPose = visionPoseEstimator.update();
-		if(visionPose.isPresent()) {
-			odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
-		}
+		//visionPoseEstimator.setReferencePose(robotPose);
+	//	Optional<EstimatedRobotPose> visionPose = visionPoseEstimator.update();
+	//	if(visionPose.isPresent()) {
+	//		odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
+	//	}
 
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())),
 		new SwerveModulePosition[] {
@@ -137,6 +137,6 @@ public class SwerveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("robotX", getPose().getX());
 		SmartDashboard.putNumber("robotY", getPose().getY());
 		SmartDashboard.putNumber("robotYaw", getPose().getRotation().getDegrees());
-		SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
+	//	SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
 	}
 }
