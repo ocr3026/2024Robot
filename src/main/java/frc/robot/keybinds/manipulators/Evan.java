@@ -27,4 +27,14 @@ public class Evan implements ManipulatorProfile {
     public Trigger unwindTrigger() {
         return Constants.xbox.b();
     }
+
+    @Override
+    public Trigger climbRotateTenTimes() {
+        return Constants.xbox.back();
+    }
+
+    @Override
+    public Trigger climbWithJoySticks() {
+        return Constants.xbox.rightBumper();
+    }
 }

@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -30,7 +31,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	SwerveDrivePoseEstimator odometry;
 	Pose2d robotPose = new Pose2d();
 	Timer timer = new Timer();
-	public ADIS16470_IMU gyro = new ADIS16470_IMU(ADIS16470_IMU.IMUAxis.kZ, ADIS16470_IMU.IMUAxis.kY, ADIS16470_IMU.IMUAxis.kX);
+	public ADIS16470_IMU gyro = new ADIS16470_IMU();
 
 	public SwerveSubsystem() {
 		gyro.reset();
@@ -47,9 +48,15 @@ public class SwerveSubsystem extends SubsystemBase {
 	
 	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
 		ChassisSpeeds speeds = ChassisSpeeds.discretize(
-			fieldRelative
-				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())))
-				: new ChassisSpeeds(xSpeed, ySpeed, zRotation),
+			DriverStation.getAlliance().get() == Alliance.Red
+			
+				? fieldRelative
+					? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis()) + 180))
+					: new ChassisSpeeds(xSpeed, ySpeed, zRotation)
+			
+				: fieldRelative
+					? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis()) ))
+					: new ChassisSpeeds(xSpeed, ySpeed, zRotation),
 			RobotContainer.getPeriod.getAsDouble());
 
 		SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
@@ -79,9 +86,6 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 	
 	public void resetPose (Pose2d poser) {
-		if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-			poser = new Pose2d(Constants.fieldLayout.getFieldLength() - poser.getX(), poser.getY(), poser.getRotation().plus(Rotation2d.fromDegrees(180)));
-		}
 
 		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
 
@@ -120,14 +124,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public Pose2d getPose() {
-		if(DriverStation.getAlliance().isPresent()) {
-			switch(DriverStation.getAlliance().get()) {
-				case Blue:
-					return robotPose;
-				case Red:
-					return new Pose2d(Constants.fieldLayout.getFieldLength() - robotPose.getX(), robotPose.getY(), robotPose.getRotation().plus(Rotation2d.fromDegrees(180)));
-			}
-		}
+
 
 		return robotPose;
 	}
@@ -152,6 +149,9 @@ public class SwerveSubsystem extends SubsystemBase {
 		rearRightModule.setDesiredState(states[3]);
 	}
 	
+	public Rotation2d getGyroRoll() {
+		return Rotation2d.fromDegrees(gyro.getAngle(gyro.getRollAxis()));
+	}
 
 	@Override
 	public void periodic() {

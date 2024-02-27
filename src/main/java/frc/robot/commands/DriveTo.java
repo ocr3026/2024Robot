@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -24,9 +25,9 @@ public class DriveTo extends Command {
 
     @Override
     public void execute() {
-        swerveSubsystem.drive(xPidController.calculate(swerveSubsystem.getPose().getX(), targetPose.getX()),
-                              yPidController.calculate(swerveSubsystem.getPose().getY(), targetPose.getY()), 
-                              rotPidController.calculate(swerveSubsystem.getPose().getRotation().getRadians(), targetPose.getRotation().getRadians()), true);
+        swerveSubsystem.drive(MathUtil.clamp(xPidController.calculate(swerveSubsystem.getPose().getX(), targetPose.getX()), -0.4, 0.4),
+                              MathUtil.clamp(yPidController.calculate(swerveSubsystem.getPose().getY(), targetPose.getY()), -0.4, 0.4), 
+                              MathUtil.clamp(rotPidController.calculate(swerveSubsystem.getPose().getRotation().getRadians(), targetPose.getRotation().getRadians()), -0.4, 0.4), true);
     }
 
     @Override
