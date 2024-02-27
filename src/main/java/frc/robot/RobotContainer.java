@@ -45,8 +45,8 @@ public class RobotContainer {
 	IntakeAuto intakeAuto = new IntakeAuto(shooterSubsystem);
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
-	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
-	public Shoot shootCommand = new Shoot(shooterSubsystem);
+		public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+		public Shoot shootCommand = new Shoot(shooterSubsystem);
 
 	//public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
 	//public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
