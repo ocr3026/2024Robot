@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 7.0
+      "x": 1.9,
+      "y": 5.49
     },
-    "rotation": -135.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -20,19 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Drive"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate 2"
+            "pathName": "Drive Middle"
           }
         },
         {
@@ -44,25 +32,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 3"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "pathName": "Curve middle"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "curve Ring"
+            "pathName": "2Rotate 3B"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3Rotate 3B"
           }
         }
       ]

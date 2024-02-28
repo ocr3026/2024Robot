@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Rotate"
@@ -27,6 +33,12 @@
           "type": "path",
           "data": {
             "pathName": "Drive"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -48,9 +60,33 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "Top back Ring"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top Back ring return"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 3"
           }
         },
         {

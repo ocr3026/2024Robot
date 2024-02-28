@@ -150,7 +150,7 @@ public class RobotContainer {
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(9);
+			shooterSubsystem.setIntakeVoltage(7.5);
 		})).whileFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
