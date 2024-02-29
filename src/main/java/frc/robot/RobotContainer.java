@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.keybinds.*;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.SwerveSubsystem.DriveOrigin;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -85,7 +86,7 @@ public class RobotContainer {
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.autoGetPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.autoResetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, -speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, false),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, -speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
                     				new PIDConstants(1.75, 0.0, 0.0 	), // Rotation PID constants

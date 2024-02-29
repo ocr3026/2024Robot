@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.SwerveSubsystem.DriveOrigin;
 
 public class DriveTo extends Command {
     SwerveSubsystem swerveSubsystem;
@@ -26,7 +27,7 @@ public class DriveTo extends Command {
     public void execute() {
         swerveSubsystem.drive(xPidController.calculate(swerveSubsystem.getPose().getX(), targetPose.getX()),
                               yPidController.calculate(swerveSubsystem.getPose().getY(), targetPose.getY()), 
-                              rotPidController.calculate(swerveSubsystem.getPose().getRotation().getRadians(), targetPose.getRotation().getRadians()), true);
+                              rotPidController.calculate(swerveSubsystem.getPose().getRotation().getRadians(), targetPose.getRotation().getRadians()), DriveOrigin.FieldCentric);
     }
 
     @Override

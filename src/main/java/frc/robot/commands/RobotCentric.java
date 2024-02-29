@@ -5,6 +5,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.SwerveSubsystem.DriveOrigin;
 
 public class RobotCentric extends Command {
 	private SwerveSubsystem driveSubsystem;
@@ -34,9 +35,9 @@ public class RobotCentric extends Command {
 
 		driveSubsystem.drive(
 			xSpeed * Constants.maxSpeed,
-			ySpeed * Constants.maxSpeed, 
+			ySpeed * Constants.maxSpeed,
 			zRot * Constants.maxAngularSpeed,
-			false);
+			DriveOrigin.RobotCentric);
 	}
 
 	@Override

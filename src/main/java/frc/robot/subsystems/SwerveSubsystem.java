@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -45,12 +46,26 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	
-	public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative) {
-		ChassisSpeeds speeds = ChassisSpeeds.discretize(
-			fieldRelative
-				? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, Rotation2d.fromDegrees(-gyro.getAngle(gyro.getYawAxis())))
-				: new ChassisSpeeds(xSpeed, ySpeed, zRotation),
-			RobotContainer.getPeriod.getAsDouble());
+	public void drive(double xSpeed, double ySpeed, double zRotation, DriveOrigin driveOrigin) {
+		ChassisSpeeds speeds;
+		switch(driveOrigin) {
+			case AllianceCentric:
+				if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+					speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().plus(Rotation2d.fromDegrees(180))), RobotContainer.getPeriod.getAsDouble());
+					break;
+				}
+				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation()), RobotContainer.getPeriod.getAsDouble());
+				break;
+			case FieldCentric:
+				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation()), RobotContainer.getPeriod.getAsDouble());
+				break;
+			case RobotCentric:
+				speeds = ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, zRotation), RobotContainer.getPeriod.getAsDouble());
+				break;
+			default:
+				speeds = ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, zRotation), RobotContainer.getPeriod.getAsDouble());
+				break;
+		}
 
 		SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
 
@@ -159,7 +174,13 @@ public class SwerveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("robotX", getPose().getX());
 		SmartDashboard.putNumber("robotY", getPose().getY());
 		SmartDashboard.putNumber("robotYaw", getPose().getRotation().getDegrees());
-	//	SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
-	SmartDashboard.putNumber("gyro roll", gyro.getAngle(gyro.getRollAxis()));
+		// SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
+		SmartDashboard.putNumber("gyro roll", gyro.getAngle(gyro.getRollAxis()));
+	}
+
+	public enum DriveOrigin {
+		RobotCentric,	 // Origin facing the robot's forward
+		AllianceCentric, // Origin facing away from the alliance wall you are on
+		FieldCentric	 // Origin facing towards red alliance
 	}
 }
