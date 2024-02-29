@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 2.89,
+        "y": 5.51
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.890200143391124,
-        "y": 7.0
+        "x": 2.826045448426888,
+        "y": 5.51
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.89,
-        "y": 6.51
+        "x": 3.0,
+        "y": 4.870802356618219
       },
       "prevControl": {
-        "x": 2.95402481386611,
-        "y": 6.51
+        "x": 3.0208019067314114,
+        "y": 4.881814509120782
       },
       "nextControl": {
-        "x": 2.82597518613389,
-        "y": 6.51
+        "x": 2.977733280789146,
+        "y": 4.859014758930771
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.894982565999367,
-        "y": 5.527514849608872
+        "x": 3.0,
+        "y": 4.110963833941336
       },
       "prevControl": {
-        "x": 1.3725738150477713,
-        "y": 5.867129109436536
+        "x": 0.8234754972437105,
+        "y": 4.551449934043877
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 1.8,
+      "waypointRelativePos": 1.75,
       "command": {
         "type": "parallel",
         "data": {

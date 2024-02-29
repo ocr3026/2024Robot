@@ -27,6 +27,8 @@ import frc.robot.subsystems.SwerveSubsystem.DriveOrigin;
 import frc.robot.keybinds.drivers.Tatum;
 import frc.robot.keybinds.manipulators.Evan;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 public class RobotContainer {
 
@@ -36,18 +38,22 @@ public class RobotContainer {
 	public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
 	public ShootAuto shootAuto = new ShootAuto(shooterSubsystem);
+	public ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+
 
 	// Commands
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
-	//AutoAim autoAim = new AutoAim(swerveSubsystem);
+	AutoAim autoAim = new AutoAim(swerveSubsystem);
+	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
+	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
+	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
 
 	IntakeAuto intakeAuto = new IntakeAuto(shooterSubsystem);
 
 	public RobotCentric robotCentricCommand = new RobotCentric(swerveSubsystem);
-	public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
-	public Shoot shootCommand = new Shoot(shooterSubsystem);
+		public FieldCentric fieldCentricCommand = new FieldCentric(swerveSubsystem);
+		public Shoot shootCommand = new Shoot(shooterSubsystem);
 
 	//public ClimbAtSpeed windUp = new ClimbAtSpeed(-.1, climberSubsystem);
 	//public ClimbAtSpeed unWind = new ClimbAtSpeed(.1, climberSubsystem);
@@ -113,7 +119,7 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		//LOCK UP J HAUS
+		//LOCK UP J HAUS LOCK D KELLOG
 
 		//end of justins zone 
 		
@@ -133,13 +139,19 @@ public class RobotContainer {
 
 		Constants.xbox.leftBumper().whileTrue(servoCommand);
 
-		//Constants.rotationJoystick.button(1).whileTrue(autoAim);
+		Constants.rotationJoystick.button(1).whileTrue(autoAim);
+
+		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
+
+		manipulatorBinds.climbWithJoySticks().whileTrue(climbAtSpeed);
+
+		Constants.rotationJoystick.button(2).whileTrue(driveToRedSource);
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(9);
+			shooterSubsystem.setIntakeVoltage(7.5);
 		})).whileFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
@@ -173,6 +185,7 @@ public class RobotContainer {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
 		}));
+		onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 		
 	}
 

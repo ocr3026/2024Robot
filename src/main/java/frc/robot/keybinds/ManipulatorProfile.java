@@ -16,4 +16,7 @@ public interface ManipulatorProfile {
     public Trigger exhaustTrigger();
     public Trigger windUpTrigger();
     public Trigger unwindTrigger();
+
+    public Trigger climbRotateTenTimes();
+    public Trigger climbWithJoySticks();
 }

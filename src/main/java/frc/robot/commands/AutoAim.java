@@ -4,7 +4,6 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -59,8 +58,6 @@ public class AutoAim extends Command {
                     if(yDist <= 0.05 && yDist >= -0.05) {
                         swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     }
-
-
                 }
             }
 

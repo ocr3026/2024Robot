@@ -64,6 +64,30 @@
           "data": {
             "name": "Shoot"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Curve middle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2Rotate 3B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3Rotate 3B"
+          }
         }
       ]
     }

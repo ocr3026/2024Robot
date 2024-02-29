@@ -27,12 +27,13 @@ public class ShooterSubsystem extends SubsystemBase {
     CANSparkMax rightFlywheel = new CANSparkMax(23, MotorType.kBrushless);
 
     public ShooterSubsystem() {
+        
         leftActuator.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
         rightActuator.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
 
         rightFlywheel.setInverted(false);
         leftFlywheel.setInverted(true);
-        intakeMotor.setInverted(false);
+        intakeMotor.setInverted(true);
 
         rightFlywheel.setIdleMode(IdleMode.kCoast);
         leftFlywheel.setIdleMode(IdleMode.kCoast);
