@@ -26,22 +26,20 @@ public final class Constants {
 	// Swerve Drive Config
 	
 	// Tuna
-	/*
 	public static final double gearRatio = 6.12; // L3
-	public static final Translation2d frontLeftModulePos = new Translation2d(0.36195, -0.36195);
-	public static final Translation2d rearLeftModulePos = new Translation2d(-0.36195, -0.36195);
-	public static final Translation2d frontRightModulePos = new Translation2d(0.36195, 0.36195);
-	public static final Translation2d rearRightModulePos = new Translation2d(-0.36195, 0.36195);
-	*/
+	public static final Translation2d frontLeftModulePos = new Translation2d(0.23495, -0.23495);
+	public static final Translation2d rearLeftModulePos = new Translation2d(-0.23495, -0.23495);
+	public static final Translation2d frontRightModulePos = new Translation2d(0.23495, 0.23495);
+	public static final Translation2d rearRightModulePos = new Translation2d(-0.23495, 0.23495);
 
 	// Rico
-
+	/*
 	public static final double gearRatio = 6.75; // L2
 	public static final Translation2d frontLeftModulePos = new Translation2d(0.3, -0.3);
 	public static final Translation2d rearLeftModulePos = new Translation2d(-0.3, -0.3);
 	public static final Translation2d frontRightModulePos = new Translation2d(0.3, 0.3);
 	public static final Translation2d rearRightModulePos = new Translation2d(-0.3, 0.3);
-
+	*/
 	
 	// Deadband
 	public static final double deadband = 0.1;

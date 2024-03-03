@@ -151,7 +151,7 @@ public class RobotContainer {
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(7.5);
+			shooterSubsystem.setIntakeVoltage(10);
 		})).whileFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
@@ -161,6 +161,10 @@ public class RobotContainer {
 		})).onFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
+
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(1)));
+		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(-1)));
+
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
 		//manipulatorBinds.unwindTrigger().whileTrue(unWind);

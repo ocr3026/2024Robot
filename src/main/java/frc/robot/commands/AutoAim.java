@@ -21,6 +21,7 @@ public class AutoAim extends Command {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
     }
+   // 77 inches from the speaker 
 
     @Override
     public void execute() {
