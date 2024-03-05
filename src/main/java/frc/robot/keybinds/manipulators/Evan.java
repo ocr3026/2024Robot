@@ -37,4 +37,9 @@ public class Evan implements ManipulatorProfile {
     public Trigger climbWithJoySticks() {
         return Constants.xbox.rightBumper();
     }
+
+    @Override
+    public Trigger ampTrigger () {
+        return Constants.xbox.leftTrigger();
+    }
 }
