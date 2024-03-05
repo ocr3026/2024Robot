@@ -162,8 +162,8 @@ public class RobotContainer {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(1)));
-		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(-1)));
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(1)));
+		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(-1)));
 
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
