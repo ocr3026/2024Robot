@@ -17,7 +17,7 @@ public class ServoCommand extends Command{
     @Override
     public void execute() {
         
-        shooterSubsystem.setSpeed(-Constants.xbox.getRightY());
+        shooterSubsystem.setActuatorPos(-Constants.xbox.getRightY());
     }
     
 }

@@ -5,14 +5,12 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
 
 public class ServoToTarget extends Command {
     ShooterSubsystem shooterSubsystem;
-    SwerveSubsystem swerveSubsystem;
-    public ServoToTarget (ShooterSubsystem  shooterSubsystem, SwerveSubsystem swerveSubsystem) {
-        this.shooterSubsystem =shooterSubsystem;
-        this.swerveSubsystem = swerveSubsystem;
+    public ServoToTarget (ShooterSubsystem  shooterSubsystem) {
+        this.shooterSubsystem = shooterSubsystem;
+        addRequirements(shooterSubsystem);
     }
 
     @Override
@@ -20,7 +18,18 @@ public class ServoToTarget extends Command {
         if(Constants.camera.isPresent()) {
             PhotonPipelineResult result = Constants.camera.get().getLatestResult();
             PhotonTrackedTarget target = result.getBestTarget();
-            target.getBestCameraToTarget(). getX();
+
+            if(target != null) {
+                double dist = target.getBestCameraToTarget().getX();
+
+                if(target.getFiducialId() == 5 || target.getFiducialId() == 6) {
+                    shooterSubsystem.setActuatorPos(1);
+                }
+
+                if(target.getFiducialId() == 4 || target.getFiducialId() == 7) {
+                    shooterSubsystem.setActuatorPos(Constants.a * Math.pow(dist, 3) + Constants.b * Math.pow(dist, 2) + Constants.c * dist + Constants.d);
+                }
+            }
         }
     }
 

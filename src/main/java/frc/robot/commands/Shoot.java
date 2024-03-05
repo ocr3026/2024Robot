@@ -29,8 +29,5 @@ public class Shoot extends Command{
     public void end(boolean interrupted) {
         shooterSubsystem.setFlywheelVoltage(0, 0);
         shooterSubsystem.setIntakeVoltage(0);
-
     }
-
-   
 }

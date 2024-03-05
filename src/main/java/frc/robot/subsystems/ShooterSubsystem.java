@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkRelativeEncoder.Type;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -39,11 +40,10 @@ public class ShooterSubsystem extends SubsystemBase {
         leftFlywheel.setIdleMode(IdleMode.kBrake);
         intakeMotor.setIdleMode(IdleMode.kBrake);
     }
-    public void setSpeed(double speed) {
-        rightActuator.setSpeed(speed);
-        leftActuator.setSpeed(speed);
-        SmartDashboard.putNumber("Servo", rightActuator.getSpeed());
-        SmartDashboard.putNumber("ServoPos", rightActuator.get());
+    public void setActuatorPos(double position) {
+        position = MathUtil.clamp(position, -1, 1);
+        rightActuator.setSpeed(position);
+        leftActuator.setSpeed(position);
     }
 
     public void setAngle(Rotation2d angle) {

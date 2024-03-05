@@ -63,4 +63,7 @@ public final class Constants {
 	public static Optional<PhotonPoseEstimator> visionPoseEstimator = Optional.empty();
 	public static final Transform3d robotToCamera = new Transform3d();
 	public static final AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
+
+	// Shooting curve calculated from Russell's sexy desmos graph. 🥵🥵🥵🥵🥵
+	public static final double a = 0.0558454, b = 0, c = 0, d = 0; // ax^3 + bx^2 + cx + d
 }
