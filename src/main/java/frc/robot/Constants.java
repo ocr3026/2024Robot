@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public final class Constants {
+
+	//Points
 	// Swerve Drive Constants
 	public static final double maxSpeed = 4; // m/s
 	public static final double maxAngularSpeed = Math.PI; // rad/s
