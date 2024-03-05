@@ -35,9 +35,9 @@ public class ShooterSubsystem extends SubsystemBase {
         leftFlywheel.setInverted(true);
         intakeMotor.setInverted(true);
 
-        rightFlywheel.setIdleMode(IdleMode.kCoast);
-        leftFlywheel.setIdleMode(IdleMode.kCoast);
-        intakeMotor.setIdleMode(IdleMode.kCoast);
+        rightFlywheel.setIdleMode(IdleMode.kBrake);
+        leftFlywheel.setIdleMode(IdleMode.kBrake);
+        intakeMotor.setIdleMode(IdleMode.kBrake);
     }
     public void setSpeed(double speed) {
         rightActuator.setSpeed(speed);
