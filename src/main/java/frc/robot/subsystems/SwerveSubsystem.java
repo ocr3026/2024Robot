@@ -77,6 +77,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void updateOdometry() {
+		/*
 		if(Constants.visionPoseEstimator.isPresent()) {
 			Constants.visionPoseEstimator.get().setReferencePose(robotPose);
 			var visionPose = Constants.visionPoseEstimator.get().update();
@@ -84,7 +85,8 @@ public class SwerveSubsystem extends SubsystemBase {
 				odometry.addVisionMeasurement(visionPose.get().estimatedPose.toPose2d(), timer.get());
 			}
 		}
-
+		*/
+		
 		robotPose = odometry.updateWithTime(timer.get(), Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())),
 		new SwerveModulePosition[] {
 			frontLeftModule.getPosition(), frontRightModule.getPosition(),
@@ -166,7 +168,6 @@ public class SwerveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("robotX", getPose().getX());
 		SmartDashboard.putNumber("robotY", getPose().getY());
 		SmartDashboard.putNumber("robotYaw", getPose().getRotation().getDegrees());
-		// SmartDashboard.putNumber("AprilTagX", Constants.camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
 		SmartDashboard.putNumber("gyro roll", gyro.getAngle(gyro.getRollAxis()));
 	}
 

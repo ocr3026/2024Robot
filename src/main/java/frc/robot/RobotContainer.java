@@ -81,6 +81,7 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+		SmartDashboard.putNumber("servoSet", 0);
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", intakeAuto);
@@ -139,7 +140,7 @@ public class RobotContainer {
 			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
 			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 
-		Constants.xbox.leftBumper().whileTrue(servoCommand);
+		manipulatorBinds.servoTrigger().whileTrue(servoCommand);
 
 		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
@@ -165,8 +166,8 @@ public class RobotContainer {
 		}));
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(1)));
-		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(-1)));
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(SmartDashboard.getNumber("servoSet", 0))));
+		
 
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
@@ -192,7 +193,7 @@ public class RobotContainer {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
 		}));
-		onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
+		//onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 		
 	}
 

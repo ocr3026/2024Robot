@@ -42,4 +42,10 @@ public class Evan implements ManipulatorProfile {
     public Trigger ampTrigger () {
         return Constants.xbox.leftTrigger();
     }
+
+    @Override
+    public Trigger servoTrigger () {
+        return Constants.xbox.leftBumper();
+    }
+
 }
