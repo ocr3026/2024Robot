@@ -166,7 +166,7 @@ public class RobotContainer {
 		}));
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setSpeed(SmartDashboard.getNumber("servoSet", 0))));
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(SmartDashboard.getNumber("servoSet", 0))));
 		
 
 
