@@ -5,7 +5,7 @@
       "x": 2,
       "y": 7.0
     },
-    "rotation": -135.0
+    "rotation": 35.0
   },
   "command": {
     "type": "sequential",
@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Rotate"
@@ -33,12 +27,6 @@
           "type": "path",
           "data": {
             "pathName": "Drive"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         },
         {

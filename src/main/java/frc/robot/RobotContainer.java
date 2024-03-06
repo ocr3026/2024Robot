@@ -46,7 +46,7 @@ public class RobotContainer {
 	// Commands
 
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
-	AutoAim autoAim = new AutoAim(swerveSubsystem);
+	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem );
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
@@ -81,6 +81,7 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+		SmartDashboard.putNumber("servoSet", 0);
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", intakeAuto);
@@ -139,9 +140,9 @@ public class RobotContainer {
 			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
 			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 
-		Constants.xbox.leftBumper().whileTrue(servoCommand);
+		manipulatorBinds.servoTrigger().whileTrue(servoCommand);
 
-		Constants.rotationJoystick.button(1).whileTrue(autoAim);
+		//Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
@@ -151,6 +152,13 @@ public class RobotContainer {
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
+		Constants.xbox.leftTrigger().whileTrue(new InstantCommand(() -> {shooterSubsystem.setFlywheelVoltage(5,5);
+        
+			if(Constants.xbox.getLeftY() < -0.5) {
+				shooterSubsystem.setIntakeVoltage(9);
+			} else {
+				shooterSubsystem.setIntakeVoltage(0);
+			}})).whileFalse(new InstantCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(10);
@@ -159,14 +167,14 @@ public class RobotContainer {
 		}));
 
 		manipulatorBinds.exhaustTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(-4);
+			shooterSubsystem.setIntakeVoltage(-2);
 		})).onFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(1)));
-		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(-1)));
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(SmartDashboard.getNumber("servoSet", 0))));
+		
 
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
@@ -192,7 +200,7 @@ public class RobotContainer {
 			manipulatorBinds = manipulatorChooser.getSelected();
 			driverBinds = driverChooser.getSelected();
 		}));
-		onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
+		//onEnableCallback.onTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 		
 	}
 
