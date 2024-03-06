@@ -46,7 +46,7 @@ public class RobotContainer {
 	// Commands
 
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
-	AutoAim autoAim = new AutoAim(swerveSubsystem);
+	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem );
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
@@ -142,7 +142,7 @@ public class RobotContainer {
 
 		manipulatorBinds.servoTrigger().whileTrue(servoCommand);
 
-		Constants.rotationJoystick.button(1).whileTrue(autoAim);
+		//Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
@@ -152,6 +152,13 @@ public class RobotContainer {
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
+		Constants.xbox.leftTrigger().whileTrue(new InstantCommand(() -> {shooterSubsystem.setFlywheelVoltage(5,5);
+        
+			if(Constants.xbox.getLeftY() < -0.5) {
+				shooterSubsystem.setIntakeVoltage(9);
+			} else {
+				shooterSubsystem.setIntakeVoltage(0);
+			}})).whileFalse(new InstantCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(10);
@@ -160,7 +167,7 @@ public class RobotContainer {
 		}));
 
 		manipulatorBinds.exhaustTrigger().whileTrue(new InstantCommand(() -> {
-			shooterSubsystem.setIntakeVoltage(-4);
+			shooterSubsystem.setIntakeVoltage(-2);
 		})).onFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));

@@ -61,6 +61,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+<<<<<<< Updated upstream
         SmartDashboard.putNumber("Servo speed", leftActuator.get());
+=======
+>>>>>>> Stashed changes
     }
 }

@@ -8,22 +8,26 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.SwerveSubsystem.DriveOrigin;
 
 public class AutoAim extends Command {
     SwerveSubsystem swerveSubsystem;
+    ShooterSubsystem shooterSubsystem;
 
     PIDController rotatePID = new PIDController(0.1, 0, 0);
     PIDController xPID = new PIDController(0.1, 0, 0);
     PIDController yPID = new PIDController(0.1, 0, 0);
 
+    double servoPos = 0;
 
-    public AutoAim(SwerveSubsystem swerveSubsystem) {
+    public AutoAim(SwerveSubsystem swerveSubsystem, ShooterSubsystem shooterSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
-        addRequirements(swerveSubsystem);
+        this.shooterSubsystem = shooterSubsystem;
+        addRequirements(swerveSubsystem, shooterSubsystem);
     }
-   // 77 inches from the speaker 
+   // 77 inches from the speaker  shootin !?
 
     @Override
     public void execute() {
@@ -38,14 +42,99 @@ public class AutoAim extends Command {
 
             if(tagID == 4 || tagID == 7) {
                 swerveSubsystem.drive(0, 0, -MathUtil.clamp(rotatePID.calculate(yaw, 0), -0.3, 0.3), DriveOrigin.RobotCentric);
+                
+                if(yDist >= 1 && yDist < 2) {
+                    servoPos = Constants.autoServoToSpeaker.get(1) - (((1 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(1) - Constants.autoServoToSpeaker.get(2)));
+                    shooterSubsystem.setSpeed(servoPos);
+                }
+                else if(yDist >= 2 && yDist < 3) {
+                    servoPos = Constants.autoServoToSpeaker.get(2) - (((2 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(2) - Constants.autoServoToSpeaker.get(3)));
+                    shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 3 && yDist < 4) {
+                    servoPos = Constants.autoServoToSpeaker.get(3) - (((3 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(3) - Constants.autoServoToSpeaker.get(4)));
+                    shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 4 && yDist < 5) {
+                    servoPos = Constants.autoServoToSpeaker.get(4) - (((4 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(4) - Constants.autoServoToSpeaker.get(5)));
+                    shooterSubsystem.setSpeed(servoPos);
+
+                }
 
                 if(-2 <= yaw && 2 >= yaw) {
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                 }
             }
 
+<<<<<<< Updated upstream
+=======
+              if(tagID == 4 || tagID == 8) {
+                swerveSubsystem.drive(0, 0, MathUtil.clamp(rotatePID.calculate(yaw, 0), -0.3, 0.3), DriveOrigin.RobotCentric);
+
+                 if(yDist >= 1 && yDist < 2) {
+                    servoPos = Constants.autoServoToSpeaker.get(1) - (((1 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(1) - Constants.autoServoToSpeaker.get(2)));
+                                        shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 2 && yDist < 3) {
+                    servoPos = Constants.autoServoToSpeaker.get(2) - (((2 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(2) - Constants.autoServoToSpeaker.get(3)));
+                                        shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 3 && yDist < 4) {
+                    servoPos = Constants.autoServoToSpeaker.get(3) - (((3 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(3) - Constants.autoServoToSpeaker.get(4)));
+                                        shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 4 && yDist < 5) {
+                    servoPos = Constants.autoServoToSpeaker.get(4) - (((4 - yDist) / (1 - 2)) * (Constants.autoServoToSpeaker.get(4) - Constants.autoServoToSpeaker.get(5)));
+                                        shooterSubsystem.setSpeed(servoPos);
+
+                }
+
+                if(-2 <= yaw && 2 >= yaw) {
+                    swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
+                }
+
+                if(-2 <= yaw && 2 >= yaw) {
+                    swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
+                }
+            }
+
+>>>>>>> Stashed changes
             if(tagID == 5 || tagID == 6) {
                 swerveSubsystem.drive(0, 0, -MathUtil.clamp(rotatePID.calculate(zAngle, 180), -0.3, 0.3), DriveOrigin.RobotCentric);
+
+                if(yDist >= 1 && yDist < 2) {
+                    servoPos = Constants.autoServoToAmp.get(1) - (((1 - yDist) / (1 - 2)) * (Constants.autoServoToAmp.get(1) - Constants.autoServoToAmp.get(2)));
+                                        shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 2 && yDist < 3) {
+                    servoPos = Constants.autoServoToAmp.get(2) - (((2 - yDist) / (1 - 2)) * (Constants.autoServoToAmp.get(2) - Constants.autoServoToAmp.get(3)));
+                    shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 3 && yDist < 4) {
+                    servoPos = Constants.autoServoToAmp.get(3) - (((3 - yDist) / (1 - 2)) * (Constants.autoServoToAmp.get(3) - Constants.autoServoToAmp.get(4)));
+                    shooterSubsystem.setSpeed(servoPos);
+
+                }
+                else if(yDist >= 4 && yDist < 5) {
+                    servoPos = Constants.autoServoToAmp.get(4) - (((4 - yDist) / (1 - 2)) * (Constants.autoServoToAmp.get(4) - Constants.autoServoToAmp.get(5)));
+                                        shooterSubsystem.setSpeed(servoPos);
+
+                }
+
+                for(int x = 1; yDist >= x && yDist < (x+1); x++) {
+
+                }
+                
+                if(-2 <= yaw && 2 >= yaw) {
+                    swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
+                }
 
                 if(zAngle <= 184 && zAngle >= 176) {
                     swerveSubsystem.drive(xPID.calculate(camToTarget.getX(), 0.8382), yPID.calculate(camToTarget.getY(), 0), 0, DriveOrigin.RobotCentric);
@@ -61,6 +150,9 @@ public class AutoAim extends Command {
     @Override
     public void end(boolean interrupted) {
         swerveSubsystem.drive(new ChassisSpeeds());
+        shooterSubsystem.setSpeed(0);
+
     }
+    
     
 }

@@ -17,7 +17,11 @@ public class ServoCommand extends Command{
     @Override
     public void execute() {
         
+<<<<<<< Updated upstream
         shooterSubsystem.setActuatorPos(-Constants.xbox.getRightY());
+=======
+        shooterSubsystem.setSpeed(MathUtil.clamp(-Constants.xbox.getRightY(), 0, 1));
+>>>>>>> Stashed changes
     }
     
 }

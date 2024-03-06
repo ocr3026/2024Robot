@@ -50,13 +50,13 @@ public class SwerveSubsystem extends SubsystemBase {
 		switch(driveOrigin) {
 			case AllianceCentric:
 				if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-					speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().plus(Rotation2d.fromDegrees(180))), RobotContainer.getPeriod.getAsDouble());
+					speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().plus(Rotation2d.fromDegrees(180)).unaryMinus()), RobotContainer.getPeriod.getAsDouble());
 					break;
 				}
-				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation()), RobotContainer.getPeriod.getAsDouble());
+				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().unaryMinus()), RobotContainer.getPeriod.getAsDouble());
 				break;
 			case FieldCentric:
-				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation()), RobotContainer.getPeriod.getAsDouble());
+				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().unaryMinus()), RobotContainer.getPeriod.getAsDouble());
 				break;
 			case RobotCentric:
 				speeds = ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, zRotation), RobotContainer.getPeriod.getAsDouble());
@@ -95,7 +95,6 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 	
 	public void resetPose (Pose2d poser) {
-
 		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
 
 		odometry.resetPosition(Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
@@ -105,7 +104,6 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void autoResetPose (Pose2d poser) {
-		
 		gyro.setGyroAngle(gyro.getYawAxis(), poser.getRotation().getDegrees());
 
 		odometry.resetPosition(Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())), new SwerveModulePosition[] {
