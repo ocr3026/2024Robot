@@ -1,14 +1,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkRelativeEncoder.Type;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,7 +37,7 @@ public class ShooterSubsystem extends SubsystemBase {
         intakeMotor.setIdleMode(IdleMode.kBrake);
     }
     public void setActuatorPos(double position) {
-        position = MathUtil.clamp(position, -1, 1);
+        position = MathUtil.clamp(position, 0, 1);
         rightActuator.setSpeed(position);
         leftActuator.setSpeed(position);
     }
