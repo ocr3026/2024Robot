@@ -113,7 +113,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void resetPoseToVision() {
-		if(Constants.visionPoseEstimator.isPresent()) {
+		/*if(Constants.visionPoseEstimator.isPresent()) {
 			var visionPose = Constants.visionPoseEstimator.get().update();
 			if(visionPose.isPresent()) {
 				gyro.setGyroAngle(gyro.getYawAxis(), visionPose.get().estimatedPose.getRotation().toRotation2d().getDegrees());
@@ -126,8 +126,8 @@ public class SwerveSubsystem extends SubsystemBase {
 				resetPose(new Pose2d());
 			}
 		} else {
-			resetPose(new Pose2d());
-		}
+			*/resetPose(new Pose2d());/*
+		}*/
 	}
 
 	public Pose2d getPose() {

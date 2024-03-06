@@ -27,7 +27,7 @@ public class AutoAim extends Command {
         addRequirements(swerveSubsystem, shooterSubsystem);
         xPID.setTolerance(0.05);
         yPID.setTolerance(0.05);
-        rotatePID.setTolerance(0.05);
+        rotatePID.setTolerance(2);
     }
 
     @Override
@@ -44,8 +44,9 @@ public class AutoAim extends Command {
                 swerveSubsystem.drive(0, 0, -MathUtil.clamp(rotatePID.calculate(yaw, 0), -0.3, 0.3), DriveOrigin.RobotCentric);
             
                 if(rotatePID.atSetpoint()) {
-                    double dist = camToTarget.getY();
-                    shooterSubsystem.setActuatorPos(Constants.a * Math.pow(dist, 3) + Constants.b * Math.pow(dist, 2) + Constants.c * dist + Constants.d);
+                    double dist = camToTarget.getX();
+                    shooterSubsystem.setActuatorPos((Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d);
+                    swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                 }
             }
 

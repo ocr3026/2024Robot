@@ -37,6 +37,7 @@ public class ShooterSubsystem extends SubsystemBase {
         intakeMotor.setIdleMode(IdleMode.kBrake);
     }
     public void setActuatorPos(double position) {
+        SmartDashboard.putNumber("targetServoPos", position);
         position = MathUtil.clamp(position, 0, 1);
         rightActuator.setSpeed(position);
         leftActuator.setSpeed(position);
