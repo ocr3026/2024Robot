@@ -16,7 +16,7 @@ public class Shoot extends Command{
 
     @Override
     public void execute() {
-        shooterSubsystem.setFlywheelVoltage(10,10);
+        shooterSubsystem.setFlywheelVoltage(11.5,12);
         
         if(Constants.xbox.getLeftY() < -0.5) {
             shooterSubsystem.setIntakeVoltage(10);
