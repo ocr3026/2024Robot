@@ -22,6 +22,8 @@ public class AutoAim extends Command {
     public AutoAim(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
+        xPID.setTolerance(0.05);
+        yPID.setTolerance(0.05);
     }
    // 77 inches from the speaker 
 
