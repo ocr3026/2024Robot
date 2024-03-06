@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.sql.Array;
-import java.util.Map;
 import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
@@ -67,23 +65,5 @@ public final class Constants {
 	public static final AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
 	// Shooting curve calculated from Russell's sexy desmos graph. 🥵🥵🥵🥵🥵
-	public static final double a = 0.0558454, b = 0, c = 0, d = 0; // ax^3 + bx^2 + cx + d
-	
-	// Servo Map
-	public static final Map<Integer, Double> autoServoToSpeaker = Map.of(
-		1, 1D,
-		2, 2D,
-		3, 3D,
-		4, 4D,
-		5, 5D
-	);
-	public static final Map<Integer, Double> autoServoToAmp = Map.of(
-		1, 1D,
-		2, 2D,
-		3, 3D,
-		4, 4D,
-		5, 5D
-	);
-
-
+	public static final double a = 0.0619656, b = -0.635294, c = 1.54129, d = 0.0618064; // ax^3 + bx^2 + cx + d
 }

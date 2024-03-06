@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.keybinds.*;
@@ -46,7 +45,7 @@ public class RobotContainer {
 	// Commands
 
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
-	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem );
+	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
@@ -142,7 +141,7 @@ public class RobotContainer {
 
 		manipulatorBinds.servoTrigger().whileTrue(servoCommand);
 
-		//Constants.rotationJoystick.button(1).whileTrue(autoAim);
+		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
