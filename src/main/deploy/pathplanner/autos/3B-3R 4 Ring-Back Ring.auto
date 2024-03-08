@@ -12,6 +12,18 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Drive 3b 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4Rotate 3B"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -33,6 +45,12 @@
           "type": "path",
           "data": {
             "pathName": "Drive 3B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
           }
         },
         {
@@ -63,6 +81,12 @@
           "type": "path",
           "data": {
             "pathName": "Bottom Back Ring"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
           }
         },
         {
@@ -99,6 +123,12 @@
           "type": "path",
           "data": {
             "pathName": "Curve 3B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
           }
         },
         {
