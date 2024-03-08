@@ -1,12 +1,6 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 1.92,
-      "y": 4.1
-    },
-    "rotation": -35.0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
@@ -14,13 +8,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Drive 3b 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4Rotate 3B"
+            "pathName": "tatum tester #1"
           }
         },
         {
@@ -38,13 +26,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 3B"
+            "pathName": "tatum tester #2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Drive 3B"
+            "pathName": "tatum tester #3"
           }
         },
         {
@@ -56,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2Rotate 3B"
+            "pathName": "tatum tester #4"
           }
         },
         {
@@ -69,54 +75,6 @@
           "type": "named",
           "data": {
             "name": "Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3Rotate 3B"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom Back Ring"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom Back Ring Return"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2Rotate 3B"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoAim"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3Rotate 3B"
           }
         }
       ]
