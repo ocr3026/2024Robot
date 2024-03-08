@@ -65,5 +65,8 @@ public final class Constants {
 	public static final AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
 	// Shooting curve calculated from Russell's sexy desmos graph. 🥵🥵🥵🥵🥵
+	
+	// public static final double a = 0.0619656, b = -0.635294, c = 1.54129, d = 0.0618064; // ax^3 + bx^2 + cx + d
+
 	public static final double a = 0.0619656, b = -0.635294, c = 1.54129, d = 0.0618064; // ax^3 + bx^2 + cx + d
 }

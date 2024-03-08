@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.92,
-      "y": 4.1
+      "x": 1.9,
+      "y": 5.49
     },
     "rotation": 0.0
   },
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Drive 3b 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4Rotate 3B"
+            "pathName": "Drive middle 3"
           }
         },
         {
@@ -38,13 +32,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 3B"
+            "pathName": "Drive Middle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Drive 3B"
+            "pathName": "Curve middle"
           }
         },
         {

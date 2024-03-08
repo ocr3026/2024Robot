@@ -5,12 +5,30 @@
       "x": 2,
       "y": 7.0
     },
-    "rotation": 35.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -30,9 +48,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
           }
         },
         {

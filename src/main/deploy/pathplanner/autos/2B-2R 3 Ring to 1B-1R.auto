@@ -5,12 +5,24 @@
       "x": 1.9,
       "y": 5.49
     },
-    "rotation": 0.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive middle 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -26,19 +38,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "Intake"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Curve middle"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2Rotate 3B"
+            "name": "autoAim"
           }
         },
         {
@@ -50,7 +56,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3Rotate 3B"
+            "pathName": "Curve middle to top"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 3"
           }
         }
       ]
