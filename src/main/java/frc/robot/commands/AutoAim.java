@@ -45,7 +45,7 @@ public class AutoAim extends Command {
             
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getY();
-                    shooterSubsystem.setActuatorPos(Constants.a * Math.pow(dist, 3) + Constants.b * Math.pow(dist, 2) + Constants.c * dist + Constants.d);
+                    shooterSubsystem.setActuatorPos((Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d);
                 }
             }
 
