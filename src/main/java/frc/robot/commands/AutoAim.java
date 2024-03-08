@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.MathUtil;
@@ -42,6 +43,15 @@ public class AutoAim extends Command {
         PhotonTrackedTarget target = Constants.camera.get().getLatestResult().getBestTarget();
 
         if(target != null) {
+            if(target.getFiducialId() == 8 || target.getFiducialId() == 3) {
+                PhotonCamera camera = Constants.camera.get();
+                for(PhotonTrackedTarget i : camera.getLatestResult().targets) {
+                    if(i.getFiducialId() == 7 || i.getFiducialId() == 4) {
+                        target = i;
+                    }
+                }
+            }
+
             int tagID = target.getFiducialId();
             double yaw = target.getYaw();
             double zAngle = Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle());
