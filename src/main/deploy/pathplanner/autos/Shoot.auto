@@ -5,7 +5,7 @@
       "x": 2.0,
       "y": 7.0
     },
-    "rotation": -145.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "autoAim"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Intake"
+            "name": "Shoot"
           }
         }
       ]

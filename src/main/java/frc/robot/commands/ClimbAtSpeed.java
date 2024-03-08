@@ -20,9 +20,9 @@ public class ClimbAtSpeed extends Command {
 
     @Override
     public void execute () {
-        climber.climbSpeedLeft(Constants.xbox.getLeftY());
-        climber.climbSpeedRight(-Constants.xbox.getRightY());
-        // free dipzzo free j haus "chat is this freelo?" - jaimon - "call bloonarius the way my kids shot across the screen" - jaimon - "they say opposites attract - thats why money comes slow and goes fast... and i go slow and come fast" - j money
+        climber.climbSpeedLeft(-Constants.xbox.getRightY());
+        climber.climbSpeedRight(Constants.xbox.getLeftY());
+        // free dizzo free j haus "chat is this freelo?" - jaimon - "call me bloonarius the way my kids shot across the screen" - jaimon - "they say opposites attract - thats why money comes slow and goes fast... and i go slow and come fast" - j money
     }
 
     @Override

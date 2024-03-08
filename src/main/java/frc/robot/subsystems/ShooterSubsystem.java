@@ -42,6 +42,9 @@ public class ShooterSubsystem extends SubsystemBase {
         rightActuator.setSpeed(position);
         leftActuator.setSpeed(position);
     }
+    public double getActuatorPos () {
+        return rightActuator.getSpeed();
+    }
 
     public void setAngle(Rotation2d angle) {
         targetAngle = angle;

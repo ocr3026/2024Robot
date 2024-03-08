@@ -14,6 +14,12 @@
         {
           "type": "named",
           "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Shoot"
           }
         },
@@ -33,6 +39,12 @@
           "type": "path",
           "data": {
             "pathName": "2Rotate 3B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
           }
         },
         {
@@ -63,6 +75,12 @@
           "type": "path",
           "data": {
             "pathName": "2Rotate 3B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
           }
         },
         {

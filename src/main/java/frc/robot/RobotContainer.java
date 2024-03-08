@@ -86,6 +86,7 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Intake", intakeAuto);
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
+		NamedCommands.registerCommand("autoAim", autoAim);
 
 		//justin's zone
 		//FREE DIZZO
@@ -97,7 +98,7 @@ public class RobotContainer {
 									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, -speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
                     				new PIDConstants(1, 0.0, 0.0), // Translation PID constants
-                    				new PIDConstants(2.5, 0.0, 0.0 	), // Rotation PID constants
+                    				new PIDConstants(1.5, 0.0, 0.0 	), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -121,10 +122,10 @@ public class RobotContainer {
 		configureCallbacks();
 		configureBindings();
 
-		//LOCK UP J HAUS LOCK D KELLOG
+		//LOCK UP J HAUS 
 
 		//end of justins zone 
-		
+		//LOCK D KELLOG
 		// FREE J HAUS
 		swerveSubsystem.setDefaultCommand(fieldCentricCommand);
 		//Set your auto
@@ -172,8 +173,8 @@ public class RobotContainer {
 		}));
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(SmartDashboard.getNumber("servoSet", 0))));
-		
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(1)));
+		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(0)));
 
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);

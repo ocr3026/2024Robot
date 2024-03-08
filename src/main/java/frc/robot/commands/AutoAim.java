@@ -19,7 +19,9 @@ public class AutoAim extends Command {
     PIDController rotatePID = new PIDController(0.1, 0, 0);
     PIDController xPID = new PIDController(0.1, 0, 0);
     PIDController yPID = new PIDController(0.1, 0, 0);
+    double targetServo;
 
+    boolean isFinished = false;
 
     public AutoAim(SwerveSubsystem swerveSubsystem, ShooterSubsystem shooterSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
@@ -28,6 +30,11 @@ public class AutoAim extends Command {
         xPID.setTolerance(0.05);
         yPID.setTolerance(0.05);
         rotatePID.setTolerance(2);
+    }
+
+    @Override
+    public void initialize() {
+        isFinished = false;
     }
 
     @Override
@@ -41,23 +48,29 @@ public class AutoAim extends Command {
             Transform3d camToTarget = target.getBestCameraToTarget();
             
             if(tagID == 4 || tagID == 7) {
-                swerveSubsystem.drive(0, 0, -MathUtil.clamp(rotatePID.calculate(yaw, 0), -0.3, 0.3), DriveOrigin.RobotCentric);
+                swerveSubsystem.drive(0, 0, -rotatePID.calculate(yaw, 0), DriveOrigin.RobotCentric);
+
+                
             
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
-                    shooterSubsystem.setActuatorPos((Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d);
+                    targetServo = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
+                    shooterSubsystem.setActuatorPos(targetServo);
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
+                    isFinished = true;
                 }
             }
 
             if(tagID == 5 || tagID == 6) {
-                swerveSubsystem.drive(0, 0, -MathUtil.clamp(rotatePID.calculate(zAngle, 180), -0.3, 0.3), DriveOrigin.RobotCentric);
+                swerveSubsystem.drive(0, 0, -rotatePID.calculate(zAngle, 180), DriveOrigin.RobotCentric);
 
                 if(rotatePID.atSetpoint()) {
                     swerveSubsystem.drive(xPID.calculate(camToTarget.getX(), 0.8382), yPID.calculate(camToTarget.getY(), 0), 0, DriveOrigin.RobotCentric);
                     
                     if(xPID.atSetpoint() && yPID.atSetpoint()) {
-                        shooterSubsystem.setActuatorPos(1);
+                        targetServo = 1;
+                        shooterSubsystem.setActuatorPos(targetServo);
+                        isFinished = true;
                     }
                 }
             }
@@ -72,5 +85,9 @@ public class AutoAim extends Command {
     public void end(boolean interrupted) {
         swerveSubsystem.drive(new ChassisSpeeds());
     }
+@Override
+public boolean isFinished() {
+    return isFinished;
+}
     
 }

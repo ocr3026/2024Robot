@@ -12,6 +12,18 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Drive middle 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Shoot"
@@ -21,6 +33,18 @@
           "type": "path",
           "data": {
             "pathName": "Drive Middle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
           }
         },
         {

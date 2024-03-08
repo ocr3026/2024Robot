@@ -14,13 +14,43 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Drive 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Drive"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "Intake"
           }
         },
         {
@@ -30,9 +60,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         },
         {

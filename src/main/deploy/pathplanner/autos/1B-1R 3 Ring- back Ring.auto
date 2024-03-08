@@ -5,22 +5,34 @@
       "x": 2,
       "y": 7.0
     },
-    "rotation": 35.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Shoot"
+            "pathName": "Drive 2"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
+            "pathName": "Rotate 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         },
         {
@@ -36,15 +48,21 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.5
+            "name": "Intake"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
           }
         },
         {
@@ -72,9 +90,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
           }
         },
         {
