@@ -44,6 +44,8 @@ public class RobotContainer {
 
 	// Commands
 
+	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(swerveSubsystem , shooterSubsystem);
+
 	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
@@ -86,7 +88,7 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Intake", intakeAuto);
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
-		NamedCommands.registerCommand("autoAim", autoAim);
+		NamedCommands.registerCommand("autoAim", autoAimInAuto);
 
 		//justin's zone
 		//FREE DIZZO
