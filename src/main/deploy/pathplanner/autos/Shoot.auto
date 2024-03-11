@@ -5,18 +5,12 @@
       "x": 2.0,
       "y": 7.0
     },
-    "rotation": 0.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "named",
-          "data": {
-            "name": "autoAim"
-          }
-        },
         {
           "type": "named",
           "data": {
