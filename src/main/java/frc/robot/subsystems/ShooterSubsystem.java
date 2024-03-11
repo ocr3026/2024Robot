@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
     Rotation2d targetAngle = new Rotation2d();
@@ -38,12 +39,12 @@ public class ShooterSubsystem extends SubsystemBase {
     }
     public void setActuatorPos(double position) {
         //SmartDashboard.putNumber("targetServoPos", position);
-        position = MathUtil.clamp(position, 0.5, 1);
-        rightActuator.setSpeed(position);
-        leftActuator.setSpeed(position);
+        position = MathUtil.clamp(position, 0, 1);
+        rightActuator.setSpeed(MathUtil.clamp(position, (-12.7/44), (1-(12.7/44))) - (12.7/44));
+        leftActuator.setSpeed(MathUtil.clamp(position, 0, 1));
     }
     public double getActuatorPos () {
-        return rightActuator.getSpeed();
+        return leftActuator.getSpeed();
     }
 
     public void setAngle(Rotation2d angle) {
@@ -61,6 +62,15 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Servo speed", leftActuator.get());
+        SmartDashboard.putNumber("Servo speed",getActuatorPos());
+        /* 
+        if(Constants.camera.isPresent()) {
+            PhotonTrackedTarget target = Constants.camera.get().getLatestResult().getBestTarget();
+            if(target != null) {
+                SmartDashboard.putNumber("Camera X", target.getBestCameraToTarget().getX());
+                SmartDashboard.putNumber("Camera Y", target.getBestCameraToTarget().getY());
+            }
+        }
+        */
     }
 }

@@ -44,6 +44,7 @@ public class AutoAimInAuto extends Command {
 
     @Override
     public void execute() {
+        if(Constants.camera.isPresent()) {
         PhotonTrackedTarget target = Constants.camera.get().getLatestResult().getBestTarget();
 
         if(target != null) {
@@ -93,6 +94,7 @@ public class AutoAimInAuto extends Command {
        else {
         swerveSubsystem.drive(new ChassisSpeeds());
        }
+        }
     }
 
     @Override
