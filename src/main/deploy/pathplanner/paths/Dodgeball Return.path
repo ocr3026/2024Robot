@@ -3,39 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.34,
-        "y": 5.53
+        "x": 7.942353117231199,
+        "y": 7.448092043117039
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.44,
-        "y": 5.53
+        "x": 6.942353117231198,
+        "y": 7.448092043117039
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Top of 5 Rings"
     },
     {
       "anchor": {
-        "x": 2.774369394892637,
-        "y": 5.53
+        "x": 2.5670791427174855,
+        "y": 5.550936522700434
       },
       "prevControl": {
-        "x": 2.674369394892637,
-        "y": 5.53
+        "x": 3.5670791427174855,
+        "y": 5.550936522700434
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.95,
+      "rotationDegrees": 30.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 90.0,
-    "maxAngularAcceleration": 720.0
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 800.0
   },
   "goalEndState": {
     "velocity": 0,

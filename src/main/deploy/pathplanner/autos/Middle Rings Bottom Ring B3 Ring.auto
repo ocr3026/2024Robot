@@ -6,12 +6,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "tatum tester #1"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -26,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "tatum tester #2"
+            "pathName": "B3 To Bottom of 5 Rings Fetch"
           }
         },
         {
@@ -36,9 +30,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "autoAim"
+            "pathName": "B3 To Bottom of 5 Rings Return"
           }
         },
         {
@@ -50,19 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "tatum tester #3"
+            "pathName": "B3 to Bottom of 3 Rings"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "tatum tester #4"
           }
         },
         {

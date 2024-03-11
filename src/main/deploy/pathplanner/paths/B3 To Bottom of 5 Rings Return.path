@@ -1,0 +1,85 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.942353117231199,
+        "y": 0.772915212021579
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.94693201083977,
+        "y": 0.8548910678420494
+      },
+      "isLocked": false,
+      "linkedName": "Bottom of 5 Rings"
+    },
+    {
+      "anchor": {
+        "x": 4.38225880731362,
+        "y": 1.955709703145511
+      },
+      "prevControl": {
+        "x": 6.536414469405258,
+        "y": 1.1271680175314693
+      },
+      "nextControl": {
+        "x": 2.228103145221981,
+        "y": 2.784251388759553
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.325730468864645,
+        "y": 4.087081954477746
+      },
+      "prevControl": {
+        "x": 1.6770555652380903,
+        "y": 3.325877579001948
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.9,
+      "rotationDegrees": -50.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.9,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 800.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Tatum's Stuff",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
