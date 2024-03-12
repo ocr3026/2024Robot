@@ -40,7 +40,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void setActuatorPos(double position) {
         //SmartDashboard.putNumber("targetServoPos", position);
         position = MathUtil.clamp(position, 0, 1);
-        rightActuator.setSpeed(MathUtil.clamp(position, (-12.7/44), (1-(12.7/44))) - (12.7/44));
+        rightActuator.setSpeed(MathUtil.clamp(position, 0, 1));
         leftActuator.setSpeed(MathUtil.clamp(position, 0, 1));
     }
     public double getActuatorPos () {
