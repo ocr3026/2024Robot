@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ServoCommand extends Command{
+public class CamCommand extends Command{
 
     ShooterSubsystem shooterSubsystem;
 
-    public ServoCommand(ShooterSubsystem shooterSubsystem) {
+    public CamCommand(ShooterSubsystem shooterSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
         addRequirements(shooterSubsystem);
     }
@@ -16,7 +16,7 @@ public class ServoCommand extends Command{
     @Override
     public void execute() {
         
-        shooterSubsystem.setActuatorPos(-Constants.xbox.getRightY());
+        shooterSubsystem.setCamDegrees((-Constants.xbox.getRightY() + 1) * 180);
     }
     
 }

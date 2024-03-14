@@ -46,7 +46,7 @@ public class RobotContainer {
 
 	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(swerveSubsystem , shooterSubsystem);
 
-	ServoCommand servoCommand = new ServoCommand(shooterSubsystem);
+	CamCommand servoCommand = new CamCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
@@ -175,8 +175,8 @@ public class RobotContainer {
 		}));
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(1)));
-		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setActuatorPos(0)));
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setCamDegrees(360)));
+		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamDegrees(0)));
 
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);

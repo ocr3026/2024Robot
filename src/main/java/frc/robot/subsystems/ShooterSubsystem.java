@@ -1,33 +1,28 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-    Rotation2d targetAngle = new Rotation2d();
-    Servo leftActuator = new Servo(0);
-    Servo rightActuator = new Servo(1);
-    double targetServoLength = 0;
-    double maxServoLength = 1;
+    CANcoder camEncoder = new CANcoder(44);
+    CANSparkMax camMotor = new CANSparkMax(45, MotorType.kBrushless);
+    PIDController camPID = new PIDController(0, 0, 0);
+
+    SlewRateLimiter smoothCurrent = new SlewRateLimiter(3);
 
     CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
-
     CANSparkMax leftFlywheel = new CANSparkMax(22, MotorType.kBrushless);
-
     CANSparkMax rightFlywheel = new CANSparkMax(23, MotorType.kBrushless);
 
     public ShooterSubsystem() {
-        
-        leftActuator.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
-        rightActuator.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
 
         rightFlywheel.setInverted(false);
         leftFlywheel.setInverted(true);
@@ -37,18 +32,14 @@ public class ShooterSubsystem extends SubsystemBase {
         leftFlywheel.setIdleMode(IdleMode.kBrake);
         intakeMotor.setIdleMode(IdleMode.kBrake);
     }
-    public void setActuatorPos(double position) {
-        //SmartDashboard.putNumber("targetServoPos", position);
-        position = MathUtil.clamp(position, 0, 1);
-        rightActuator.setSpeed(MathUtil.clamp(position, 0, 1));
-        leftActuator.setSpeed(MathUtil.clamp(position, 0, 1));
-    }
-    public double getActuatorPos () {
-        return leftActuator.getSpeed();
+
+    public void setCamDegrees(double position) {
+        position = MathUtil.clamp(position, 0, 360);
+        camMotor.setVoltage(camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), position / 360));
     }
 
-    public void setAngle(Rotation2d angle) {
-        targetAngle = angle;
+    public double getCamDegrees() {
+        return camEncoder.getAbsolutePosition().getValueAsDouble() * 360;
     }
 
     public void setIntakeVoltage(double voltage) {
@@ -62,15 +53,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Servo speed",getActuatorPos());
-        /* 
-        if(Constants.camera.isPresent()) {
-            PhotonTrackedTarget target = Constants.camera.get().getLatestResult().getBestTarget();
-            if(target != null) {
-                SmartDashboard.putNumber("Camera X", target.getBestCameraToTarget().getX());
-                SmartDashboard.putNumber("Camera Y", target.getBestCameraToTarget().getY());
-            }
+        SmartDashboard.putNumber("Cam Position", getCamDegrees());
+
+        if(smoothCurrent.calculate(camMotor.getOutputCurrent()) > 40) {
+            camMotor.disable();
+            System.out.println("Disabled Cam Due to overcurrent");
         }
-        */
     }
 }
