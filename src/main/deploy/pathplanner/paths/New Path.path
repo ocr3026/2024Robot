@@ -1,0 +1,100 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3491521419562087,
+        "y": 5.550936522700434
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.3491521419562087,
+        "y": 5.550936522700434
+      },
+      "isLocked": false,
+      "linkedName": "B2 Starting Position"
+    },
+    {
+      "anchor": {
+        "x": 2.6841875081753006,
+        "y": 5.550936522700434
+      },
+      "prevControl": {
+        "x": 2.4865039003311358,
+        "y": 5.550936522700434
+      },
+      "nextControl": {
+        "x": 2.8818711160194654,
+        "y": 5.550936522700434
+      },
+      "isLocked": false,
+      "linkedName": "Middle of 3 Rings"
+    },
+    {
+      "anchor": {
+        "x": 4.718157128621951,
+        "y": 6.383911998593228
+      },
+      "prevControl": {
+        "x": 3.6528918538092787,
+        "y": 6.31950239759143
+      },
+      "nextControl": {
+        "x": 5.783422403434623,
+        "y": 6.448321599595026
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.454739063324283,
+        "y": 6.383911998593228
+      },
+      "prevControl": {
+        "x": 6.114817279091483,
+        "y": 6.476338931499327
+      },
+      "nextControl": {
+        "x": 6.794660847557083,
+        "y": 6.291485065687129
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.942353117231199,
+        "y": 5.808574926707628
+      },
+      "prevControl": {
+        "x": 6.942353117231199,
+        "y": 5.808574926707628
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Second to Top of 5 Rings"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 800.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Tatum's Stuff",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

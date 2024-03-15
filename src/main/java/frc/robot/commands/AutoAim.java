@@ -3,7 +3,6 @@ package frc.robot.commands;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -20,7 +19,7 @@ public class AutoAim extends Command {
     PIDController rotatePID = new PIDController(0.1, 0, 0);
     PIDController xPID = new PIDController(0.1, 0, 0);
     PIDController yPID = new PIDController(0.1, 0, 0);
-    double targetServo;
+    double camTarget;
 
     boolean isFinished = false;
 
@@ -64,8 +63,8 @@ public class AutoAim extends Command {
             
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
-                    targetServo = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
-                    shooterSubsystem.setActuatorPos(targetServo);
+                    camTarget = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
+                    shooterSubsystem.setCamDegrees(camTarget);
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     isFinished = true;
                 }
@@ -78,8 +77,7 @@ public class AutoAim extends Command {
                     swerveSubsystem.drive(xPID.calculate(camToTarget.getY(), 0.8382), yPID.calculate(camToTarget.getX(), 0), 0, DriveOrigin.RobotCentric);
                     
                     if(xPID.atSetpoint() && yPID.atSetpoint()) {
-                        targetServo = 1;
-                        shooterSubsystem.setActuatorPos(targetServo);
+                        shooterSubsystem.setCamDegrees(360);
                         isFinished = true;
                     }
                 }
