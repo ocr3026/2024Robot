@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.3,
-        "y": 0.8
+        "x": 7.942353117231199,
+        "y": 0.772915212021579
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.3,
-        "y": 0.7999999999999998
+        "x": 8.9423531172312,
+        "y": 0.7729152120215788
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 5 Rings"
     },
     {
       "anchor": {
-        "x": 4.429102153496745,
-        "y": 2.775468261350217
+        "x": 2.6841875081753006,
+        "y": 4.087081954477746
       },
       "prevControl": {
-        "x": 4.985344734497724,
-        "y": 2.2137135691935654
-      },
-      "nextControl": {
-        "x": 4.120928065684499,
-        "y": 3.0866962143021324
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.92,
-        "y": 4.1
-      },
-      "prevControl": {
-        "x": 2.3445732483476367,
-        "y": 3.7474676946500822
+        "x": 2.1087607565229374,
+        "y": 3.7345496491278287
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 3 Rings"
     }
   ],
   "rotationTargets": [],

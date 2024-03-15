@@ -12,7 +12,7 @@
         "y": 6.991369417831561
       },
       "isLocked": false,
-      "linkedName": "B1 Starting Position"
+      "linkedName": "B1 Start"
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 5.550936522700434
       },
       "isLocked": false,
-      "linkedName": "B2 Starting Position"
+      "linkedName": "Middle Start"
     },
     {
       "anchor": {
@@ -81,15 +81,15 @@
     {
       "anchor": {
         "x": 2.6841875081753006,
-        "y": 5.550936522700434
+        "y": 5.55
       },
       "prevControl": {
         "x": 2.5841875081753005,
-        "y": 5.550936522700434
+        "y": 5.55
       },
       "nextControl": {
         "x": 2.7841875081753007,
-        "y": 5.550936522700434
+        "y": 5.55
       },
       "isLocked": false,
       "linkedName": "Middle of 3 Rings"
