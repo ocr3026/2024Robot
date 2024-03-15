@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4,
-        "y": 3.0
+        "x": 7.942353117231199,
+        "y": 0.772915212021579
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5,
-        "y": 3.0
+        "x": 8.9423531172312,
+        "y": 0.7729152120215792
       },
       "isLocked": false,
-      "linkedName": "Shoot from End"
+      "linkedName": "Bottom of 5 Rings"
     },
     {
       "anchor": {
@@ -20,7 +20,7 @@
         "y": 3.0
       },
       "prevControl": {
-        "x": 2.3,
+        "x": 1.4,
         "y": 3.0
       },
       "nextControl": null,
@@ -38,14 +38,14 @@
     "maxAngularAcceleration": 800.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 180.0,
+    "velocity": 0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -35.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

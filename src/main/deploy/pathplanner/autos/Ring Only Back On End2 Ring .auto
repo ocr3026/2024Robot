@@ -1,0 +1,79 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive End"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate End"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate End back"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "End to Bottom 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom 5 To End"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate End"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate End back"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
