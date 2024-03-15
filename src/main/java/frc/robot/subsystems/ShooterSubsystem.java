@@ -15,6 +15,8 @@ public class ShooterSubsystem extends SubsystemBase {
     CANSparkMax camMotor = new CANSparkMax(45, MotorType.kBrushless);
     PIDController camPID = new PIDController(0, 0, 0);
 
+    double camTarget = 0;
+
     CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
     CANSparkMax leftFlywheel = new CANSparkMax(22, MotorType.kBrushless);
     CANSparkMax rightFlywheel = new CANSparkMax(23, MotorType.kBrushless);
@@ -31,8 +33,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setCamDegrees(double position) {
-        position = MathUtil.clamp(position, 0, 360);
-        camMotor.setVoltage(camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), position / 360));
+        camTarget = MathUtil.clamp(position, 0, 360) / 360;
     }
 
     public double getCamDegrees() {
@@ -50,6 +51,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        camMotor.setVoltage(camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), camTarget / 360));
+
         SmartDashboard.putNumber("Cam Position", getCamDegrees());
     }
 }
