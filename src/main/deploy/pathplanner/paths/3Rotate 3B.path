@@ -7,9 +7,9 @@
         "y": 4.087081954477746
       },
       "prevControl": null,
-      "nextCo ntrol": {
-        "x": 2.7060134203577944,
-        "y": 4.074163908955493
+      "nextControl": {
+        "x": 2.7341875081753004,
+        "y": 4.087081954477746
       },
       "isLocked": false,
       "linkedName": "Bottom of 3 Rings"
@@ -20,8 +20,8 @@
         "y": 4.087081954477746
       },
       "prevControl": {
-        "x": 2.6214345267492227,
-        "y": 4.094741102463661
+        "x": 2.634187508175301,
+        "y": 4.087081954477746
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,7 +38,7 @@
     "maxAngularAcceleration": 800.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 0.0,
     "rotateFast": false
   },
