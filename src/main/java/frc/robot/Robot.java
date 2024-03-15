@@ -33,6 +33,10 @@ public class Robot extends TimedRobot {
 	public void robotPeriodic() {
 		CommandScheduler.getInstance().run();
 
+		if(Constants.camera.isPresent() && !Constants.camera.get().isConnected()) {
+			Constants.camera = Optional.empty();
+		}
+
 		if(Constants.camera.isEmpty() && visionTimer.hasElapsed(1)) {
 			initVision();
 			visionTimer.restart();
