@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 2.4,
-        "y": 7.0
+        "y": 6.991369417831561
       },
       "prevControl": null,
       "nextControl": {
         "x": 2.408153691306707,
-        "y": 7.005709276117191
+        "y": 6.997078693948752
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "B1 ShootPosition"
     },
     {
       "anchor": {
         "x": 2.4,
-        "y": 7.0
+        "y": 6.991369417831561
       },
       "prevControl": {
         "x": 2.2801113178525823,
-        "y": 7.0
+        "y": 6.991369417831561
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "B1 ShootPosition"
     }
   ],
   "rotationTargets": [],

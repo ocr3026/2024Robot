@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 2.4,
-        "y": 4.1
+        "y": 4.098792791023527
       },
       "prevControl": null,
       "nextControl": {
         "x": 2.381523600914281,
-        "y": 4.1184763990857185
+        "y": 4.117269190109246
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3B Shoot position"
     },
     {
       "anchor": {
         "x": 2.4,
-        "y": 4.1
+        "y": 4.098792791023527
       },
       "prevControl": {
         "x": 2.463064784828447,
-        "y": 4.1
+        "y": 4.098792791023527
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3B Shoot position"
     }
   ],
   "rotationTargets": [],

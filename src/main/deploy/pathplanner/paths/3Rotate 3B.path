@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.92,
-        "y": 4.1
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 2.9418259121824937,
+        "x": 2.6841875081753006,
         "y": 4.087081954477746
       },
+      "prevControl": null,
+      "nextCo ntrol": {
+        "x": 2.7060134203577944,
+        "y": 4.074163908955493
+      },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 3 Rings"
     },
     {
       "anchor": {
-        "x": 2.92,
-        "y": 4.1
+        "x": 2.6841875081753006,
+        "y": 4.087081954477746
       },
       "prevControl": {
-        "x": 2.857247018573922,
-        "y": 4.107659147985914
+        "x": 2.6214345267492227,
+        "y": 4.094741102463661
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 3 Rings"
     }
   ],
   "rotationTargets": [],

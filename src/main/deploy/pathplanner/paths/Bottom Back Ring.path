@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.92,
-        "y": 4.1
+        "x": 2.6841875081753006,
+        "y": 4.087081954477746
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4031274310765443,
-        "y": 3.899708569745242
+        "x": 2.167314939251845,
+        "y": 3.8867905242229885
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 3 Rings"
     },
     {
       "anchor": {
-        "x": 3.4453918836510984,
-        "y": 3.0916608480863177
+        "x": 7.942353117231199,
+        "y": 0.772915212021579
       },
       "prevControl": {
-        "x": 3.3130252027973963,
-        "y": 3.109203420247652
-      },
-      "nextControl": {
-        "x": 4.4173913169509635,
-        "y": 2.9628416460827216
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 8.3,
-        "y": 0.8
-      },
-      "prevControl": {
-        "x": 6.326257673913349,
-        "y": 1.1242403083950245
+        "x": 5.968610791144547,
+        "y": 1.0971555204166035
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 5 Rings"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 1.85,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "parallel",
         "data": {

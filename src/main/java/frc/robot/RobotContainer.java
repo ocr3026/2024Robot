@@ -88,7 +88,7 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Intake", intakeAuto);
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
-		NamedCommands.registerCommand("autoAim", autoAimInAuto);
+		NamedCommands.registerCommand("autoAim", autoAim);
 
 		//justin's zone
 		//FREE DIZZO

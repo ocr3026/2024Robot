@@ -12,20 +12,20 @@
         "y": 4.098792791023527
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3B Shoot position"
     },
     {
       "anchor": {
-        "x": 3.1,
-        "y": 4.098792791023527
+        "x": 2.6841875081753006,
+        "y": 4.087081954477746
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 4.098792791023527
+        "x": 2.5841875081753005,
+        "y": 4.087081954477746
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom of 3 Rings"
     }
   ],
   "rotationTargets": [],

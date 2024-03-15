@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 2.6841875081753006,
+        "y": 6.991369417831561
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.890200143391124,
-        "y": 7.0
+        "x": 2.5743876515664246,
+        "y": 6.991369417831561
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Top of 3 Rings"
     },
     {
       "anchor": {
-        "x": 2.89,
-        "y": 6.51
+        "x": 2.6841875081753006,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 2.82597518613389,
-        "y": 6.51
-      },
-      "nextControl": {
-        "x": 2.95402481386611,
-        "y": 6.51
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.894982565999367,
-        "y": 5.527514849608872
-      },
-      "prevControl": {
-        "x": 1.3725738150477713,
-        "y": 5.867129109436536
+        "x": 1.1617787572237048,
+        "y": 5.889614259827663
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle of 3 Rings"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 1.8,
+      "waypointRelativePos": 0.9,
       "command": {
         "type": "parallel",
         "data": {
