@@ -23,10 +23,10 @@ public class SwerveSubsystem extends SubsystemBase {
 		new SwerveDriveKinematics(Constants.frontLeftModulePos, Constants.frontRightModulePos,
 	                              Constants.rearLeftModulePos, Constants.rearRightModulePos);
 
-	public SwerveModule frontLeftModule = new SwerveModule(5, 6, 10);
-	public SwerveModule rearRightModule = new SwerveModule(4, 3, 12);
+	public SwerveModule frontLeftModule = new SwerveModule(5, 6, 12);
+	public SwerveModule rearRightModule = new SwerveModule(3, 4, 11);
 	public SwerveModule rearLeftModule = new SwerveModule(1, 2, 9);
-	public SwerveModule frontRightModule = new SwerveModule(7, 8, 11);
+	public SwerveModule frontRightModule = new SwerveModule(7, 8, 10);
 
 	SwerveDrivePoseEstimator odometry;
 	Pose2d robotPose = new Pose2d();

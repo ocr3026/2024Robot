@@ -20,27 +20,14 @@ public class Robot extends TimedRobot {
 
 	private RobotContainer m_robotContainer;
 
-	Timer visionTimer = new Timer();
-
 	@Override
 	public void robotInit() {
 		m_robotContainer = new RobotContainer(this::getPeriod);
-
-		visionTimer.restart();
 	}
 
 	@Override
 	public void robotPeriodic() {
 		CommandScheduler.getInstance().run();
-
-		if(Constants.camera.isPresent() && !Constants.camera.get().isConnected()) {
-			Constants.camera = Optional.empty();
-		}
-
-		if(Constants.camera.isEmpty() && visionTimer.hasElapsed(1)) {
-			initVision();
-			visionTimer.restart();
-		}
 	}
 
 	@Override
@@ -97,13 +84,4 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testExit() {}
-
-	public static void initVision() {
-		try {
-			Constants.camera = Optional.of(new PhotonCamera("USB_webcam"));
-			Constants.visionPoseEstimator = Optional.of(new PhotonPoseEstimator(Constants.fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera.get(), Constants.robotToCamera));
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
