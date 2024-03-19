@@ -44,7 +44,7 @@ public class Evan implements ManipulatorProfile {
     }
 
     @Override
-    public Trigger servoTrigger () {
+    public Trigger camTrigger () {
         return Constants.xbox.leftBumper();
     }
 

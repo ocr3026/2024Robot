@@ -3,7 +3,6 @@ package frc.robot.commands;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -70,7 +69,7 @@ public class AutoAimInAuto extends Command {
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
                     camTarget = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
-                    shooterSubsystem.setCamDegrees(camTarget);
+                    shooterSubsystem.setCamPos(camTarget);
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     isFinished = true;
                 }
@@ -83,7 +82,7 @@ public class AutoAimInAuto extends Command {
                     swerveSubsystem.drive(xPID.calculate(camToTarget.getX(), 0.8382), yPID.calculate(camToTarget.getY(), 0), 0, DriveOrigin.RobotCentric);
                     
                     if(xPID.atSetpoint() && yPID.atSetpoint()) {
-                        shooterSubsystem.setCamDegrees(360);
+                        shooterSubsystem.setCamPos(1);
                         isFinished = true;
                     }
                 }

@@ -19,7 +19,6 @@ public class AutoAim extends Command {
     PIDController rotatePID = new PIDController(0.1, 0, 0);
     PIDController xPID = new PIDController(0.1, 0, 0);
     PIDController yPID = new PIDController(0.1, 0, 0);
-    double camTarget;
 
     boolean isFinished = false;
 
@@ -63,8 +62,8 @@ public class AutoAim extends Command {
             
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
-                    camTarget = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
-                    shooterSubsystem.setCamDegrees(camTarget);
+                    double camTarget = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
+                    shooterSubsystem.setCamPos(camTarget);
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     isFinished = true;
                 }
@@ -77,7 +76,7 @@ public class AutoAim extends Command {
                     swerveSubsystem.drive(xPID.calculate(camToTarget.getY(), 0.8382), yPID.calculate(camToTarget.getX(), 0), 0, DriveOrigin.RobotCentric);
                     
                     if(xPID.atSetpoint() && yPID.atSetpoint()) {
-                        shooterSubsystem.setCamDegrees(360);
+                        shooterSubsystem.setCamPos(1);
                         isFinished = true;
                     }
                 }

@@ -12,17 +12,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
     CANcoder camEncoder = new CANcoder(44);
-    CANSparkMax camMotor = new CANSparkMax(45, MotorType.kBrushless);
-    PIDController camPID = new PIDController(0, 0, 0);
+    CANSparkMax camMotor = new CANSparkMax(41, MotorType.kBrushless);
+    PIDController camPID = new PIDController(3, .02, 0);
 
-    double camTarget = 0;
+    double camTarget = 0.671631;
+
+    final double camUpperLimit = 0.671631;
+    final double camLowerLimit = 0.513867;
 
     CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
     CANSparkMax leftFlywheel = new CANSparkMax(22, MotorType.kBrushless);
     CANSparkMax rightFlywheel = new CANSparkMax(23, MotorType.kBrushless);
 
     public ShooterSubsystem() {
-
         rightFlywheel.setInverted(false);
         leftFlywheel.setInverted(true);
         intakeMotor.setInverted(true);
@@ -32,12 +34,12 @@ public class ShooterSubsystem extends SubsystemBase {
         intakeMotor.setIdleMode(IdleMode.kBrake);
     }
 
-    public void setCamDegrees(double position) {
-        camTarget = MathUtil.clamp(position, 0, 360) / 360;
+    public void setCamPos(double position) {
+        camTarget = MathUtil.interpolate(camLowerLimit, camUpperLimit, 1 - position);
     }
-
-    public double getCamDegrees() {
-        return camEncoder.getAbsolutePosition().getValueAsDouble() * 360;
+    
+    public void stopMotor () {
+        camMotor.set(0);
     }
 
     public void setIntakeVoltage(double voltage) {
@@ -51,8 +53,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        camMotor.setVoltage(camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), camTarget / 360));
 
-        SmartDashboard.putNumber("Cam Position", getCamDegrees());
+        camMotor.set(camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), MathUtil.clamp(camTarget, camLowerLimit, camUpperLimit)));
+
+        SmartDashboard.putNumber("Cam Position", camEncoder.getAbsolutePosition().getValueAsDouble());
+        SmartDashboard.putNumber("Cam Target",  camTarget);
     }
 }
+

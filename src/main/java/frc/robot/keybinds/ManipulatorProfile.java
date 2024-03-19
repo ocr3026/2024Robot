@@ -20,5 +20,5 @@ public interface ManipulatorProfile {
     public Trigger climbRotateTenTimes();
     public Trigger climbWithJoySticks();
     public Trigger ampTrigger();
-    public Trigger servoTrigger();
+    public Trigger camTrigger();
 }

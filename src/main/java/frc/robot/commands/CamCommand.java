@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -15,8 +16,7 @@ public class CamCommand extends Command{
 
     @Override
     public void execute() {
-        
-        shooterSubsystem.setCamDegrees((-Constants.xbox.getRightY() + 1) * 180);
+        shooterSubsystem.setCamPos((-Constants.xbox.getRightY() + 1) / 2);
+        //shooterSubsystem.setCamDegrees(-Constants.xbox.getRightY());
     }
-    
 }

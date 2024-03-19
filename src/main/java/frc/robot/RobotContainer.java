@@ -46,7 +46,7 @@ public class RobotContainer {
 
 	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(swerveSubsystem , shooterSubsystem);
 
-	CamCommand servoCommand = new CamCommand(shooterSubsystem);
+	CamCommand camCommand = new CamCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
@@ -82,6 +82,7 @@ public class RobotContainer {
 	private SendableChooser<Command> autoChooser;
 
 	public RobotContainer(DoubleSupplier getPeriodFn) {
+		SmartDashboard.putNumber("SetCamPos", 0.5);
 		SmartDashboard.putNumber("servoSet", 0);
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
@@ -142,7 +143,7 @@ public class RobotContainer {
 			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
 			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 
-		manipulatorBinds.servoTrigger().whileTrue(servoCommand);
+		manipulatorBinds.camTrigger().whileTrue(camCommand);
 
 		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
@@ -175,8 +176,8 @@ public class RobotContainer {
 		}));
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
-		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setCamDegrees(360)));
-		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamDegrees(0)));
+		Constants.xbox.b().whileTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(SmartDashboard.getNumber("SetCamPos", .5))));
+		//Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(0)));
 
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);

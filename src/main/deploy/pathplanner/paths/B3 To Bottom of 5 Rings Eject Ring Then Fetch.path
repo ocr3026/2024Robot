@@ -48,7 +48,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Shoot Loaded Ring if Needed",
+      "name": "Shoot",
       "waypointRelativePos": 0.9,
       "command": {
         "type": "parallel",
