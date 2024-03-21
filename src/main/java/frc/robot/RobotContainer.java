@@ -44,7 +44,6 @@ public class RobotContainer {
 
 	// Commands
 
-	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(swerveSubsystem , shooterSubsystem);
 
 	CamCommand camCommand = new CamCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);

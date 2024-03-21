@@ -7,18 +7,19 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
     CANcoder camEncoder = new CANcoder(44);
     CANSparkMax camMotor = new CANSparkMax(41, MotorType.kBrushless);
-    PIDController camPID = new PIDController(3, .02, 0);
+    PIDController camPID = new PIDController(2, 0, 0);
 
-    double camTarget = 0.671631;
+    double camTarget = 0.671;
 
-    final double camUpperLimit = 0.671631;
-    final double camLowerLimit = 0.513867;
+    public static final double camUpperLimit = 0.671;
+    public static final double camLowerLimit = 0.43867;
 
     CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
     CANSparkMax leftFlywheel = new CANSparkMax(22, MotorType.kBrushless);
@@ -35,7 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setCamPos(double position) {
-        camTarget = MathUtil.interpolate(camLowerLimit, camUpperLimit, 1 - position);
+        camTarget = MathUtil.clamp(position, camLowerLimit, camUpperLimit);
     }
     
     public void stopMotor () {
@@ -53,11 +54,20 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        double speed = 0;
+        if(DriverStation.isEnabled()) {
+            speed = camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), MathUtil.clamp(camTarget, camLowerLimit, camUpperLimit));
+        }
 
-        camMotor.set(camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), MathUtil.clamp(camTarget, camLowerLimit, camUpperLimit)));
+        double multiplier = MathUtil.clamp(((camUpperLimit - camEncoder.getAbsolutePosition().getValueAsDouble()) * 20), 1, 99999999);
+        speed *= multiplier;
+
+        camMotor.set(speed);
 
         SmartDashboard.putNumber("Cam Position", camEncoder.getAbsolutePosition().getValueAsDouble());
         SmartDashboard.putNumber("Cam Target",  camTarget);
+        SmartDashboard.putNumber("Motor speed", speed);
+        SmartDashboard.putNumber("Motor multiplier", multiplier);
     }
 }
 

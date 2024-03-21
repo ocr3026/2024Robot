@@ -66,5 +66,5 @@ public final class Constants {
 
 	// Shooting curve calculated from Russell's sexy desmos graph. 🥵🥵🥵🥵🥵
 
-	public static final double a = 0.0619656, b = -0.635294, c = 1.54129, d = 0.0618064; // ax^3 + bx^2 + cx + d
+	public static final double a = -.0918639, b = -0.8302608, c = -2.36176, d = 2.63818; // ax^3 + bx^2 + cx + d
 }
