@@ -154,13 +154,6 @@ public class RobotContainer {
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
-		Constants.xbox.leftTrigger().whileTrue(new InstantCommand(() -> {shooterSubsystem.setFlywheelVoltage(5,5);
-        
-			if(Constants.xbox.getLeftY() < -0.5) {
-				shooterSubsystem.setIntakeVoltage(9);
-			} else {
-				shooterSubsystem.setIntakeVoltage(0);
-			}})).whileFalse(new InstantCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 
 		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(10);

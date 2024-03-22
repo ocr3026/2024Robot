@@ -16,13 +16,25 @@ public class Shoot extends Command{
 
     @Override
     public void execute() {
-        shooterSubsystem.setFlywheelVoltage(12,11.5);
-        
-        if(Constants.xbox.getLeftY() < -0.5) {
-            shooterSubsystem.setIntakeVoltage(4);
+        if(Constants.xbox.getLeftTriggerAxis() < 0.5) {
+            shooterSubsystem.setFlywheelVoltage(12,11.5);
+
+            if(Constants.xbox.x().getAsBoolean()) {
+                shooterSubsystem.setIntakeVoltage(4);
+            } else {
+                shooterSubsystem.setIntakeVoltage(0);
+            }
         } else {
-            shooterSubsystem.setIntakeVoltage(0);
+            shooterSubsystem.setFlywheelVoltage(5, 5);
+
+            if(Constants.xbox.x().getAsBoolean()) {
+                shooterSubsystem.setIntakeVoltage(4);
+            } else {
+                shooterSubsystem.setIntakeVoltage(0);
+            }
         }
+
+        
     }
 
     @Override
