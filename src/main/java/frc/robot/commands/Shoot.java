@@ -19,7 +19,7 @@ public class Shoot extends Command{
         if(Constants.xbox.getLeftTriggerAxis() < 0.5) {
             shooterSubsystem.setFlywheelVoltage(12,11.5);
 
-            if(Constants.xbox.x().getAsBoolean()) {
+            if(Constants.xbox.getLeftY() < -0.5) {
                 shooterSubsystem.setIntakeVoltage(4);
             } else {
                 shooterSubsystem.setIntakeVoltage(0);
@@ -27,8 +27,8 @@ public class Shoot extends Command{
         } else {
             shooterSubsystem.setFlywheelVoltage(5, 5);
 
-            if(Constants.xbox.x().getAsBoolean()) {
-                shooterSubsystem.setIntakeVoltage(4);
+            if(Constants.xbox.getLeftY() < -0.5) {
+                shooterSubsystem.setIntakeVoltage(3.9);
             } else {
                 shooterSubsystem.setIntakeVoltage(0);
             }

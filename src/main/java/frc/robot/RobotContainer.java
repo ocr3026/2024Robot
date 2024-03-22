@@ -155,9 +155,9 @@ public class RobotContainer {
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
 
-		manipulatorBinds.intakeTrigger().whileTrue(new InstantCommand(() -> {
+		manipulatorBinds.intakeTrigger().onTrue(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(10);
-		})).whileFalse(new InstantCommand(() -> {
+		})).onFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
 
@@ -166,8 +166,7 @@ public class RobotContainer {
 		})).onFalse(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(0);
 		}));
-		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
-
+		
 		Constants.xbox.b().whileTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(SmartDashboard.getNumber("SetCamPos", .5))));
 		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(ShooterSubsystem.camLowerLimit)));
 		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(ShooterSubsystem.camUpperLimit)));
