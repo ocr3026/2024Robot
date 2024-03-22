@@ -176,8 +176,8 @@ public class RobotContainer {
 		manipulatorBinds.ampTrigger().whileTrue(Commands.startEnd(() -> shooterSubsystem.setFlywheelVoltage(SmartDashboard.getNumber("Speed1", 4), SmartDashboard.getNumber("Speed2", 4)), () -> shooterSubsystem.setFlywheelVoltage(0, 0), shooterSubsystem));
 
 		Constants.xbox.b().whileTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(SmartDashboard.getNumber("SetCamPos", .5))));
-		//Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(0)));
-
+		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(ShooterSubsystem.camLowerLimit)));
+		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(ShooterSubsystem.camUpperLimit)));
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
 		//manipulatorBinds.unwindTrigger().whileTrue(unWind);

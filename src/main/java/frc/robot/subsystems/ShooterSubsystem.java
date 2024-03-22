@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShooterSubsystem extends SubsystemBase {
     CANcoder camEncoder = new CANcoder(44);
     CANSparkMax camMotor = new CANSparkMax(41, MotorType.kBrushless);
-    PIDController camPID = new PIDController(2, 0, 0);
-
-    double camTarget = 0.671;
+    PIDController camPID = new PIDController(8, 0.5, 0);
 
     public static final double camUpperLimit = 0.671;
-    public static final double camLowerLimit = 0.43867;
+    public static final double camLowerLimit = 0.471;
+
+    double camTarget = 0.671;
 
     CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
     CANSparkMax leftFlywheel = new CANSparkMax(22, MotorType.kBrushless);
@@ -33,14 +33,12 @@ public class ShooterSubsystem extends SubsystemBase {
         rightFlywheel.setIdleMode(IdleMode.kBrake);
         leftFlywheel.setIdleMode(IdleMode.kBrake);
         intakeMotor.setIdleMode(IdleMode.kBrake);
+
+        camPID.setTolerance(0.01);
     }
 
     public void setCamPos(double position) {
-        camTarget = MathUtil.clamp(position, camLowerLimit, camUpperLimit);
-    }
-    
-    public void stopMotor () {
-        camMotor.set(0);
+        camTarget = position;
     }
 
     public void setIntakeVoltage(double voltage) {
@@ -55,19 +53,14 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         double speed = 0;
-        if(DriverStation.isEnabled()) {
+        if(DriverStation.isEnabled())
             speed = camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), MathUtil.clamp(camTarget, camLowerLimit, camUpperLimit));
-        }
-
-        double multiplier = MathUtil.clamp(((camUpperLimit - camEncoder.getAbsolutePosition().getValueAsDouble()) * 20), 1, 99999999);
-        speed *= multiplier;
-
+        
         camMotor.set(speed);
 
         SmartDashboard.putNumber("Cam Position", camEncoder.getAbsolutePosition().getValueAsDouble());
-        SmartDashboard.putNumber("Cam Target",  camTarget);
+        SmartDashboard.putNumber("Cam Target", camTarget);
         SmartDashboard.putNumber("Motor speed", speed);
-        SmartDashboard.putNumber("Motor multiplier", multiplier);
     }
 }
 
