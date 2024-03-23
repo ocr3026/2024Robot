@@ -49,6 +49,9 @@ public class ShooterSubsystem extends SubsystemBase {
         rightFlywheel.setVoltage(rightVoltage);
         leftFlywheel.setVoltage(leftVoltage);
     }
+    public double getFlywheelSpeed () {
+       return  rightFlywheel.get();
+    }
 
     @Override
     public void periodic() {

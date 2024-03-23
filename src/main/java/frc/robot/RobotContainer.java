@@ -48,6 +48,7 @@ public class RobotContainer {
 	CamCommand camCommand = new CamCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
+	AutoAimAndShoot autoAimAndShoot = new AutoAimAndShoot(swerveSubsystem, shooterSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
 
@@ -144,10 +145,11 @@ public class RobotContainer {
 		driverBinds.halfSpeedTrigger()
 			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
 			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
+		driverBinds.autoAimAndShootTrigger().whileTrue(autoAimAndShoot);
 
 		manipulatorBinds.camTrigger().whileTrue(camCommand);
 
-		Constants.rotationJoystick.button(1).onTrue(autoAim);
+		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
