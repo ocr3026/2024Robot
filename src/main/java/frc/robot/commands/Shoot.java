@@ -7,11 +7,9 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class Shoot extends Command{
     ShooterSubsystem shooterSubsystem;
-    
 
     public Shoot(ShooterSubsystem shooterSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
-        addRequirements(shooterSubsystem);
     }
 
     @Override
@@ -33,8 +31,6 @@ public class Shoot extends Command{
                 shooterSubsystem.setIntakeVoltage(0);
             }
         }
-
-        
     }
 
     @Override
