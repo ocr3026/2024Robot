@@ -7,8 +7,6 @@ package frc.robot;
 import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -101,7 +99,6 @@ public class Robot extends TimedRobot {
 	public static void initVision() {
 		try {
 			Constants.camera = Optional.of(new PhotonCamera("USB_webcam"));
-			Constants.visionPoseEstimator = Optional.of(new PhotonPoseEstimator(Constants.fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.camera.get(), Constants.robotToCamera));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
