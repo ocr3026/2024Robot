@@ -23,13 +23,13 @@ public class ShootAuto extends Command {
     @Override
     public void execute() {
         SmartDashboard.putNumber("Timer", timer.get());
-        if(!timer.hasElapsed(.2)) {
-            shooterSubsystem.setIntakeVoltage(-6);
+        if(!timer.hasElapsed(.5)) {
+            shooterSubsystem.setIntakeVoltage(-8);
         }
           else {
             shooterSubsystem.setIntakeVoltage(0);
         }
-        if (timer.hasElapsed(.1) && !timer.hasElapsed(1.1)) {
+        if (timer.hasElapsed(.5) && !timer.hasElapsed(1.1)) {
             shooterSubsystem.setFlywheelVoltage(12, 12);
         }
         else {

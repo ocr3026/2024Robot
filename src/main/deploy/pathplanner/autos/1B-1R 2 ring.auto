@@ -42,6 +42,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "LowerCam"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Drive"
@@ -57,6 +63,12 @@
           "type": "path",
           "data": {
             "pathName": "Rotate 2"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {

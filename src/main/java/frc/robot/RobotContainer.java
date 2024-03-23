@@ -103,7 +103,7 @@ public class RobotContainer {
 									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, -speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
                     				new PIDConstants(.05, 0.0, 0.0), // Translation PID constants
-                    				new PIDConstants(250, 0, 0.0 	), // Rotation PID constants
+                    				new PIDConstants(20, 0, 0.0 	), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -145,6 +145,7 @@ public class RobotContainer {
 			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
 			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 		driverBinds.autoAimAndShootTrigger().whileTrue(autoAimAndShoot);
+
 
 		manipulatorBinds.camTrigger().whileTrue(camCommand);
 

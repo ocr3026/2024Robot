@@ -1,12 +1,13 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -18,14 +19,13 @@ public class AutoAimAndShoot extends Command {
     SwerveSubsystem swerveSubsystem;
     ShooterSubsystem shooterSubsystem;
 
-    boolean inPosition = false;
-
     PIDController rotatePID = new PIDController(0.1, 0, 0);
     PIDController xPID = new PIDController(0.1, 0, 0);
     PIDController yPID = new PIDController(0.1, 0, 0);
-    Timer timer = new Timer();
 
     boolean isFinished = false;
+    boolean inPosition = false;
+    Timer timer = new Timer();
 
     public AutoAimAndShoot(SwerveSubsystem swerveSubsystem, ShooterSubsystem shooterSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
@@ -41,6 +41,7 @@ public class AutoAimAndShoot extends Command {
         isFinished = false;
         inPosition = false;
         timer.start();
+        timer.reset();
     }
 
     @Override
@@ -64,40 +65,39 @@ public class AutoAimAndShoot extends Command {
             Transform3d camToTarget = target.getBestCameraToTarget();
             
             if(tagID == 4 || tagID == 7) {
-                swerveSubsystem.drive(0, 0, -rotatePID.calculate(yaw, 0), DriveOrigin.RobotCentric);
 
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
                     shooterSubsystem.setCamPos(calculateCamPos(dist));
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     inPosition = true;
-                }
-                if(inPosition  ) {
-                    shooterSubsystem.setFlywheelVoltage(12, 12);
-                    if (shooterSubsystem.getFlywheelSpeed() > .95) {
-                        shooterSubsystem.setIntakeVoltage(8);
-                        if (timer.hasElapsed(.1)) {
-                            isFinished = true;
+                    if (inPosition) {
+                        shooterSubsystem.setFlywheelSpeed(1, 1);
+                        if (shooterSubsystem.getFlywheelSpeed() > .99) {
+                            if(timer.hasElapsed(.4)) {
+                                shooterSubsystem.setIntakeVoltage(10);
+                            }
+                            if (timer.hasElapsed(.8)) {
+                                isFinished = true;
+                            }
+                        }
+                        else {
+                            timer.reset();
                         }
                     }
-                    else {
-                        timer.reset();
-                    }
-
-                    
+                }
+                else if (!rotatePID.atSetpoint()){
+                    swerveSubsystem.drive(0, 0, rotatePID.calculate(yaw, 0), DriveOrigin.RobotCentric);
                 }
             }
-            
         }
     }
 
     @Override
     public void end(boolean interrupted) {
         swerveSubsystem.drive(new ChassisSpeeds());
-        shooterSubsystem.setFlywheelVoltage(0, 0);
+        shooterSubsystem.setFlywheelSpeed(0,0);
         shooterSubsystem.setIntakeVoltage(0);
-        timer.stop();
-        timer.reset();
     }
 
     @Override
