@@ -147,7 +147,7 @@ public class RobotContainer {
 
 		manipulatorBinds.camTrigger().whileTrue(camCommand);
 
-		Constants.rotationJoystick.button(1).whileTrue(autoAim);
+		Constants.rotationJoystick.button(1).onTrue(autoAim);
 
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 

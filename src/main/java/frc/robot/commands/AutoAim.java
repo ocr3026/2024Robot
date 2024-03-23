@@ -6,6 +6,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -49,11 +50,8 @@ public class AutoAim extends Command {
             }
         }
 
-        if(target == null) {
-            SmartDashboard.putString("targetTweaking?", "null");
-        } else {
-            SmartDashboard.putString("targetTweaking?", String.valueOf(target.getFiducialId()));
-        }
+        if(target == null)
+            swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
 
         if(target != null) {
             int tagID = target.getFiducialId();
@@ -65,15 +63,11 @@ public class AutoAim extends Command {
 
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
-                    double camTarget = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d + .02;
-                    shooterSubsystem.setCamPos(camTarget);
+                    shooterSubsystem.setCamPos(calculateCamPos(dist));
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     isFinished = true;
                 }
             }
-        }
-        else {
-            swerveSubsystem.drive(new ChassisSpeeds());
         }
     }
 
@@ -87,4 +81,10 @@ public class AutoAim extends Command {
         return isFinished;
     }
     
+    public static double calculateCamPos(double dist) {
+        SmartDashboard.putNumber("curveInput", dist);
+        double out = (Constants.a * Math.pow(dist, 3)) + (Constants.b * Math.pow(dist, 2)) + (Constants.c * dist) + Constants.d;
+        SmartDashboard.putNumber("curveOutput", out);
+        return out;
+    }
 }
