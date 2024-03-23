@@ -6,6 +6,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -47,7 +48,13 @@ public class AutoAim extends Command {
                 break;
             }
         }
-        
+
+        if(target == null) {
+            SmartDashboard.putString("targetTweaking?", "null");
+        } else {
+            SmartDashboard.putString("targetTweaking?", String.valueOf(target.getFiducialId()));
+        }
+
         if(target != null) {
             int tagID = target.getFiducialId();
             double yaw = target.getYaw();
