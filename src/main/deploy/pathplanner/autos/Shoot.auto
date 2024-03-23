@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.0,
-      "y": 7.0
+      "x": 2.68,
+      "y": 4.09
     },
     "rotation": 0
   },
@@ -12,15 +12,21 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Shoot"
+            "pathName": "2Rotate 3B"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Intake"
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3Rotate 3B"
           }
         }
       ]
