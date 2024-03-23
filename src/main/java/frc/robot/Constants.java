@@ -13,7 +13,7 @@ public final class Constants {
 	//Points
 	// Swerve Drive Constants
 	public static final double maxSpeed = 5; // m/s
-	public static final double maxAngularSpeed = Math.PI; // rad/s
+	public static final double maxAngularSpeed = Math.PI * 2; // rad/s
 	public static final double wheelRadius = 0.0508; // m
 	
 	public static final int neoCountsPerRevolution = 42;

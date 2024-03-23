@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.7615844703872,
-        "y": 7.228666403124533
+        "x": 4.047736440918314,
+        "y": 7.006243294543848
       },
       "isLocked": false,
       "linkedName": "Top of 3 Rings"
     },
     {
       "anchor": {
-        "x": 7.942353117231199,
+        "x": 8.6,
         "y": 7.448092043117039
       },
       "prevControl": {
-        "x": 6.736136953015703,
-        "y": 7.330983677659223
+        "x": 8.55023399604274,
+        "y": 7.443260392247402
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,11 +33,18 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeWhileDrive"
+              }
+            }
+          ]
         }
       }
     }
@@ -45,8 +52,8 @@
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 520.0,
-    "maxAngularAcceleration": 720.0
+    "maxAngularVelocity": 1000.0,
+    "maxAngularAcceleration": 1000.0
   },
   "goalEndState": {
     "velocity": 0,
