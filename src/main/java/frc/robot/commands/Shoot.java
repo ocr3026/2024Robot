@@ -14,7 +14,6 @@ public class Shoot extends Command{
 
     @Override
     public void execute() {
-<<<<<<< HEAD
         if(Constants.xbox.getLeftTriggerAxis() < 0.5) {
             shooterSubsystem.setFlywheelVoltage(12,11.5);
 
@@ -31,14 +30,6 @@ public class Shoot extends Command{
             } else {
                 shooterSubsystem.setIntakeVoltage(0);
             }
-=======
-        shooterSubsystem.setFlywheelVoltage(12,11.5);
-        
-        if(Constants.xbox.getLeftY() < -0.5) {
-            shooterSubsystem.setIntakeVoltage(4);
-        } else {
-            shooterSubsystem.setIntakeVoltage(0);
->>>>>>> parent of e6efbf1 (tweaking shoot)
         }
     }
 
