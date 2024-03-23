@@ -3,12 +3,7 @@ package frc.robot;
 import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -60,9 +55,6 @@ public final class Constants {
 
 	// Camera
 	public static Optional<PhotonCamera> camera = Optional.empty();
-	public static Optional<PhotonPoseEstimator> visionPoseEstimator = Optional.empty();
-	public static final Transform3d robotToCamera = new Transform3d();
-	public static final AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
 	// Shooting curve calculated from Russell's sexy desmos graph. 🥵🥵🥵🥵🥵
 

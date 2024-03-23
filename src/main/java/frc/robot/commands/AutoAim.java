@@ -6,7 +6,6 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -59,7 +58,7 @@ public class AutoAim extends Command {
             Transform3d camToTarget = target.getBestCameraToTarget();
             
             if(tagID == 4 || tagID == 7) {
-                swerveSubsystem.drive(0, 0, -rotatePID.calculate(yaw, 0), DriveOrigin.RobotCentric);
+                swerveSubsystem.drive(0, 0, rotatePID.calculate(yaw, 0), DriveOrigin.RobotCentric);
 
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
