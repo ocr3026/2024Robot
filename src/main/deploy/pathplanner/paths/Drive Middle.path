@@ -3,41 +3,48 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3491521419562087,
-        "y": 5.550936522700434
+        "x": 2.5,
+        "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3257304688646459,
-        "y": 5.562647359246215
+        "x": 2.526186226589756,
+        "y": 5.55
       },
       "isLocked": false,
-      "linkedName": "Middle Start"
+      "linkedName": "Middle Shoot Position"
     },
     {
       "anchor": {
-        "x": 2.4,
+        "x": 3.0,
         "y": 5.55
       },
       "prevControl": {
-        "x": 2.3958012013028274,
-        "y": 5.510815801802787
+        "x": 2.9605914818997485,
+        "y": 5.55
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Middle Shoot Position"
+      "linkedName": "Middle of 3 Rings"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
+      "name": "New Event Marker",
       "waypointRelativePos": 0.45,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeWhileDrive"
+              }
+            }
+          ]
         }
       }
     }
@@ -49,7 +56,7 @@
     "maxAngularAcceleration": 800.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.1,
     "rotation": 0.0,
     "rotateFast": false
   },

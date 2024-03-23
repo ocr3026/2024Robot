@@ -95,7 +95,7 @@ public class AutoAim extends Command {
     }
 @Override
 public boolean isFinished() {
-    return isFinished;
+    return (isFinished);
 }
     
 }

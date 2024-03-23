@@ -33,6 +33,8 @@ public class SwerveSubsystem extends SubsystemBase {
 	Timer timer = new Timer();
 	public ADIS16470_IMU gyro = new ADIS16470_IMU();
 
+	SwerveModuleState[] states = null;
+
 	public SwerveSubsystem() {
 		gyro.reset();
 
@@ -46,6 +48,9 @@ public class SwerveSubsystem extends SubsystemBase {
 	}
 
 	public void drive(double xSpeed, double ySpeed, double zRotation, DriveOrigin driveOrigin) {
+		SmartDashboard.putNumber("xSpeed", xSpeed);
+		SmartDashboard.putNumber("ySpeed", ySpeed);
+		SmartDashboard.putNumber("zRotation", zRotation);
 		ChassisSpeeds speeds;
 		switch(driveOrigin) {
 			case AllianceCentric:
@@ -66,14 +71,9 @@ public class SwerveSubsystem extends SubsystemBase {
 				break;
 		}
 
-		SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
+		states = kinematics.toSwerveModuleStates(speeds);
 
 		SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.maxSpeed);
-
-		frontLeftModule.setDesiredState(states[0]);
-		frontRightModule.setDesiredState(states[1]);
-		rearLeftModule.setDesiredState(states[2]);
-		rearRightModule.setDesiredState(states[3]);
 	}
 
 	public void updateOdometry() {
@@ -149,11 +149,6 @@ public class SwerveSubsystem extends SubsystemBase {
 		SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
 
 		SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.maxSpeed);
-
-		frontLeftModule.setDesiredState(states[0]);
-		frontRightModule.setDesiredState(states[1]);
-		rearLeftModule.setDesiredState(states[2]);
-		rearRightModule.setDesiredState(states[3]);
 	}
 	
 	public Rotation2d getGyroRoll() {
@@ -162,6 +157,12 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		if(states != null) {
+			frontLeftModule.setDesiredState(states[0]);
+			frontRightModule.setDesiredState(states[1]);
+			rearLeftModule.setDesiredState(states[2]);
+			rearRightModule.setDesiredState(states[3]);
+		}
 		updateOdometry();
 		SmartDashboard.putNumber("robotX", getPose().getX());
 		SmartDashboard.putNumber("robotY", getPose().getY());

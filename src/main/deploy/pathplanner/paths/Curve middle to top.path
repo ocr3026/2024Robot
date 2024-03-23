@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6841875081753006,
+        "x": 3.0,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.67285676654092,
+        "x": 2.9886692583656194,
         "y": 5.528960666879963
       },
       "isLocked": false,
@@ -37,9 +37,7 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": [
-            
-          ]
+          "commands": []
         }
       }
     }
