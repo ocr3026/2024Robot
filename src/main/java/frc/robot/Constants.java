@@ -18,8 +18,6 @@ public final class Constants {
 	
 	public static final int neoCountsPerRevolution = 42;
 
-	public static boolean halfSpeed = false;
-
 	// Swerve Drive Config
 	
 	// Tuna

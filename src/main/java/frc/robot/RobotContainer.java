@@ -141,9 +141,6 @@ public class RobotContainer {
 	private void configureBindings() {
 		driverBinds.zeroGyroTrigger().whileTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 
-		driverBinds.halfSpeedTrigger()
-			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
-			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
 		driverBinds.autoAimAndShootTrigger().whileTrue(autoAimAndShoot);
 
 
