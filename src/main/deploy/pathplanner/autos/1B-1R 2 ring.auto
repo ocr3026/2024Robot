@@ -62,6 +62,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Drive to Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Rotate 2"
           }
         },

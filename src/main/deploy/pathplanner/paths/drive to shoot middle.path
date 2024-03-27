@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4,
-        "y": 4.098792791023527
+        "x": 3.0,
+        "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5,
-        "y": 4.098792791023527
+        "x": 3.05,
+        "y": 5.55
       },
       "isLocked": false,
-      "linkedName": "3B Shoot position"
+      "linkedName": "Middle of 3 Rings"
     },
     {
       "anchor": {
-        "x": 2.4,
-        "y": 4.098792791023527
+        "x": 2.5,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 2.3,
-        "y": 4.098792791023527
+        "x": 2.45,
+        "y": 5.55
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "3B Shoot position"
+      "linkedName": "Middle Shoot Position"
     }
   ],
   "rotationTargets": [],
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,

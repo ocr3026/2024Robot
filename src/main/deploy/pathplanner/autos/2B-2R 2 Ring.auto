@@ -48,6 +48,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "drive to shoot middle"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "autoAim"

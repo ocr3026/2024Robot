@@ -3,38 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.0,
+        "x": 2.85,
         "y": 6.991369417831561
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9184025935284215,
+        "x": 2.7684025935284216,
         "y": 7.017866278306136
       },
       "isLocked": false,
-      "linkedName": "Top of 3 Rings"
+      "linkedName": "B1 ShootPosition"
     },
     {
       "anchor": {
-        "x": 4.0,
+        "x": 2.85,
         "y": 6.991369417831561
       },
       "prevControl": {
-        "x": 4.0349722928146985,
+        "x": 2.8849722928146986,
         "y": 7.02634171064626
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Top of 3 Rings"
+      "linkedName": "B1 ShootPosition"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
+    "maxVelocity": 5.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 1000.0,
+    "maxAngularVelocity": 600.0,
     "maxAngularAcceleration": 1000.0
   },
   "goalEndState": {

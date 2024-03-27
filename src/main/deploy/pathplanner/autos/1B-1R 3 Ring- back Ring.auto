@@ -42,6 +42,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "LowerCam"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Drive"
@@ -56,7 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 2"
+            "pathName": "Drive to Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate 4"
           }
         },
         {
@@ -74,13 +86,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 3"
+            "pathName": "Rotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerCam"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top back Ring"
+            "pathName": "1B top back ring"
           }
         },
         {
@@ -90,9 +108,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.5
+            "name": "Intake"
           }
         },
         {
@@ -104,7 +122,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 2"
+            "pathName": "Rotate 4"
           }
         },
         {
@@ -122,7 +140,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 3"
+            "pathName": "Rotate"
           }
         }
       ]

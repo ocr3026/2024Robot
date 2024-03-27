@@ -8,9 +8,9 @@
   "autoFolders": [
     "Tatum's Stuff"
   ],
-  "defaultMaxVel": 2.0,
+  "defaultMaxVel": 5.0,
   "defaultMaxAccel": 3.0,
-  "defaultMaxAngVel": 1000.0,
+  "defaultMaxAngVel": 600.0,
   "defaultMaxAngAccel": 1000.0,
-  "maxModuleSpeed": 3.0
+  "maxModuleSpeed": 5.0
 }

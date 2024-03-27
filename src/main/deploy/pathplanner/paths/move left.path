@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4,
-        "y": 4.098792791023527
+        "x": 9.3,
+        "y": 7.15
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5,
-        "y": 4.098792791023527
+        "x": 9.350000000000001,
+        "y": 7.15
       },
       "isLocked": false,
-      "linkedName": "3B Shoot position"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4,
-        "y": 4.098792791023527
+        "x": 9.3,
+        "y": 7.56
       },
       "prevControl": {
-        "x": 2.3,
-        "y": 4.098792791023527
+        "x": 9.25,
+        "y": 7.56
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "3B Shoot position"
+      "linkedName": "Top of 5 Rings"
     }
   ],
   "rotationTargets": [],
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
