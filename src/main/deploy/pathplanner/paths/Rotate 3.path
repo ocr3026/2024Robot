@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.85,
-        "y": 6.991369417831561
+        "x": 2.95,
+        "y": 6.99
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7792893218813455,
-        "y": 6.9206587397129065
+        "x": 2.8792893218813456,
+        "y": 6.919289321881346
       },
       "isLocked": false,
       "linkedName": "B1 ShootPosition"
     },
     {
       "anchor": {
-        "x": 2.85,
-        "y": 6.991369417831561
+        "x": 2.95,
+        "y": 6.99
       },
       "prevControl": {
-        "x": 2.9499999999999997,
-        "y": 6.991369417831561
+        "x": 3.05,
+        "y": 6.99
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 360.0
   },

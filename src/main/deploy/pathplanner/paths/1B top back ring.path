@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.85,
-        "y": 6.991369417831561
+        "x": 2.95,
+        "y": 6.99
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9,
-        "y": 6.991369417831561
+        "x": 3.0,
+        "y": 6.99
       },
       "isLocked": false,
       "linkedName": "B1 ShootPosition"
     },
     {
       "anchor": {
-        "x": 9.3,
-        "y": 7.56
+        "x": 9.6,
+        "y": 7.3
       },
       "prevControl": {
-        "x": 9.25,
-        "y": 7.56
+        "x": 9.549999999999999,
+        "y": 7.3
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.75,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeWhileDrive"
+                "name": "LowerCam"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
               }
             }
           ]
@@ -51,13 +57,13 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 360.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 0.1,
+    "rotation": 5.0,
     "rotateFast": false
   },
   "reversed": false,

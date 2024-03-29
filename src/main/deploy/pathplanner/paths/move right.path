@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.3,
-        "y": 7.56
+        "x": 9.6,
+        "y": 7.3
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.350000000000001,
-        "y": 7.56
+        "x": 9.65,
+        "y": 7.3
       },
       "isLocked": false,
       "linkedName": "Top of 5 Rings"
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 360.0
   },

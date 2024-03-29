@@ -9,7 +9,7 @@
     "Tatum's Stuff"
   ],
   "defaultMaxVel": 5.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxAccel": 3.5,
   "defaultMaxAngVel": 180.0,
   "defaultMaxAngAccel": 360.0,
   "maxModuleSpeed": 5.0

@@ -36,27 +36,15 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "LowerCam"
+            "name": "zeroYaw"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Drive"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
           }
         },
         {
@@ -84,33 +72,15 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "LowerCam"
+            "name": "zeroYaw"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "1B top back ring"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
           }
         },
         {
@@ -138,9 +108,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Rotate"
+            "name": "zeroYaw"
           }
         }
       ]
