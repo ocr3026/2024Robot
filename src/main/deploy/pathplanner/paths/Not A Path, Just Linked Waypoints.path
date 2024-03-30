@@ -112,16 +112,16 @@
     },
     {
       "anchor": {
-        "x": 9.6,
-        "y": 7.3
+        "x": 9.7,
+        "y": 7.4
       },
       "prevControl": {
-        "x": 9.5,
-        "y": 7.3
+        "x": 9.6,
+        "y": 7.4
       },
       "nextControl": {
-        "x": 9.7,
-        "y": 7.3
+        "x": 9.799999999999999,
+        "y": 7.4
       },
       "isLocked": false,
       "linkedName": "Top of 5 Rings"

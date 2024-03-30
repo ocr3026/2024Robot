@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootAuto extends Command {
+    boolean stop = false;
     ShooterSubsystem shooterSubsystem;
     Timer timer = new Timer();
     public ShootAuto (ShooterSubsystem shooter) {
@@ -18,31 +19,44 @@ public class ShootAuto extends Command {
         shooterSubsystem.setIntakeVoltage(0);
         timer.reset();
         timer.start();
+        stop = false;
         
     }
     @Override
     public void execute() {
         SmartDashboard.putNumber("Timer", timer.get());
-        if (!timer.hasElapsed(.5)) {
-            shooterSubsystem.setFlywheelVoltage(12, 12);
+        if (!timer.hasElapsed(.12)) {
+            shooterSubsystem.setIntakeVoltage(-7);
+            shooterSubsystem.setFlywheelVoltage(12, 11);
         }
+        if (!timer.hasElapsed(.8)) {
+            shooterSubsystem.setFlywheelVoltage(12, 11);
+
+        }
+        if (timer.hasElapsed(.12)) {
+            stop = true;
+        }
+        if (stop) {
+            shooterSubsystem.setIntakeVoltage(0);
+        }
+  
         else {
             shooterSubsystem.setFlywheelVoltage(0, 0);
         }
-        if (timer.hasElapsed(.3) && !timer.hasElapsed( .7)) {
-            shooterSubsystem.setIntakeVoltage(10);
-        }
-        else {
-            shooterSubsystem.setIntakeVoltage(0);
+        if (timer.hasElapsed(.45) && !timer.hasElapsed( .8  )) {
+            stop = false;
+            shooterSubsystem.setIntakeVoltage(12);
+            
         }
      }
      @Override
      public boolean isFinished() {
-         return timer.hasElapsed(.7);
+         return timer.hasElapsed(.8);
      }
      @Override
      public void end(boolean interrupted) {
-         shooterSubsystem.setFlywheelVoltage(0, 0);
+        stop = false;
+         shooterSubsystem.setFlywheelSpeed(0, 0);
          shooterSubsystem.setIntakeVoltage(0);
          timer.stop();
          timer.reset();

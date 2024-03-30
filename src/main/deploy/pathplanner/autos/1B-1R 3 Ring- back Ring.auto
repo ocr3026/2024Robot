@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate 4"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -39,6 +33,12 @@
           "type": "named",
           "data": {
             "name": "zeroYaw"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerCam"
           }
         },
         {
@@ -54,12 +54,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate 4"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -78,6 +72,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "LowerCam"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1B top back ring"
@@ -87,12 +87,6 @@
           "type": "path",
           "data": {
             "pathName": "Top Back ring return"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate 4"
           }
         },
         {

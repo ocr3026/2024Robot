@@ -35,7 +35,8 @@ public class Shoot extends Command{
 
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.setFlywheelVoltage(0, 0);
+        //shooterSubsystem.setFlywheelVoltage(0, 0);
         shooterSubsystem.setIntakeVoltage(0);
+        shooterSubsystem.setFlywheelSpeed(0, 0);
     }
 }

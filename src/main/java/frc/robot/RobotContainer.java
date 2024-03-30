@@ -52,7 +52,7 @@ public class RobotContainer {
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
 	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(shooterSubsystem);
 	ZeroYaw zeroYaw = new ZeroYaw(swerveSubsystem);
-	CamCommandAuto camCommandAuto = new CamCommandAuto(shooterSubsystem, 0.8);
+	CamCommandAuto camCommandAuto = new CamCommandAuto(shooterSubsystem, 0.67);
 
 	IntakeAuto intakeAuto = new IntakeAuto(shooterSubsystem);
 
@@ -89,7 +89,7 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", intakeAuto);
-		NamedCommands.registerCommand("IntakeWhileDrive", new InstantCommand(() -> shooterSubsystem.setIntakeVoltage(10)));
+		NamedCommands.registerCommand("IntakeWhileDrive", new InstantCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 		NamedCommands.registerCommand("autoAim", autoAim);
@@ -109,7 +109,7 @@ public class RobotContainer {
 									
 									, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
-                    				new PIDConstants(.011, 0.005, 0	 ), // Translation PID constants
+                    				new PIDConstants(.001, 0.005, 0.0	 ), // Translation PID constants
                     				new PIDConstants(.0009, 4.3, 0.7	), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.

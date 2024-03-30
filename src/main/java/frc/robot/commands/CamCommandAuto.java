@@ -14,7 +14,7 @@ public class CamCommandAuto extends Command{
     public CamCommandAuto(ShooterSubsystem shooterSubsystem, double camPos) {
         this.shooterSubsystem = shooterSubsystem;
         addRequirements(shooterSubsystem);
-        this.camPos = camPos;
+
     }
 
     @Override
@@ -23,7 +23,7 @@ public class CamCommandAuto extends Command{
     }
     @Override
     public void execute() {
-        shooterSubsystem.setCamPos(MathUtil.interpolate(ShooterSubsystem.camLowerLimit, ShooterSubsystem.camUpperLimit,camPos));
+        shooterSubsystem.setCamPos(100);
         //shooterSubsystem.setCamDegrees(-Constants.xbox.getRightY());
         isFinished = true;
     }

@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate 4"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -33,12 +27,6 @@
           "type": "named",
           "data": {
             "name": "Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate"
           }
         },
         {
@@ -48,33 +36,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "zeroYaw"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Drive"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Drive to Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rotate 2"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.3
           }
         },
         {
@@ -90,9 +66,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Rotate 3"
+            "name": "zeroYaw"
           }
         }
       ]

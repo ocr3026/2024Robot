@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 9.6,
-        "y": 7.3
+        "x": 9.7,
+        "y": 7.4
       },
       "prevControl": {
-        "x": 9.549999999999999,
-        "y": 7.3
+        "x": 9.649999999999999,
+        "y": 7.4
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,13 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "LowerCam"
+                "name": "IntakeWhileDrive"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "LowerCam"
               }
             }
           ]
@@ -62,7 +62,7 @@
     "maxAngularAcceleration": 360.0
   },
   "goalEndState": {
-    "velocity": 0.1,
+    "velocity": 0.0,
     "rotation": 5.0,
     "rotateFast": false
   },

@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,6 +22,7 @@ import frc.robot.util.SwerveModule;
 
 
 public class SwerveSubsystem extends SubsystemBase {
+	
 	SwerveDriveKinematics kinematics =
 		new SwerveDriveKinematics(Constants.frontLeftModulePos, Constants.frontRightModulePos,
 	                              Constants.rearLeftModulePos, Constants.rearRightModulePos);
@@ -36,6 +40,7 @@ public class SwerveSubsystem extends SubsystemBase {
 	SwerveModuleState[] states = null;
 
 	public SwerveSubsystem() {
+		 SmartDashboard.putBoolean("inRange", false);
 		gyro.reset();
 
 		odometry = new SwerveDrivePoseEstimator(kinematics, Rotation2d.fromDegrees(gyro.getAngle(gyro.getYawAxis())),
@@ -157,6 +162,18 @@ public class SwerveSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		PhotonTrackedTarget target = null;
+		if(Constants.camera.isPresent()) {
+			PhotonCamera camera = Constants.camera.get();
+
+            target = camera.getLatestResult().getBestTarget();
+            if(target != null) {
+                SmartDashboard.putBoolean("inRange", target.getBestCameraToTarget().getX() <= 3.55);
+        }
+		else {
+			 SmartDashboard.putBoolean("inRange", false);
+		}
+        }
 		if(states != null) {
 			frontLeftModule.setDesiredState(states[0]);
 			frontRightModule.setDesiredState(states[1]);
