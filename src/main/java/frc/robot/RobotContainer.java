@@ -47,8 +47,12 @@ public class RobotContainer {
 	CamCommand camCommand = new CamCommand(shooterSubsystem);
 	AutoAim autoAim = new AutoAim(swerveSubsystem, shooterSubsystem);
 	ClimbAtSpeed climbAtSpeed = new ClimbAtSpeed(climberSubsystem);
+	AutoAimAndShoot autoAimAndShoot = new AutoAimAndShoot(swerveSubsystem, shooterSubsystem);
 	ClimbBalance climbBalance = new ClimbBalance(climberSubsystem, swerveSubsystem);
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
+	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(shooterSubsystem);
+	ZeroYaw zeroYaw = new ZeroYaw(swerveSubsystem);
+	CamCommandAuto camCommandAuto = new CamCommandAuto(shooterSubsystem, 0.8);
 
 	IntakeAuto intakeAuto = new IntakeAuto(shooterSubsystem);
 
@@ -89,7 +93,8 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
 		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 		NamedCommands.registerCommand("autoAim", autoAim);
-		NamedCommands.registerCommand("LowerCam", new InstantCommand(() -> shooterSubsystem.setCamPos(.6)));
+		NamedCommands.registerCommand("LowerCam", camCommandAuto);
+		NamedCommands.registerCommand("zeroYaw", zeroYaw);
 		
 
 		//justin's zone
@@ -99,10 +104,13 @@ public class RobotContainer {
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.autoGetPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.autoResetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond, -speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond, DriveOrigin.RobotCentric),   //Drive robot  
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond,-speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond
+									
+									
+									, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
-                    				new PIDConstants(.05, 0.0, 0.0), // Translation PID constants
-                    				new PIDConstants(250, 0, 0.0 	), // Rotation PID constants
+                    				new PIDConstants(.011, 0.005, 0	 ), // Translation PID constants
+                    				new PIDConstants(.0009, 4.3, 0.7	), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -140,13 +148,12 @@ public class RobotContainer {
 	private void configureBindings() {
 		driverBinds.zeroGyroTrigger().whileTrue(new InstantCommand(() -> swerveSubsystem.resetPoseToVision()));
 
-		driverBinds.halfSpeedTrigger()
-			.whileTrue(new InstantCommand(() -> Constants.halfSpeed = true))
-			.whileFalse(new InstantCommand(() -> Constants.halfSpeed = false));
+		driverBinds.autoAimAndShootTrigger().whileTrue(autoAimAndShoot);
+
 
 		manipulatorBinds.camTrigger().whileTrue(camCommand);
 
-		Constants.rotationJoystick.button(1).onTrue(autoAim);
+		Constants.rotationJoystick.button(1).whileTrue(autoAim);
 
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
@@ -179,6 +186,7 @@ public class RobotContainer {
 		Constants.xbox.b().whileTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(SmartDashboard.getNumber("SetCamPos", .5))));
 		Constants.xbox.pov(0).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(ShooterSubsystem.camLowerLimit)));
 		Constants.xbox.pov(180).onTrue(new InstantCommand(() -> shooterSubsystem.setCamPos(ShooterSubsystem.camUpperLimit)));
+		Constants.rotationJoystick.button(10).whileTrue(zeroYaw);
 
 		//manipulatorBinds.windUpTrigger().whileTrue(windUp);
 		//manipulatorBinds.unwindTrigger().whileTrue(unWind);

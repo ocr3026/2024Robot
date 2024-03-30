@@ -55,19 +55,19 @@ public class SwerveSubsystem extends SubsystemBase {
 		switch(driveOrigin) {
 			case AllianceCentric:
 				if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-					speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().plus(Rotation2d.fromDegrees(180)).unaryMinus()), RobotContainer.getPeriod.getAsDouble());
+					speeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().plus(Rotation2d.fromDegrees(180)).unaryMinus());
 					break;
 				}
-				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().unaryMinus()), RobotContainer.getPeriod.getAsDouble());
+				speeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().unaryMinus());
 				break;
 			case FieldCentric:
-				speeds = ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().unaryMinus()), RobotContainer.getPeriod.getAsDouble());
+				speeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRotation, robotPose.getRotation().unaryMinus());
 				break;
 			case RobotCentric:
-				speeds = ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, zRotation), RobotContainer.getPeriod.getAsDouble());
+				speeds = new ChassisSpeeds(xSpeed, ySpeed, zRotation);
 				break;
 			default:
-				speeds = ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, zRotation), RobotContainer.getPeriod.getAsDouble());
+				speeds = new ChassisSpeeds(xSpeed, ySpeed, zRotation);
 				break;
 		}
 

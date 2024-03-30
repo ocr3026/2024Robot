@@ -9,4 +9,5 @@ public interface DriverProfile {
 	public Trigger halfSpeedTrigger();
 
 	public Trigger zeroGyroTrigger();
+	public Trigger autoAimAndShootTrigger();
 }

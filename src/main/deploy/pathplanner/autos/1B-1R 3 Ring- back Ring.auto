@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
+      "x": 2.0,
       "y": 7.0
     },
     "rotation": 0.0
@@ -36,9 +36,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Rotate"
+            "name": "zeroYaw"
           }
         },
         {
@@ -48,15 +48,15 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Intake"
+            "pathName": "Drive to Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Rotate 2"
+            "pathName": "Rotate 4"
           }
         },
         {
@@ -72,15 +72,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Rotate 3"
+            "name": "zeroYaw"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top back Ring"
+            "pathName": "1B top back ring"
           }
         },
         {
@@ -90,15 +90,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Rotate 2"
+            "pathName": "Rotate 4"
           }
         },
         {
@@ -114,9 +108,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Rotate 3"
+            "name": "zeroYaw"
           }
         }
       ]

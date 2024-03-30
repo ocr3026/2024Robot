@@ -14,4 +14,8 @@ public class Tatum implements DriverProfile {
 	public Trigger zeroGyroTrigger() {
 		return Constants.translationJoystick.button(12);
 	}
+	@Override 
+	public Trigger autoAimAndShootTrigger() {
+		return Constants.rotationJoystick.button(2);
+	}
 }

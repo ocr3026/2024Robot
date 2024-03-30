@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6841875081753006,
-        "y": 6.991369417831561
+        "x": 2.95,
+        "y": 6.99
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.4457719785625005,
-        "y": 7.228666403124533
+        "x": 2.997736440918314,
+        "y": 7.004873876712288
       },
       "isLocked": false,
-      "linkedName": "Top of 3 Rings"
+      "linkedName": "B1 ShootPosition"
     },
     {
       "anchor": {
-        "x": 7.942353117231199,
-        "y": 7.448092043117039
+        "x": 9.6,
+        "y": 7.3
       },
       "prevControl": {
-        "x": 6.736136953015703,
-        "y": 7.330983677659223
+        "x": 9.550666627051278,
+        "y": 7.29186253642083
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,24 +33,31 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeWhileDrive"
+              }
+            }
+          ]
         }
       }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 360.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0,
+    "velocity": 0.0,
+    "rotation": 15.0,
     "rotateFast": false
   },
   "reversed": false,

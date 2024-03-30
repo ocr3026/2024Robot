@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
     CANcoder camEncoder = new CANcoder(44);
@@ -35,6 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
         intakeMotor.setIdleMode(IdleMode.kBrake);
 
         camPID.setTolerance(0.01);
+        //SmartDashboard.putNumber("set cam pos", 0);
     }
 
     public void setCamPos(double position) {
@@ -49,10 +51,18 @@ public class ShooterSubsystem extends SubsystemBase {
         rightFlywheel.setVoltage(rightVoltage);
         leftFlywheel.setVoltage(leftVoltage);
     }
+        public void setFlywheelSpeed(double leftVoltage, double rightVoltage) {
+        rightFlywheel.set(MathUtil.clamp(rightVoltage,0,1));
+        leftFlywheel.set(MathUtil.clamp(leftVoltage,0,1));
+    }
+    public double getFlywheelSpeed () {
+       return  rightFlywheel.get();
+    }
 
     @Override
     public void periodic() {
         double speed = 0;
+        //camTarget = SmartDashboard.getNumber("set cam pos", 0);
         if(DriverStation.isEnabled())
             speed = camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), MathUtil.clamp(camTarget, camLowerLimit, camUpperLimit));
         

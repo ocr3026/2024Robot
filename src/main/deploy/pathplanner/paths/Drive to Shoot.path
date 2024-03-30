@@ -3,52 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 5.55
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 2.9886692583656194,
-        "y": 5.528960666879963
-      },
-      "isLocked": false,
-      "linkedName": "Middle of 3 Rings"
-    },
-    {
-      "anchor": {
         "x": 4.0,
         "y": 6.991369417831561
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.05,
+        "y": 6.991369417831561
+      },
+      "isLocked": false,
+      "linkedName": "Top of 3 Rings"
+    },
+    {
+      "anchor": {
+        "x": 2.95,
+        "y": 6.99
+      },
       "prevControl": {
-        "x": 1.9626945359454187,
-        "y": 6.394116753996704
+        "x": 2.9000000000000004,
+        "y": 6.99
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Top of 3 Rings"
+      "linkedName": "B1 ShootPosition"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.8,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 3.5,
@@ -57,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

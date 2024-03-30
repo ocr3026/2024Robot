@@ -64,15 +64,15 @@
     },
     {
       "anchor": {
-        "x": 2.6841875081753006,
+        "x": 3.2,
         "y": 4.087081954477746
       },
       "prevControl": {
-        "x": 2.5841875081753005,
+        "x": 3.1,
         "y": 4.087081954477746
       },
       "nextControl": {
-        "x": 2.7841875081753007,
+        "x": 3.3000000000000003,
         "y": 4.087081954477746
       },
       "isLocked": false,
@@ -96,15 +96,15 @@
     },
     {
       "anchor": {
-        "x": 2.6841875081753006,
+        "x": 4.0,
         "y": 6.991369417831561
       },
       "prevControl": {
-        "x": 2.5841875081753005,
+        "x": 3.9,
         "y": 6.991369417831561
       },
       "nextControl": {
-        "x": 2.7841875081753007,
+        "x": 4.1,
         "y": 6.991369417831561
       },
       "isLocked": false,
@@ -112,16 +112,16 @@
     },
     {
       "anchor": {
-        "x": 7.942353117231199,
-        "y": 7.448092043117039
+        "x": 9.6,
+        "y": 7.3
       },
       "prevControl": {
-        "x": 7.842353117231199,
-        "y": 7.448092043117039
+        "x": 9.5,
+        "y": 7.3
       },
       "nextControl": {
-        "x": 8.0423531172312,
-        "y": 7.448092043117039
+        "x": 9.7,
+        "y": 7.3
       },
       "isLocked": false,
       "linkedName": "Top of 5 Rings"
@@ -208,8 +208,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 360.0
   },

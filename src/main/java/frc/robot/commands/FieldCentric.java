@@ -21,12 +21,6 @@ public class FieldCentric extends Command {
 		double ySpeed = MathUtil.applyDeadband(Constants.ySpeedLimiter.calculate(Constants.translationJoystick.getX()), Constants.deadband);
 		double zRot = MathUtil.applyDeadband(Constants.zRotSpeedLimiter.calculate(Constants.rotationJoystick.getX()), Constants.deadband);
 
-		if(Constants.halfSpeed) {
-			xSpeed /= 2;
-			ySpeed /= 2;
-			zRot /= 2;
-		}
-
 		double distance = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
 		if(distance > 1) {
 			xSpeed /= distance;
