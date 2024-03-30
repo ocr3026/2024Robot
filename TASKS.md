@@ -1,6 +1,6 @@
 - [ ] Far right two ring
 - [ ] 3 ring middle back ring
-- [ ] auto shoot range (indicator?)
+- [x] auto shoot range (indicator?)
 - [ ] front rings 3 or 4
 - [ ] dodgeball strategy (maybe not)
 - [X] "Fortnite balls all in your face" -  <cite> kanye east

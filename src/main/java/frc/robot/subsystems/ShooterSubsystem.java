@@ -24,8 +24,8 @@ public class ShooterSubsystem extends SubsystemBase {
     CANSparkMax camMotor = new CANSparkMax(41, MotorType.kBrushless);
     PIDController camPID = new PIDController(8, .7, 0);
 
-    public static final double camUpperLimit = 0.671;
-    public static final double camLowerLimit = 0.471;
+    public static final double camUpperLimit = 0.797607;
+    public static final double camLowerLimit = 0.587891;
 
     SlewRateLimiter leftLimiter = new SlewRateLimiter(12 * 3);
     SlewRateLimiter rightLimiter = new SlewRateLimiter(12 * 3);

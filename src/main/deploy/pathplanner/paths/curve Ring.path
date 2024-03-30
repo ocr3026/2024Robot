@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.991369417831561
+        "x": 2.95,
+        "y": 6.99
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.890200143391124,
-        "y": 6.991369417831561
+        "x": 1.44283883432246,
+        "y": 6.499514282908736
       },
       "isLocked": false,
-      "linkedName": "Top of 3 Rings"
+      "linkedName": "B1 ShootPosition"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.4775912490484042,
-        "y": 5.889614259827663
+        "x": 2.2274648828898216,
+        "y": 5.714888234341376
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "IntakeWhileDrive"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LowerCam"
               }
             }
           ]
