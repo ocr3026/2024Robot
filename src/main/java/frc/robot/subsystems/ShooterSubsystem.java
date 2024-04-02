@@ -22,10 +22,10 @@ public class ShooterSubsystem extends SubsystemBase {
     
     CANcoder camEncoder = new CANcoder(44);
     CANSparkMax camMotor = new CANSparkMax(41, MotorType.kBrushless);
-    PIDController camPID = new PIDController(8, .7, 0);
+    PIDController camPID = new PIDController(7.5, .9, 0);
 
-    public static final double camUpperLimit = 0.797607;
-    public static final double camLowerLimit = 0.587891;
+    public static final double camUpperLimit = 0.666260;
+    public static final double camLowerLimit = 0.473389 ;
 
     SlewRateLimiter leftLimiter = new SlewRateLimiter(12 * 3);
     SlewRateLimiter rightLimiter = new SlewRateLimiter(12 * 3);
@@ -93,6 +93,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("leftSpeed", leftEncoder.getVelocity());
         SmartDashboard.putNumber("rightSpeed", rightEncoder.getVelocity());
+        SmartDashboard.putBoolean("revvedUP", rightEncoder.getVelocity() >= 5300);
+        
     }
 } 
 

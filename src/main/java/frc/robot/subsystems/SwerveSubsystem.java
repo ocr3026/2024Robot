@@ -168,7 +168,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
             target = camera.getLatestResult().getBestTarget();
             if(target != null) {
-                SmartDashboard.putBoolean("inRange", target.getBestCameraToTarget().getX() <= 3.55);
+                SmartDashboard.putBoolean("inRange", target.getBestCameraToTarget().getX() <= 3.7);
         }
 		else {
 			 SmartDashboard.putBoolean("inRange", false);

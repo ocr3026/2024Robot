@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.7,
-        "y": 7.4
+        "x": 9.51,
+        "y": 6.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.748296291314453,
-        "y": 7.412940952255126
+        "x": 9.558296291314454,
+        "y": 6.012940952255126
       },
       "isLocked": false,
       "linkedName": "Top of 5 Rings"
     },
     {
       "anchor": {
-        "x": 2.95,
+        "x": 3.2,
         "y": 6.99
       },
       "prevControl": {
-        "x": 2.9000000000000004,
+        "x": 3.1500000000000004,
         "y": 6.99
       },
       "nextControl": null,

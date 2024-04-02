@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.95,
+        "x": 3.2,
         "y": 6.99
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9330479784440167,
+        "x": 3.1830479784440167,
         "y": 6.99
       },
       "isLocked": false,
@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 4.0,
+        "x": 4.1,
         "y": 6.991369417831561
       },
       "prevControl": {
-        "x": 4.026186226589756,
+        "x": 4.1261862265897555,
         "y": 6.991369417831561
       },
       "nextControl": null,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -48,6 +48,23 @@
               "type": "named",
               "data": {
                 "name": "LowerCam"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ZeroIntake"
               }
             }
           ]
