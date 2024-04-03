@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.51,
-        "y": 6.0
+        "x": 9.4,
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.56,
-        "y": 6.0
+        "x": 9.450000000000003,
+        "y": 7.5
       },
       "isLocked": false,
       "linkedName": "Top of 5 Rings"

@@ -10,4 +10,5 @@ public interface DriverProfile {
 
 	public Trigger zeroGyroTrigger();
 	public Trigger autoAimAndShootTrigger();
+	public Trigger ampScoring();
 }

@@ -19,7 +19,7 @@ public class IntakeAuto extends Command {
     }
     @Override
     public void execute() {
-        if(!timer.hasElapsed(2)) {
+        if(!timer.hasElapsed(1)) {
             shooterSubsystem.setIntakeVoltage(12);
         }
         else {
@@ -30,7 +30,7 @@ public class IntakeAuto extends Command {
     @Override
     public boolean isFinished() {
         
-        return timer.hasElapsed(2);
+        return timer.hasElapsed(1);
     }
 
     @Override

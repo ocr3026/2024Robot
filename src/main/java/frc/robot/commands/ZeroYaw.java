@@ -15,7 +15,7 @@ public class ZeroYaw extends Command{
     public ZeroYaw(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
-        rotatePID.setTolerance(2);
+        rotatePID.setTolerance(1);
         rotatePID.enableContinuousInput(-180, 180);
     }
     @Override
@@ -26,7 +26,7 @@ public class ZeroYaw extends Command{
     @Override
     public void execute() {
         if(DriverStation.getAlliance().get() == Alliance.Blue) {
-            swerveSubsystem.drive(0,0,rotatePID.calculate(-swerveSubsystem.getPose().getRotation().getDegrees() , 179) , DriveOrigin.RobotCentric);
+            swerveSubsystem.drive(0,0,rotatePID.calculate(-swerveSubsystem.getPose().getRotation().getDegrees() , 180) , DriveOrigin.RobotCentric);
             if(rotatePID.atSetpoint()) {
                 isFinished = true;
             }

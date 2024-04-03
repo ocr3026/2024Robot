@@ -23,7 +23,7 @@ public class CamCommandAuto extends Command{
     }
     @Override
     public void execute() {
-        shooterSubsystem.setCamPos(100);
+        shooterSubsystem.setCamPos(ShooterSubsystem.camUpperLimit-.01);
         //shooterSubsystem.setCamDegrees(-Constants.xbox.getRightY());
         isFinished = true;
     }

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.51,
-        "y": 6.0
+        "x": 9.4,
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.558296291314454,
-        "y": 6.012940952255126
+        "x": 9.449999999999996,
+        "y": 7.5
       },
       "isLocked": false,
       "linkedName": "Top of 5 Rings"
@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 3.2,
-        "y": 6.99
+        "y": 6.3
       },
       "prevControl": {
         "x": 3.1500000000000004,
-        "y": 6.99
+        "y": 6.3
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "B1 ShootPosition"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -63,7 +63,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 5.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

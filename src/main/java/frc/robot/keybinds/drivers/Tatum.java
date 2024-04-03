@@ -18,4 +18,9 @@ public class Tatum implements DriverProfile {
 	public Trigger autoAimAndShootTrigger() {
 		return Constants.rotationJoystick.button(2);
 	}
+	@Override
+	public Trigger ampScoring() {
+		// TODO Auto-generated method stub
+		return Constants.rotationJoystick.button(2);
+	}
 }

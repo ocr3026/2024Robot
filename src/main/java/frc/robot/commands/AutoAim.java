@@ -62,7 +62,7 @@ public class AutoAim extends Command {
 
                 if(rotatePID.atSetpoint()) {
                     double dist = camToTarget.getX();
-                    shooterSubsystem.setCamPos(calculateCamPos(dist));
+                    shooterSubsystem.setCamPos(calculateCamPos(dist -.06) );
                     swerveSubsystem.drive(0, 0, 0, DriveOrigin.RobotCentric);
                     isFinished = true;
                 }

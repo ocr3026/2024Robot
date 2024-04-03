@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.keybinds.*;
@@ -52,7 +53,9 @@ public class RobotContainer {
 	DriveTo driveToRedSource = new DriveTo(swerveSubsystem, new Pose2d((new Translation2d(0.46, 0.62)), (new Rotation2d(130))));
 	AutoAimInAuto autoAimInAuto = new AutoAimInAuto(shooterSubsystem);
 	ZeroYaw zeroYaw = new ZeroYaw(swerveSubsystem);
-	CamCommandAuto camCommandAuto = new CamCommandAuto(shooterSubsystem, 0.67);
+	AmpBackup ampBackup = new AmpBackup(swerveSubsystem);
+	CamCommandAuto camCommandAuto = new CamCommandAuto(shooterSubsystem, ShooterSubsystem.camUpperLimit);
+	HalfShoot halfShoot = new HalfShoot(shooterSubsystem);
 
 	IntakeAuto intakeAuto = new IntakeAuto(shooterSubsystem);
 
@@ -89,9 +92,8 @@ public class RobotContainer {
 		NamedCommands.registerCommand("Zero", new InstantCommand( () -> swerveSubsystem.resetPose(new Pose2d())));
 		NamedCommands.registerCommand("Shoot", shootAuto);
 		NamedCommands.registerCommand("Intake", intakeAuto);
-		NamedCommands.registerCommand("IntakeWhileDrive", new InstantCommand(() -> shooterSubsystem.setIntakeVoltage(12)));
+		NamedCommands.registerCommand("IntakeWhileDrive", new StartEndCommand(() -> shooterSubsystem.setIntakeVoltage(12), () -> shooterSubsystem.setIntakeVoltage(0)));
 		NamedCommands.registerCommand("ZeroShoot", new RunCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
-		NamedCommands.registerCommand("ZeroIntake", new RunCommand(() -> shooterSubsystem.setIntakeVoltage(0)));
 		NamedCommands.registerCommand("autoAim", autoAim);
 		NamedCommands.registerCommand("LowerCam", camCommandAuto);
 		NamedCommands.registerCommand("zeroYaw", zeroYaw);
@@ -99,25 +101,26 @@ public class RobotContainer {
 
 		//justin's zone
 		//FREE DIZZO
-	
+		//I know where you are
 		//Path Planner (Autonomous Program) initialization
 		AutoBuilder.configureHolonomic(() -> swerveSubsystem.autoGetPose(),//where robot is
 		 							(Pose2d pose) -> swerveSubsystem.autoResetPose(pose), //Tell Robot where it is
 									() -> swerveSubsystem.speedGetter(), //How fast robot going
-									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond,-speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond
+									(ChassisSpeeds speeds) -> swerveSubsystem.drive(speeds.vxMetersPerSecond,speeds.vyMetersPerSecond, -speeds.omegaRadiansPerSecond
 									
 									
 									, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
-                    				new PIDConstants(.001, 0.005, 0.0	 ), // Translation PID constants
-                    				new PIDConstants(.0009, 4.3, 0.7	), // Rotation PID constants
+                    				new PIDConstants(.0007, 0.00, 0.0	 ), // Translation PID constants
+                    				new PIDConstants(.001
+									, 0, 0), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
                     				new ReplanningConfig() // Default path replanning config. See the API for the options here
             ), () -> {  
 			var alliance = DriverStation.getAlliance();
 			if (alliance.isPresent()) {
-			  return alliance.get() == DriverStation.Alliance.Red;
+			  return alliance.get() != DriverStation.Alliance.Red;
 			}
 			return false;}, swerveSubsystem);
 
@@ -158,18 +161,13 @@ public class RobotContainer {
 		manipulatorBinds.climbRotateTenTimes().whileTrue(climbBalance);
 
 		manipulatorBinds.climbWithJoySticks().whileTrue(climbAtSpeed);
+		driverBinds.ampScoring().whileTrue(ampBackup);
 
 		Constants.rotationJoystick.button(2).whileTrue(driveToRedSource);
 
 
 		manipulatorBinds.shootTrigger().whileTrue(shootCommand);
-		Constants.xbox.leftTrigger().whileTrue(new InstantCommand(() -> {shooterSubsystem.setFlywheelVoltage(5,5);
-        
-			if(Constants.xbox.getLeftY() < -0.5) {
-				shooterSubsystem.setIntakeVoltage(9);
-			} else {
-				shooterSubsystem.setIntakeVoltage(0);
-			}})).whileFalse(new InstantCommand(() -> shooterSubsystem.setFlywheelVoltage(0, 0)));
+		Constants.xbox.leftTrigger().whileTrue(halfShoot);
 
 		manipulatorBinds.intakeTrigger().onTrue(new InstantCommand(() -> {
 			shooterSubsystem.setIntakeVoltage(10);
