@@ -30,7 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
     SlewRateLimiter leftLimiter = new SlewRateLimiter(12 * 3);
     SlewRateLimiter rightLimiter = new SlewRateLimiter(12 * 3);
 
-    double camTarget = camUpperLimit -.1;
+    double camTarget = camUpperLimit -.01;
 
     CANSparkMax intakeMotor = new CANSparkMax(21, MotorType.kBrushless);
 

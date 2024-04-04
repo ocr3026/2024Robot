@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "4Rotate 3B"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -36,9 +30,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Rotate 3B"
+            "name": "zeroYaw"
           }
         },
         {
@@ -48,15 +42,15 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Intake"
+            "pathName": "3b Drive To Shiit"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "2Rotate 3B"
+            "name": "Intake"
           }
         },
         {
@@ -72,9 +66,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "3Rotate 3B"
+            "name": "zeroYaw"
           }
         },
         {
@@ -96,12 +90,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "2Rotate 3B"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "autoAim"
@@ -117,6 +105,12 @@
           "type": "path",
           "data": {
             "pathName": "3Rotate 3B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zeroYaw"
           }
         }
       ]
