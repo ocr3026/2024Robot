@@ -83,7 +83,7 @@ public class ShooterSubsystem extends SubsystemBase {
         if(DriverStation.isEnabled());
             speed = camPID.calculate(camEncoder.getAbsolutePosition().getValueAsDouble(), MathUtil.clamp(camTarget, camLowerLimit, camUpperLimit));
         
-        camMotor.set(speed);
+            camMotor.set(MathUtil.clamp(speed, -.6, .6));
         
 
     
