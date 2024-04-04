@@ -11,7 +11,7 @@ import frc.robot.subsystems.SwerveSubsystem.DriveOrigin;
 public class ZeroYaw extends Command{
     boolean isFinished;
     SwerveSubsystem swerveSubsystem;
-    PIDController rotatePID = new PIDController(0.08, 0, 0);
+    PIDController rotatePID = new PIDController(0.05, 0, 0);
     public ZeroYaw(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);

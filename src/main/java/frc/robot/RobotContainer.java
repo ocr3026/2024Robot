@@ -112,7 +112,7 @@ public class RobotContainer {
 									, DriveOrigin.RobotCentric),   //Drive robot  
 									new HolonomicPathFollowerConfig(
                     				new PIDConstants(.0007, 0.00, 0.0	 ), // Translation PID constants
-                    				new PIDConstants(.001
+                    				new PIDConstants(.1
 									, 0, 0), // Rotation PID constants
                     	Constants.maxSpeed, // Max module speed, in m/s9
                     	Constants.frontLeftModulePos.getNorm(), // Drive base radius in meters. Distance from robot center to furthest module.
